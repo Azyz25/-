@@ -10,7 +10,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "مين هو مؤسس المملكة العربية السعودية اللي وحّد البلاد؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/King_Abdulaziz.jpg/480px-King_Abdulaziz.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الملك عبدالعزيز بن عبدالرحمن آل سعود",
           "hint": "وحّد الجزيرة العربية وأسّس المملكة عام 1932م",
           "points": 200
@@ -20,7 +20,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "في أي سنة تأسّست المملكة العربية السعودية رسمياً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "1932م",
           "hint": "السنة اللي أُعلن فيها اسم المملكة رسمياً",
           "points": 200
@@ -30,7 +30,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المنطقة اللي اكتُشف فيها أول بئر نفط تجاري في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dhahran_Airfield_1945.jpg/640px-Dhahran_Airfield_1945.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الدمّام - بئر رقم 7",
           "hint": "المنطقة الشرقية، والبئر اشتهرت برقمها",
           "points": 400
@@ -40,7 +40,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "مين هو الملك الحالي للمملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/King_Salman_of_Saudi_Arabia.jpg/480px-King_Salman_of_Saudi_Arabia.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الملك سلمان بن عبدالعزيز آل سعود",
           "hint": "تولّى الحكم عام 2015م",
           "points": 200
@@ -50,7 +50,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش يمثّل السيف والنخلة اللي في علم المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "السيف يمثّل القوة والعدالة، والنخلة تمثّل الرخاء والنماء",
           "hint": "شعار الدولة على خلفية خضراء",
           "points": 400
@@ -60,7 +60,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم عاصمة المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Riyadh_from_above.jpg/640px-Riyadh_from_above.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=640&q=80",
           "correctAnswer": "الرياض",
           "hint": "أكبر مدينة في المملكة",
           "points": 200
@@ -70,7 +70,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "في أي عام اكتمل فتح الحجاز وضمّه للمملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Kaaba_Mirror_reflection_on_Zamzam_Well.jpg/480px-Kaaba_Mirror_reflection_on_Zamzam_Well.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=640&q=80",
           "correctAnswer": "1925م",
           "hint": "قبل إعلان تأسيس المملكة بسبع سنوات",
           "points": 600
@@ -80,7 +80,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المشروع الضخم اللي يُبنى على ساحل البحر الأحمر وهو مدينة المستقبل؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/NEOM_logo.svg/640px-NEOM_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/neom.com",
           "correctAnswer": "نيوم",
           "hint": "من أبرز مشاريع رؤية 2030",
           "points": 400
@@ -90,7 +90,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم رؤية التحوّل الوطني اللي أطلقها ولي العهد الأمير محمد بن سلمان؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/640px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "رؤية 2030",
           "hint": "سنة مستهدفة لتحقيق أهداف التنمية",
           "points": 200
@@ -100,7 +100,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "مين أوّل ملك سعودي زار الولايات المتحدة الأمريكية رسمياً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/King_Faisal_1971.jpg/480px-King_Faisal_1971.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الملك فيصل بن عبدالعزيز",
           "hint": "الملك اللي كان من أبرز الزعماء العرب في القرن العشرين",
           "points": 600
@@ -110,7 +110,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم التطبيق الحكومي السعودي اللي تقدر تسوّي فيه معاملاتك الحكومية كلها؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Absher_Logo.png/480px-Absher_Logo.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "أبشر",
           "hint": "تطبيق وزارة الداخلية",
           "points": 200
@@ -120,7 +120,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم شركة الاتصالات السعودية الأولى واللي رمزها ثلاث حروف إنجليزية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/STC_logo.svg/640px-STC_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/stc.com.sa",
           "correctAnswer": "STC - شركة الاتصالات السعودية",
           "hint": "أكبر شركة اتصالات في المملكة",
           "points": 400
@@ -130,7 +130,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم تطبيق الصحة السعودي اللي كان مهم جداً في وقت كورونا؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Tawakkalna_App.png/480px-Tawakkalna_App.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "توكّلنا",
           "hint": "يظهر فيه تصريح التنقل والتطعيم",
           "points": 200
@@ -140,7 +140,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أكبر شركة نفط في العالم واللي مقرّها في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Saudi_Aramco_logo.svg/640px-Saudi_Aramco_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/aramco.com",
           "correctAnswer": "أرامكو السعودية",
           "hint": "اختصار للاسم القديم: Arabian American Oil Company",
           "points": 400
@@ -150,7 +150,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم مدينة تقنية المعلومات اللي أُسّست بالقرب من الرياض وتُسمّى 'وادي السيليكون السعودي'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/KACST_building.jpg/640px-KACST_building.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مدينة الملك عبدالعزيز للعلوم والتقنية (كاكست)",
           "hint": "مدينة علمية بحثية حكومية",
           "points": 600
@@ -160,7 +160,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الأكلة السعودية الشعبية المعروفة اللي تتكوّن من أرز وجوز ولحم أو دجاج؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Kabsa.jpg/640px-Kabsa.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=640&q=80",
           "correctAnswer": "الكبسة",
           "hint": "الأكلة الوطنية غير الرسمية للمملكة",
           "points": 200
@@ -170,7 +170,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم اللبس الرجالي التقليدي الأبيض اللي يلبسه السعوديون؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Saudi_men_traditional_dress.jpg/480px-Saudi_men_traditional_dress.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الثوب",
           "hint": "يُلبس مع الغترة أو الشماغ",
           "points": 200
@@ -180,7 +180,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الرياضة الشعبية اللي يتدرّب فيها السعوديون على تطيير الطيور للصيد؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Falconry_Saudi_Arabia.jpg/640px-Falconry_Saudi_Arabia.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الصقارة",
           "hint": "من التراث العربي الأصيل وأُدرجت في قائمة اليونسكو",
           "points": 400
@@ -200,7 +200,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "في القهوة العربية السعودية، وش الخلطة اللي تميّزها عن غيرها؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Arabic_coffee.jpg/480px-Arabic_coffee.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=640&q=80",
           "correctAnswer": "الزعفران والهيل (الكردمون)",
           "hint": "تلوّنها أصفر أو خضري وريحتها عطرية",
           "points": 400
@@ -210,7 +210,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المسلسل السعودي الكوميدي الشهير اللي استمر لأكثر من 20 سنة في رمضان؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2d/Tash_Ma_Tash_logo.png/400px-Tash_Ma_Tash_logo.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "طاش ما طاش",
           "hint": "يمثّل فيه ناصر القصبي وعبدالله السدحان",
           "points": 200
@@ -220,7 +220,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "مين الممثل السعودي اللي يُقدّم برنامج سيلفي ويشتهر بأدوار الكوميديا؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ناصر القصبي",
           "hint": "قدّم أيضاً طاش ما طاش مع السدحان",
           "points": 200
@@ -230,7 +230,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المسلسل السعودي اللي تدور أحداثه حول عائلة في المنطقة الغربية وعُرض على شاشة MBC؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/4/4e/Mbc_logo.png/320px-Mbc_logo.png",
+          "mediaUrl": "https://logo.clearbit.com/mbc.net",
           "correctAnswer": "عائلة الحاج متعب",
           "hint": "مسلسل اجتماعي يعكس حياة الأسرة الحجازية",
           "points": 400
@@ -240,7 +240,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول مسلسل سعودي يُبثّ على منصة نتفليكس؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/640px-Netflix_2015_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/netflix.com",
           "correctAnswer": "جن",
           "hint": "مسلسل خيال علمي رعب سعودي أردني",
           "points": 600
@@ -250,7 +250,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "مين الممثلة السعودية اللي تعتبر من أبرز نجوم الدراما الخليجية وظهرت في مسلسل 'سمرة'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Saudi_Film_Festival.jpg/640px-Saudi_Film_Festival.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "إلهام علي",
           "hint": "من أيقونات الجمال والتمثيل في المنطقة",
           "points": 400
@@ -260,7 +260,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شبكة القنوات الإسلامية اللي مقرّها في الرياض وشعارها هلال؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "شبكة المجد",
           "hint": "تضم قنوات قرآن كريم، علمية، وثائقية، وأطفال",
           "points": 200
@@ -270,7 +270,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم قناة الأطفال التابعة لشبكة المجد؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/c/c4/Majd_Kids.png/320px-Majd_Kids.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "قناة مجد للأطفال",
           "hint": "برامجها تعليمية وإسلامية موجهة للصغار",
           "points": 400
@@ -280,7 +280,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم البرنامج الديني الشهير على شبكة المجد اللي يُجيب على أسئلة المشاهدين الشرعية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نور على الدرب",
           "hint": "برنامج فتاوى مباشر يُجيب فيه العلماء على أسئلة المستمعين",
           "points": 400
@@ -290,7 +290,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "في أي عام تأسّست شبكة المجد التلفزيونية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "2002م",
           "hint": "في مطلع الألفية الثالثة",
           "points": 600
@@ -300,7 +300,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم القناة التابعة لشبكة المجد المخصصة للبرامج العلمية والوثائقية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مجد العلمية",
           "hint": "تعنى بالبرامج الوثائقية والعلمية الإسلامية",
           "points": 400
@@ -310,7 +310,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم النادي اللي يُلقّب بـ'الهلال' ويُعتبر الأكثر ألقاباً في الدوري السعودي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Al-Hilal_FC_Logo.svg/480px-Al-Hilal_FC_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نادي الهلال السعودي",
           "hint": "شعاره هلال أزرق على خلفية بيضاء",
           "points": 200
@@ -320,7 +320,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم النادي السعودي اللي انضم إليه النجم البرتغالي كريستيانو رونالدو عام 2023؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Al_Nassr_FC_Logo.svg/480px-Al_Nassr_FC_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نادي النصر",
           "hint": "ألوانه أصفر وأزرق",
           "points": 200
@@ -330,7 +330,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم النجم الفرنسي اللي انضم لنادي الهلال السعودي عام 2023؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Karim_Benzema_2018.jpg/480px-Karim_Benzema_2018.jpg",
+          "mediaUrl": "https://logo.clearbit.com/alhilal.com",
           "correctAnswer": "كريم بنزيمة",
           "hint": "الفائز بجائزة الكرة الذهبية 2022",
           "points": 400
@@ -340,7 +340,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "كم عدد الأندية في دوري روشن للمحترفين (الدوري السعودي للمحترفين)؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Saudi_Professional_League_Logo.svg/480px-Saudi_Professional_League_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "18 نادياً",
           "hint": "الدوري من أكبر دوريات آسيا",
           "points": 200
@@ -350,7 +350,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الملعب اللي يُقام فيه مباريات نادي الاتحاد في جدة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Prince_Abdullah_Al_Faisal_Stadium.jpg/640px-Prince_Abdullah_Al_Faisal_Stadium.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ملعب الأمير عبدالله الفيصل",
           "hint": "سُمّي باسم أحد أمراء المملكة",
           "points": 600
@@ -360,7 +360,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "في أي منطقة إدارية تقع محافظة الزلفي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "منطقة الرياض",
           "hint": "تقع شمال غرب العاصمة الرياض",
           "points": 200
@@ -370,7 +370,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش أبرز محصول زراعي تشتهر فيه محافظة الزلفي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Date_palms_in_Saudi_Arabia.jpg/640px-Date_palms_in_Saudi_Arabia.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=640&q=80",
           "correctAnswer": "التمور (النخيل)",
           "hint": "من أشهر مناطق إنتاج التمر في المملكة",
           "points": 400
@@ -380,7 +380,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم البحيرة الموسمية الشهيرة القريبة من الزلفي واللي تتحوّل لمتنزه طبيعي بعد الأمطار؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Al_Zulfi_Lake.jpg/640px-Al_Zulfi_Lake.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "بحيرة الزلفي (الأثل أو الروضة)",
           "hint": "تملأها مياه الأمطار وتجذب الزوار",
           "points": 600
@@ -390,7 +390,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "بكم تبعد محافظة الزلفي تقريباً عن مدينة الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "حوالي 270 كيلومتر شمال غرب الرياض",
           "hint": "ساعتين ونص تقريباً بالسيارة من الرياض",
           "points": 400
@@ -400,7 +400,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم جامعة الزلفي اللي أُسّست لخدمة المنطقة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Majmaah_University_Logo.png/320px-Majmaah_University_Logo.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "جامعة المجمعة (فرع الزلفي)",
           "hint": "جامعة حكومية تخدم محافظات المنطقة الوسطى",
           "points": 600
@@ -410,7 +410,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الشركة اليابانية اللي تصنع سيارة 'كامري' و'لاند كروزر'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/480px-Toyota_carlogo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/toyota.com",
           "correctAnswer": "تويوتا",
           "hint": "شعارها ثلاث بيضاويات متداخلة",
           "points": 200
@@ -420,7 +420,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة السيارات الألمانية الفاخرة اللي شعارها نجمة ثلاثية الرؤوس؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/480px-Mercedes-Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/mercedes-benz.com",
           "correctAnswer": "مرسيدس بنز",
           "hint": "من أقدم وأشهر شركات السيارات في العالم",
           "points": 200
@@ -430,7 +430,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم السيارة الإيطالية الحمراء الأسرع واللي شعارها حصان أسود؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ferrari-Logo.svg/480px-Ferrari-Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/ferrari.com",
           "correctAnswer": "فيراري",
           "hint": "مقرّها مدينة مارانيلو الإيطالية",
           "points": 400
@@ -440,7 +440,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الشركة البريطانية الفاخرة جداً اللي يُقال إنها 'أفضل سيارات العالم' وشعارها تمثال فتاة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Rolls-Royce_Motor_Cars_logo.svg/640px-Rolls-Royce_Motor_Cars_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/rolls-roycemotorcars.com",
           "correctAnswer": "رولز رويس",
           "hint": "شعارها 'روح النشوة' (Spirit of Ecstasy)",
           "points": 400
@@ -450,7 +450,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول سيارة كهربائية سعودية أُعلن عنها من مشاريع رؤية 2030؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Ceer_Motors_Logo.png/480px-Ceer_Motors_Logo.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "سيارة سير (CEER)",
           "hint": "شراكة سعودية مع شركة BMW لتصنيعها",
           "points": 600
@@ -460,7 +460,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم سلسلة الوجبات السريعة الأمريكية اللي شعارها حرف M ذهبي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/480px-McDonald%27s_Golden_Arches.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/mcdonalds.com",
           "correctAnswer": "ماكدونالدز",
           "hint": "أشهر سلسلة برغر في العالم",
           "points": 200
@@ -470,7 +470,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم سلسلة المطاعم السعودية المحلية المشهورة بالبرغر واللي تنافس الشركات العالمية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/f/f2/Kudu_logo.png/320px-Kudu_logo.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "كودو (KUDU)",
           "hint": "سلسلة سعودية 100% بشعار وعل",
           "points": 400
@@ -480,7 +480,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة التوصيل والتسوق الإلكتروني السعودية اللي شعارها سهم برتقالي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Amazon.com-Logo.svg/640px-Amazon.com-Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/amazon.com",
           "correctAnswer": "أمازون السعودية (سابقاً سوق.كوم)",
           "hint": "اشترتها أمازون عالمياً وغيّرت اسمها",
           "points": 200
@@ -490,7 +490,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى كلمة 'زبالة' باللهجة السعودية الدارجة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "القمامة أو النفايات",
           "hint": "الكلمة اللي تقولها لما تبي تشيل الأوساخ",
           "points": 200
@@ -500,7 +500,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش معنى كلمة 'يهوبي' باللهجة النجدية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "رجل ضخم أو قوي الجسم",
           "hint": "وصف لشخص كبير الحجم وقوي",
           "points": 400
@@ -510,7 +510,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم أقدس مدينتين في الإسلام واللي تقعان في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Kaaba_Mirror_reflection_on_Zamzam_Well.jpg/480px-Kaaba_Mirror_reflection_on_Zamzam_Well.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=640&q=80",
           "correctAnswer": "مكة المكرمة والمدينة المنورة",
           "hint": "فيهما الحرمين الشريفين",
           "points": 200
@@ -520,7 +520,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "في أي عام وُلد الملك عبدالعزيز مؤسس المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/King_Abdulaziz.jpg/480px-King_Abdulaziz.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "1876م",
           "hint": "في القرن التاسع عشر الميلادي",
           "points": 400
@@ -530,7 +530,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم المعركة اللي استعاد فيها الملك عبدالعزيز الرياض من آل رشيد؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/King_Abdulaziz.jpg/480px-King_Abdulaziz.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "معركة المصمك (فتح الرياض)",
           "hint": "حدثت عام 1902م في قصر المصمك",
           "points": 600
@@ -540,7 +540,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم القصر التاريخي اللي يرمز لاسترداد الرياض في عهد الملك عبدالعزيز؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Masmak_Fortress.jpg/640px-Masmak_Fortress.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1588001400947-6385aef4ab0e?w=640&q=80",
           "correctAnswer": "قصر المصمك",
           "hint": "موجود في وسط الرياض القديم ويعمل متحفاً",
           "points": 400
@@ -550,7 +550,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم أطول برج في المملكة العربية السعودية والموجود في جدة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Jeddah_Tower_Rendering.jpg/480px-Jeddah_Tower_Rendering.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1578895102073-a1481ebde81b?w=640&q=80",
           "correctAnswer": "برج جدة (المملكة)",
           "hint": "يُنافس على لقب أطول برج في العالم",
           "points": 200
@@ -560,7 +560,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "في أي عهد ملكي اكتُشف النفط في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/King_Abdulaziz.jpg/480px-King_Abdulaziz.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "عهد الملك عبدالعزيز بن عبدالرحمن (1938م)",
           "hint": "في الثلاثينيات الميلادية",
           "points": 400
@@ -570,7 +570,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول رئيس وزراء معيّن في تاريخ المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/King_Saud.jpg/480px-King_Saud.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الأمير فيصل بن عبدالعزيز (لاحقاً أصبح ملكاً)",
           "hint": "عُيِّن في الخمسينيات الميلادية",
           "points": 600
@@ -580,7 +580,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم العملة السعودية قبل توحيد العملة بالريال؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Saudi_riyal_symbol.svg/480px-Saudi_riyal_symbol.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الجنيه الذهبي السعودي",
           "hint": "كانت مقدّرة بالذهب",
           "points": 600
@@ -590,7 +590,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الموقع التاريخي الأثري في العُلا واللي أُدرج في قائمة التراث العالمي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Hegra_AlUla_Saudi_Arabia.jpg/640px-Hegra_AlUla_Saudi_Arabia.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1548199569-3e1c6aa8f469?w=640&q=80",
           "correctAnswer": "العُلا - مدائن صالح (الحِجر)",
           "hint": "مدينة الأنباط المنحوتة في الصخر",
           "points": 400
@@ -600,7 +600,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الجهة الحكومية المسؤولة عن الهوية الرقمية وخدمات التوثيق في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Tawakkalna_App.png/480px-Tawakkalna_App.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "النفاذ الوطني الموحّد",
           "hint": "تسجيل الدخول الموحّد للخدمات الحكومية",
           "points": 200
@@ -610,7 +610,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم منصة التواصل الاجتماعي السعودية الحكومية للمهنيين اللي تنافس لينكدإن؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/640px-LinkedIn_Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/linkedin.com",
           "correctAnswer": "منصة مسار",
           "hint": "منصة التوظيف والتطوير المهني في المملكة",
           "points": 200
@@ -620,7 +620,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم منصة التعلم الإلكتروني الحكومية السعودية للطلاب والمعلمين؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Madrasati_platform.png/480px-Madrasati_platform.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "منصة مدرستي",
           "hint": "استُخدمت بشكل كثيف خلال جائحة كورونا",
           "points": 400
@@ -630,7 +630,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الشركة السعودية الناشئة اللي طوّرت روبوت يتحدث العربية ويُسمّى 'ريم'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Saudi_Aramco_logo.svg/480px-Saudi_Aramco_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/aramco.com",
           "correctAnswer": "شركة SDAIA (هيئة البيانات والذكاء الاصطناعي)",
           "hint": "جهة حكومية تطوّر الذكاء الاصطناعي في المملكة",
           "points": 600
@@ -640,7 +640,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الجامعة السعودية المتخصصة في العلوم والتقنية والمعروفة بـ KAUST؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/KAUST_logo.svg/480px-KAUST_logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "جامعة الملك عبدالله للعلوم والتقنية",
           "hint": "موقعها على ساحل البحر الأحمر في ثول",
           "points": 400
@@ -650,7 +650,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم تطبيق التوصيل السعودي الشهير باللون الأخضر واللي ينافس كريم وأوبر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Careem_Logo.svg/480px-Careem_Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/careem.com",
           "correctAnswer": "كريم",
           "hint": "أُسِّس في دبي وانتشر بالسعودية واشترته أوبر",
           "points": 200
@@ -660,7 +660,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم مهرجان الترفيه السعودي الكبير اللي يُقام سنوياً في الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "موسم الرياض",
           "hint": "يضم فعاليات ترفيهية ضخمة لأشهر عدة",
           "points": 200
@@ -670,7 +670,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أكبر مشروع ترفيهي في الشرق الأوسط اللي يُبنى في القدية قرب الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "مشروع القدية",
           "hint": "سيضم ملاهي وملاعب رياضية ومنتجعات",
           "points": 400
@@ -680,7 +680,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الأديب والشاعر السعودي الشهير اللي كان وزيراً وكاتباً وشاعراً في آنٍ واحد؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "غازي القصيبي",
           "hint": "كان وزير الصحة ثم العمل، وله روايات وقصائد شهيرة",
           "points": 200
@@ -690,7 +690,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أشهر مهرجان ثقافي سنوي يُقام في الجنادرية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مهرجان الجنادرية للتراث والثقافة",
           "hint": "يُقام شمال الرياض ويعرض تراث مناطق المملكة",
           "points": 400
@@ -700,7 +700,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول دار أوبرا في المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "دار الأوبرا في نيوم (مشروع قيد الإنشاء)",
           "hint": "جزء من مشاريع نيوم على ساحل البحر الأحمر",
           "points": 600
@@ -710,7 +710,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المسلسل السعودي الكوميدي اللي بطله 'حمد' ويتكلم عن حياة موظف؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/4/4e/Mbc_logo.png/320px-Mbc_logo.png",
+          "mediaUrl": "https://logo.clearbit.com/mbc.net",
           "correctAnswer": "سيلفي",
           "hint": "يُقدّمه ناصر القصبي على MBC",
           "points": 200
@@ -720,7 +720,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "مين مخرج فيلم 'نورة' السعودي الذي عُرض في مهرجان كان؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "توفيق الزايدي",
           "hint": "فيلم حاز على اهتمام دولي كبير",
           "points": 400
@@ -730,7 +730,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المسلسل السعودي الكوميدي عن أسرة متوسطة الحال ويعرض في رمضان كل سنة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/4/4e/Mbc_logo.png/320px-Mbc_logo.png",
+          "mediaUrl": "https://logo.clearbit.com/mbc.net",
           "correctAnswer": "سمبوسة أو شاهد أو باب الحارة (خليجي)",
           "hint": "مسلسلات الكوميديا العائلية الرمضانية",
           "points": 200
@@ -740,7 +740,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول فيلم سعودي طويل يُعرض تجارياً في دور السينما السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "فيلم وجدة (2012) - رغم أن عرضه التجاري جاء لاحقاً",
           "hint": "فيلم للمخرجة هيفاء المنصور عن فتاة تحلم بدراجة",
           "points": 600
@@ -750,7 +750,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم البرنامج الرمضاني الترفيهي السعودي المنافس اللي تشارك فيه مشاهير وفناّنون؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/4/4e/Mbc_logo.png/320px-Mbc_logo.png",
+          "mediaUrl": "https://logo.clearbit.com/mbc.net",
           "correctAnswer": "برنامج رامز في الغابة أو Arab Idol",
           "hint": "برامج المنافسة الرمضانية الشهيرة على MBC",
           "points": 400
@@ -760,7 +760,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم قناة الأخبار السعودية الرسمية التابعة للدولة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/7/77/Saudi_TV.png/320px-Saudi_TV.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "قناة السعودية (التلفزيون السعودي)",
           "hint": "البث الرسمي للدولة منذ الستينيات",
           "points": 200
@@ -770,7 +770,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "في أي سنة بدأ البث التلفزيوني الرسمي في المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/7/77/Saudi_TV.png/320px-Saudi_TV.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "1965م",
           "hint": "في عهد الملك فيصل رحمه الله",
           "points": 600
@@ -780,7 +780,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم قناة شبكة المجد المتخصصة في القرآن الكريم والتلاوات؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "قناة مجد القرآن الكريم",
           "hint": "تبثّ تلاوات وتفسيراً ودروساً قرآنية",
           "points": 400
@@ -790,7 +790,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم البرنامج الديني اللي يُبثّ على شبكة المجد خلال شهر رمضان ويجيب على أسئلة المشاهدين؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "برنامج الفتاوى المباشر",
           "hint": "يستقبل أسئلة الجمهور ويردّ عليها العلماء",
           "points": 200
@@ -800,7 +800,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم قناة شبكة المجد المخصصة للبرامج الحضارية والتاريخية الإسلامية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مجد الحضارة",
           "hint": "تعرض برامج عن الحضارة والتاريخ الإسلامي",
           "points": 400
@@ -810,7 +810,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الشخصية السعودية البارزة اللي أسّست شبكة المجد التلفزيونية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الأمير طلال بن عبدالعزيز بن مساعد آل سعود",
           "hint": "أمير سعودي أسّس الشبكة عام 2002 لخدمة الإسلام والمسلمين",
           "points": 600
@@ -820,7 +820,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم قناة المجد المتخصصة في البرامج الاجتماعية والأسرية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مجد الاجتماعية",
           "hint": "قناة تهتم بقضايا المرأة والأسرة المسلمة",
           "points": 400
@@ -830,7 +830,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم أكثر نادي حقّق ألقاباً في تاريخ الدوري السعودي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Al-Hilal_FC_Logo.svg/480px-Al-Hilal_FC_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نادي الهلال",
           "hint": "يُلقّب بـ'سيد الكرة السعودية'",
           "points": 200
@@ -840,7 +840,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم النادي السعودي اللي فاز ببطولة دوري أبطال آسيا أكثر من مرة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Al-Hilal_FC_Logo.svg/480px-Al-Hilal_FC_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نادي الهلال (4 مرات)",
           "hint": "النادي الأكثر تتويجاً آسيوياً",
           "points": 400
@@ -850,7 +850,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش ألوان نادي الاتحاد السعودي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Al-Ittihad_Club_logo.svg/480px-Al-Ittihad_Club_logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الأصفر والأسود",
           "hint": "نادي جدة المشهور",
           "points": 200
@@ -860,7 +860,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الحارس السعودي اللي صدّ ضربات الأرجنتين في مونديال 2022 وصار نجم المباراة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "محمد العويس",
           "hint": "حارس مرمى نادي الهلال والمنتخب السعودي",
           "points": 600
@@ -870,7 +870,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش نتيجة مباراة السعودية والأرجنتين في كأس العالم 2022؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "فازت السعودية 2-1",
           "hint": "مفاجأة كأس العالم 2022",
           "points": 400
@@ -880,7 +880,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الملعب الرئيسي للمنتخب السعودي في الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/King_Fahd_International_Stadium.jpg/640px-King_Fahd_International_Stadium.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=640&q=80",
           "correctAnswer": "ملعب الملك فهد الدولي",
           "hint": "يتّسع لأكثر من 68 ألف متفرج",
           "points": 200
@@ -890,7 +890,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم اللاعب السعودي اللي سجّل أكثر هدف في تاريخ الدوري السعودي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ماجد عبدالله",
           "hint": "أسطورة الهلال والمنتخب في الثمانينيات",
           "points": 600
@@ -900,7 +900,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المدرب السعودي الأكثر نجاحاً في تاريخ الدوري السعودي للمحترفين؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نور الدين نايبت",
           "hint": "مدرب جزائري قاد الهلال لعدة بطولات",
           "points": 400
@@ -910,7 +910,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "على أي نهر أو وادٍ تقع محافظة الزلفي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "وادي الزلفي",
           "hint": "يمتد من الشمال إلى الجنوب عبر المحافظة",
           "points": 200
@@ -920,7 +920,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المحافظة المجاورة للزلفي من الجنوب؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "المجمعة",
           "hint": "مركز محافظة المجمعة المجاورة",
           "points": 400
@@ -930,7 +930,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش أصل كلمة 'الزلفي' وما معناها التاريخي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "تعني القُربى أو المنزلة (الاقتراب)",
           "hint": "من الجذر اللغوي 'زلف' بمعنى الاقتراب",
           "points": 600
@@ -940,7 +940,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أبرز مهرجان سنوي يُقام في محافظة الزلفي يحتفي بالتمر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Date_palms_in_Saudi_Arabia.jpg/640px-Date_palms_in_Saudi_Arabia.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=640&q=80",
           "correctAnswer": "مهرجان تمور الزلفي",
           "hint": "يُقام في موسم حصاد التمر",
           "points": 400
@@ -950,7 +950,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الشاعر الشعبي المشهور من محافظة الزلفي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ابن شبيب (من أعلام الزلفي الشعرية)",
           "hint": "من أبرز شعراء النبط في المنطقة",
           "points": 600
@@ -960,7 +960,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الطريق الرئيسي الذي يمر بمحافظة الزلفي ويربطها بالرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "طريق القصيم السريع (طريق رقم 65)",
           "hint": "الطريق الرابط بين الرياض والقصيم مروراً بالزلفي",
           "points": 200
@@ -970,7 +970,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم شركة السيارات الأمريكية اللي تصنع سيارة 'موستانج' و'F-150'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/480px-Ford_logo_flat.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/ford.com",
           "correctAnswer": "فورد",
           "hint": "من أقدم شركات السيارات في أمريكا",
           "points": 400
@@ -980,7 +980,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة السيارات الكورية اللي تصنع 'سوناتا' و'توسان'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/480px-Hyundai_Motor_Company_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/hyundai.com",
           "correctAnswer": "هيونداي",
           "hint": "شعارها حرف H مائل",
           "points": 200
@@ -990,7 +990,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم سيارة لاند روفر الفاخرة الأشهر والأغلى ثمناً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Land_Rover_logo.svg/480px-Land_Rover_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/landrover.com",
           "correctAnswer": "رينج روفر",
           "hint": "سيارة دفع رباعي فاخرة بريطانية",
           "points": 400
@@ -1000,7 +1000,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم سيارة بنتلي الرياضية الفاخرة الأعلى أداءً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bentley_logo.svg/480px-Bentley_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/bentleymotors.com",
           "correctAnswer": "بنتلي كونتيننتال GT",
           "hint": "سيارة غران توريزمو فاخرة بريطانية",
           "points": 600
@@ -1010,7 +1010,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم سلسلة مطاعم الدجاج الأمريكية اللي شعارها رجل عجوز بربطة عنق حمراء؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/KFC_logo.svg/480px-KFC_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/kfc.com",
           "correctAnswer": "كنتاكي - KFC",
           "hint": "الاسم اختصار لـ Kentucky Fried Chicken",
           "points": 200
@@ -1020,7 +1020,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم سلسلة قهوة أمريكية شهيرة جداً شعارها حورية البحر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/480px-A_small_cup_of_coffee.JPG",
+          "mediaUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=640&q=80",
           "correctAnswer": "ستاربكس",
           "hint": "من أكثر سلاسل القهوة انتشاراً في العالم",
           "points": 200
@@ -1030,7 +1030,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المطعم السعودي المحلي المشهور بالسندويشات والفراخ في الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "هرفي",
           "hint": "سلسلة سعودية شعبية بأسعار معقولة",
           "points": 400
@@ -1040,7 +1040,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم سلسلة مطاعم البيتزا الأمريكية اللي شعارها سقف أحمر وشخص يحمل البيتزا؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Pizza_Hut_logo.svg/480px-Pizza_Hut_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/pizzahut.com",
           "correctAnswer": "بيتزا هت",
           "hint": "من أوائل سلاسل البيتزا في العالم",
           "points": 400
@@ -1050,7 +1050,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم سلسلة المطاعم السعودية الشهيرة بالكبدة والطعام الشعبي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مطعم أبو زيد",
           "hint": "مطعم شعبي سعودي للمأكولات النجدية",
           "points": 600
@@ -1060,7 +1060,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى كلمة 'حاشي' باللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الجمل الصغير",
           "hint": "يقال في السياق البدوي للدلالة على صغير الجمال",
           "points": 200
@@ -1070,7 +1070,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى كلمة 'سالفة' باللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "قصة أو حديث أو موضوع",
           "hint": "تقوله لما تحكي لأحد حدثاً أو خبراً",
           "points": 200
@@ -1080,7 +1080,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش معنى كلمة 'مستحيل' أو 'ما يصير' في الرد السعودي الرافض باللهجة الدارجة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "لا يمكن أو رفض قاطع",
           "hint": "'ما يصير هذا الشي' = هذا الأمر غير ممكن",
           "points": 400
@@ -1090,7 +1090,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى 'طبّق' باللهجة السعودية الشبابية الحديثة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نفّذ الأمر أو افعله الآن",
           "hint": "يُستخدم للحثّ على التنفيذ الفوري",
           "points": 200
@@ -1100,7 +1100,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش معنى كلمة 'دوشة' في اللهجة السعودية الحجازية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ضوضاء أو فوضى أو إزعاج",
           "hint": "تقولها لما يكون في ضجيج أو فوضى",
           "points": 600
@@ -1110,7 +1110,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى كلمة 'عدل' في اللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "صحيح أو مضبوط أو موافق",
           "hint": "'عدل كلامك' تعني كلامك صحيح",
           "points": 200
@@ -1120,7 +1120,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش معنى 'ما عنده خلق' في اللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ليس لديه طاقة أو رغبة أو همّة",
           "hint": "تقولها لما تكون كسلان وما تبي تتحرك",
           "points": 400
@@ -1130,7 +1130,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش معنى كلمة 'شيله' في السياق السعودي التجاري؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "خذه أو أخذ البضاعة",
           "hint": "تُستخدم في السوق: 'شيله وامشي'",
           "points": 400
@@ -1140,7 +1140,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى 'خوش' في اللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "جيد أو ممتاز",
           "hint": "'خوش كلام' = كلام جيد ومعقول",
           "points": 200
@@ -1150,7 +1150,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش معنى 'دبّست' في اللهجة السعودية الشعبية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "وضعت الشيء في مكانه أو غرزته",
           "hint": "تُستخدم عند وضع أو تثبيت شيء ما",
           "points": 600
@@ -1160,7 +1160,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش معنى كلمة 'حمار' في سياق اللهجة السعودية العامية المجازي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "شخص غير ذكي أو يتصرف بطريقة غير لائقة",
           "hint": "تُستخدم مجازاً للتعبير عن الغباء أو الحماقة",
           "points": 400
@@ -1170,7 +1170,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى 'بكره' في اللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "غداً أو في المستقبل القريب",
           "hint": "'نشوفك بكره' = نراك غداً",
           "points": 200
@@ -1180,7 +1180,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش معنى 'الطلعة' في اللهجة الشبابية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الخروج مع الأصدقاء أو نزهة غير رسمية",
           "hint": "'نسوّي طلعة الليلة' = نخرج مع بعض",
           "points": 400
@@ -1190,7 +1190,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش معنى 'مكلّح' في اللهجة الحجازية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مزيّن بشكل مبالغ أو لابس بطريقة ملفتة",
           "hint": "تُستخدم للشخص اللي يلبس بطريقة مبالغ فيها",
           "points": 600
@@ -1200,7 +1200,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش معنى 'يلّا' في اللهجة السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "هيّا أو لنذهب أو حثّ على الفعل",
           "hint": "تُقال للتشجيع على التحرك أو البدء",
           "points": 200
@@ -1210,7 +1210,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الشركة الألمانية صاحبة سيارة 'جولف' و'باسات'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Volkswagen_logo_2019.svg/480px-Volkswagen_logo_2019.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vw.com",
           "correctAnswer": "فولكس واجن (Volkswagen)",
           "hint": "شعارها حرفان V وW متداخلان",
           "points": 200
@@ -1220,7 +1220,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم سيارة لكزس الرياضية الفاخرة المعروفة في السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Lexus_division_emblem.svg/480px-Lexus_division_emblem.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/lexus.com",
           "correctAnswer": "لكزس LX",
           "hint": "من أشهر سيارات الدفع الرباعي الفاخرة",
           "points": 400
@@ -1230,7 +1230,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة السيارات الكورية اللي تصنع 'سبورتاج' و'سيراتو'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.png/480px-Kia-logo.png",
+          "mediaUrl": "https://logo.clearbit.com/kia.com",
           "correctAnswer": "كيا",
           "hint": "شعارها بيضاوي بحروف إنجليزية مائلة",
           "points": 200
@@ -1240,7 +1240,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول سيارة صُنعت في العالم؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/480px-Mercedes-Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/mercedes-benz.com",
           "correctAnswer": "بنز باتنت موتورواجن 1886",
           "hint": "صنعها كارل بنز في ألمانيا وسُجّل براءة الاختراع في يناير 1886",
           "points": 600
@@ -1250,7 +1250,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الشركة الصانعة لسيارة 'تيسلا' الكهربائية ومن هو مؤسسها الأشهر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/480px-Tesla_Motors.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/tesla.com",
           "correctAnswer": "تيسلا - إيلون ماسك (من أبرز مؤسسيها)",
           "hint": "أكثر شركة سيارات كهربائية قيمة في العالم",
           "points": 400
@@ -1260,7 +1260,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم سلسلة المطاعم السعودية الشهيرة بالشاورما واللي فروعها في كل مكان؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "البيك",
           "hint": "سلسلة سعودية أصيلة بأسعار شعبية",
           "points": 200
@@ -1270,7 +1270,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم مطعم البرغر الأمريكي اللي شعاره تاج ويتنافس مع ماكدونالدز؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/480px-Smiley.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "برغر كنج",
           "hint": "'Have it Your Way' شعاره الشهير",
           "points": 400
@@ -1280,7 +1280,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم سلسلة قهوة سعودية محلية ناجحة جداً منافسة لستاربكس؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "القهوة السعودية (SFC) أو كافيه حجازي",
           "hint": "سلسلة قهوة سعودية بنكهة محلية",
           "points": 200
@@ -1290,7 +1290,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم السلسلة السعودية المتخصصة في المخبوزات والحلويات والمعروفة بـ 'الراشد'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مخبز الراشد",
           "hint": "من أقدم المخابز السعودية الشعبية",
           "points": 600
@@ -1300,7 +1300,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المطعم الأمريكي الشهير بالدجاج المقرمش وشعاره دلو أحمر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/KFC_logo.svg/480px-KFC_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/kfc.com",
           "correctAnswer": "بوبايز أو KFC",
           "hint": "سلسلة دجاج مقرمش أمريكية شهيرة",
           "points": 200
@@ -1310,7 +1310,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم القناة السعودية الترفيهية الأشهر للشباب وتُبثّ من الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/4/4e/Mbc_logo.png/320px-Mbc_logo.png",
+          "mediaUrl": "https://logo.clearbit.com/mbc.net",
           "correctAnswer": "MBC",
           "hint": "قناة تلفزيونية سعودية عربية خاصة",
           "points": 200
@@ -1320,7 +1320,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المطرب السعودي اللي يُلقَّب بـ\"فنان العرب\" وغنّى \"ودّي أشوفك\"؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "محمد عبده",
           "hint": "من أيقونات الطرب الخليجي والعربي",
           "points": 400
@@ -1330,7 +1330,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المطرب السعودي الشهير اللي يُلقّب بـ'فنان العرب'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "محمد عبده",
           "hint": "من أيقونات الطرب العربي السعودي",
           "points": 200
@@ -1340,7 +1340,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الفنانة السعودية الأولى اللي غنّت في الخارج ونالت جوائز دولية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "رابعة (أو نوال الكويتية - من المنطقة الخليجية)",
           "hint": "من الرائدات في غناء المرأة الخليجية",
           "points": 400
@@ -1350,7 +1350,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول حفلة موسيقية مختلطة رسمية في المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "حفلة مارك رونسون في جدة 2018م",
           "hint": "أُقيمت في إطار إصلاحات رؤية 2030",
           "points": 600
@@ -1360,7 +1360,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم العصير الشعبي السعودي المصنوع من الليمون مع النعناع والمنتشر في كل مطعم؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Fresh_lemonade.jpg/480px-Fresh_lemonade.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "عصير الليمون بالنعناع",
           "hint": "مشروب رمضاني وصيفي خفيف",
           "points": 200
@@ -1370,7 +1370,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الحلوى السعودية الشعبية المصنوعة من الدبس والسمسم؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "السمسمية أو الدبسة",
           "hint": "حلوى تراثية شعبية قديمة",
           "points": 400
@@ -1380,7 +1380,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الطبق السعودي المشهور المصنوع من الخبز المفتّت مع اللحم والمرق؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "المرقوق (أو الجريش)",
           "hint": "من أشهر أطباق المطبخ النجدي التراثي",
           "points": 200
@@ -1390,7 +1390,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الفطيرة السعودية المصنوعة من الدقيق والسمن والعسل والمشهورة في الجنوب؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الرغيف أو المطازيز",
           "hint": "فطيرة تراثية من منطقة عسير وجازان",
           "points": 400
@@ -1400,7 +1400,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الفاكهة اللي تُعتبر أيقونة المملكة وتُصدَّر لكل العالم من أصناف مميزة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Date_palms_in_Saudi_Arabia.jpg/480px-Date_palms_in_Saudi_Arabia.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=640&q=80",
           "correctAnswer": "التمر",
           "hint": "المملكة من أكبر منتجي التمور في العالم",
           "points": 200
@@ -1410,7 +1410,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الجبل الأشهر في مكة المكرمة واللي فيه الغار اللي نزل فيه أول وحي على النبي محمد ﷺ؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Kaaba_Mirror_reflection_on_Zamzam_Well.jpg/480px-Kaaba_Mirror_reflection_on_Zamzam_Well.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1564769625905-50e93615e769?w=640&q=80",
           "correctAnswer": "جبل النور - وفيه غار حراء",
           "hint": "فيه غار حراء حيث نزل الوحي لأول مرة",
           "points": 200
@@ -1420,7 +1420,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم بحيرة تبوك الأثرية واللي تعدّ واحة تاريخية في الشمال؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "واحة تيماء",
           "hint": "من أقدم المناطق المأهولة في شمال الجزيرة العربية",
           "points": 400
@@ -1430,7 +1430,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الجزيرة السعودية السياحية الجميلة في البحر الأحمر المشهورة بالشعاب المرجانية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "جزر فرسان",
           "hint": "في منطقة جازان جنوب المملكة",
           "points": 400
@@ -1440,7 +1440,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المنطقة السياحية الشهيرة في أبها المعروفة بالضباب والخضرة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Abha_cityscape.jpg/640px-Abha_cityscape.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=640&q=80",
           "correctAnswer": "منطقة عسير",
           "hint": "جبال عسير وأبها من أجمل مناطق المملكة",
           "points": 200
@@ -1450,7 +1450,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أعلى قمة جبلية في المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Abha_cityscape.jpg/640px-Abha_cityscape.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=640&q=80",
           "correctAnswer": "جبل السودة (3015 متر)",
           "hint": "يقع في منطقة عسير ويُعدّ أعلى جبل في المملكة",
           "points": 600
@@ -1460,7 +1460,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم البحر اللي تطلّ عليه مدينة جدة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Jeddah_corniche.jpg/640px-Jeddah_corniche.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1578895102073-a1481ebde81b?w=640&q=80",
           "correctAnswer": "البحر الأحمر",
           "hint": "يفصل المملكة عن القارة الأفريقية",
           "points": 400
@@ -1470,7 +1470,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الخليج العربي اللي تطلّ عليه المنطقة الشرقية في السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الخليج العربي (الخليج الفارسي)",
           "hint": "يقع شرق المملكة ويحدّها من الشرق",
           "points": 200
@@ -1480,7 +1480,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم المنطقة الجغرافية الصحراوية الكبيرة التي تحتل معظم وسط المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الربع الخالي",
           "hint": "أكبر صحراء رملية متواصلة في العالم",
           "points": 600
@@ -1490,7 +1490,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المدينة السعودية الثانية من حيث الحجم بعد الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Jeddah_corniche.jpg/640px-Jeddah_corniche.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1578895102073-a1481ebde81b?w=640&q=80",
           "correctAnswer": "جدة",
           "hint": "عاصمة الحجاز وعروس البحر الأحمر",
           "points": 200
@@ -1500,7 +1500,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المنطقة الشمالية في المملكة التي تشتهر بزراعة القمح والزيتون؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "منطقة تبوك",
           "hint": "تقع شمال غرب المملكة",
           "points": 400
@@ -1510,7 +1510,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة السيارات الإيطالية اللي تصنع 'لامبورغيني' وشعارها ثور؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lamborghini-Logo.svg/480px-Lamborghini-Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/lamborghini.com",
           "correctAnswer": "لامبورغيني",
           "hint": "سيارات سوبر كار إيطالية فاخرة جداً",
           "points": 200
@@ -1520,7 +1520,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم سيارة BMW الرياضية الأشهر والأغلى؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/480px-BMW.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/bmw.com",
           "correctAnswer": "BMW M5 أو BMW 7 Series",
           "hint": "من أفخر سيارات الشركة الألمانية",
           "points": 400
@@ -1530,7 +1530,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم شركة السيارات اليابانية التي تصنع 'جي تي آر' المعروفة بـ Godzilla؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nissan-logo.png/480px-Nissan-logo.png",
+          "mediaUrl": "https://logo.clearbit.com/nissan.com",
           "correctAnswer": "نيسان",
           "hint": "نيسان GTR من أسرع سيارات الإنتاج الجماعي",
           "points": 600
@@ -1540,7 +1540,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة السيارات الفرنسية اللي تصنع 'ميغان' و'كليو'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Renault_2009_logo.svg/480px-Renault_2009_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/renault.com",
           "correctAnswer": "رينو",
           "hint": "شعارها ماسة صفراء",
           "points": 200
@@ -1550,7 +1550,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم شركة السيارات الأمريكية اللي تصنع كورفيت وكامارو؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chevrolet_logo.svg/480px-Chevrolet_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/chevrolet.com",
           "correctAnswer": "شيفروليه",
           "hint": "شعارها ربطة عنق ذهبية",
           "points": 400
@@ -1560,7 +1560,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم تطبيق توصيل الطعام السعودي الأشهر باللون البرتقالي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "هنقرستيشن أو طلبات",
           "hint": "تطبيقات شهيرة لتوصيل الطعام في السعودية",
           "points": 200
@@ -1570,7 +1570,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم شركة الشحن السعودية الحكومية الأشهر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "البريد السعودي - سبل",
           "hint": "تغيّر اسمها من البريد السعودي لـ'سبل'",
           "points": 400
@@ -1580,7 +1580,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم منصة التواصل الاجتماعي اللي يستخدمها السعوديون للاطلاع على آخر الأخبار الآن أكثر من غيرها؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/480px-Logo_of_Twitter.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/x.com",
           "correctAnswer": "تويتر (إكس)",
           "hint": "غيّر اسمه من تويتر بعد شراء ماسك له",
           "points": 200
@@ -1590,7 +1590,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم منصة الفيديو القصير الصيني المنتشر بقوة بين الشباب السعودي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/TikTok_logo.svg/480px-TikTok_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/tiktok.com",
           "correctAnswer": "تيك توك",
           "hint": "منصة الفيديوهات القصيرة الشهيرة",
           "points": 400
@@ -1600,7 +1600,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول صحيفة يومية سعودية أُسِّست؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "صحيفة أم القرى (1924م)",
           "hint": "أُسّست في عهد الملك عبدالعزيز",
           "points": 600
@@ -1610,7 +1610,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "كم عدد مناطق المملكة العربية السعودية الإدارية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "13 منطقة إدارية",
           "hint": "تشمل: الرياض، مكة، المدينة، وغيرها",
           "points": 200
@@ -1620,7 +1620,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أكبر منطقة جغرافياً في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Riyadh_region_in_Saudi_Arabia.svg/640px-Riyadh_region_in_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "منطقة الرياض",
           "hint": "تحتل وسط المملكة وهي الأوسع مساحة",
           "points": 400
@@ -1630,7 +1630,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم العملة الرسمية للمملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Saudi_riyal_symbol.svg/480px-Saudi_riyal_symbol.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الريال السعودي",
           "hint": "يُرمز له بـ ر.س",
           "points": 400
@@ -1640,7 +1640,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم أكبر مطار في المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مطار الملك عبدالعزيز الدولي في جدة",
           "hint": "يستقبل الحجاج والمعتمرين من كل العالم",
           "points": 200
@@ -1650,7 +1650,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول سفير سعودي في الأمم المتحدة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الأمير فيصل بن عبدالعزيز (كان وزيراً للخارجية)",
           "hint": "وزير الخارجية الذي قاد وفد المملكة",
           "points": 600
@@ -1660,7 +1660,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة الخطوط الجوية الوطنية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Saudi_Arabian_Airlines_Logo.svg/480px-Saudi_Arabian_Airlines_Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/saudia.com",
           "correctAnswer": "الخطوط السعودية",
           "hint": "شعارها نخلة ومعروفة بـ Saudia",
           "points": 200
@@ -1670,7 +1670,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الناقي السعودي الذي يُقدّم برنامج 'إكس فاكتور العرب' وهو من جدة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "عمر خيرت أو راشد الماجد",
           "hint": "من مشاهير الفن السعودي الحجازي",
           "points": 400
@@ -1680,7 +1680,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أشهر سوق شعبي في مدينة الرياض وهو من أشهر المعالم التراثية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "سوق الزل أو سوق الديرة (سوق الخرج القديم)",
           "hint": "من أعرق الأسواق الشعبية في العاصمة",
           "points": 400
@@ -1690,7 +1690,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم أشهر مركز تجاري في الرياض؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مركز الرياض بارك أو العثيم مول أو موبايل بارك",
           "hint": "مراكز تسوق كبرى في العاصمة",
           "points": 200
@@ -1700,7 +1700,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المنطقة الترفيهية الجديدة في الرياض المخصصة للفعاليات الكبرى؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "السعودية أرينا أو البوليفارد رياض سيتي",
           "hint": "من أبرز مشاريع الترفيه في العاصمة",
           "points": 400
@@ -1710,7 +1710,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الحيوان الوطني للمملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الصقر",
           "hint": "يُمثّل القوة والحرية في الثقافة العربية",
           "points": 200
@@ -1720,7 +1720,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الشجرة الوطنية للمملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Date_palms_in_Saudi_Arabia.jpg/480px-Date_palms_in_Saudi_Arabia.jpg",
+          "mediaUrl": "https://images.unsplash.com/photo-1605027990121-cbae9e0642df?w=640&q=80",
           "correctAnswer": "النخلة",
           "hint": "رمز الخير والنماء في الثقافة العربية",
           "points": 400
@@ -1730,7 +1730,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أكبر جامعة حكومية في المملكة من حيث عدد الطلاب؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "جامعة الملك سعود في الرياض",
           "hint": "أسسها الملك سعود بن عبدالعزيز عام 1957م",
           "points": 600
@@ -1740,7 +1740,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الحرب اللي شاركت فيها قوات التحالف بقيادة السعودية في اليمن منذ 2015؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "عملية عاصفة الحزم",
           "hint": "بدأت في مارس 2015م",
           "points": 200
@@ -1750,7 +1750,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم منظمة الدول المصدّرة للنفط التي تنتمي إليها المملكة العربية السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Saudi_Aramco_logo.svg/480px-Saudi_Aramco_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/aramco.com",
           "correctAnswer": "أوبك (OPEC)",
           "hint": "منظمة الدول المصدّرة للبترول",
           "points": 400
@@ -1760,7 +1760,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم شركة الطيران السعودية الجديدة المنافسة للخطوط السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "طيران ناس أو فلاي ناس",
           "hint": "شركة طيران سعودية منخفضة التكلفة",
           "points": 200
@@ -1770,7 +1770,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المشروع الضخم اللي سيجعل الرياض من أكبر مدن العالم في 2030؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "مشروع مطلع أو مشروع نيوم أو تطوير الرياض",
           "hint": "ضمن رؤية 2030 لتوسيع العاصمة",
           "points": 400
@@ -1780,7 +1780,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول امرأة سعودية تُعيَّن سفيرة في الخارج؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "الأميرة ريما بنت بندر (سفيرة لدى الولايات المتحدة)",
           "hint": "أول سفيرة سعودية في تاريخ المملكة",
           "points": 600
@@ -1790,7 +1790,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم أول نادٍ ترفيهي رسمي افتُتح في المملكة بعد رفع الحظر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "Cinema AMC (أول سينما رسمية في الرياض 2018)",
           "hint": "في مركز المملكة بالرياض",
           "points": 200
@@ -1800,7 +1800,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الفعالية الرياضية الكبرى اللي استضافتها المملكة عام 2023 في الغولف؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "بطولة LIV Golf",
           "hint": "دوري الغولف الجديد الذي أسسه صندوق الاستثمارات العامة",
           "points": 400
@@ -1810,7 +1810,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الرياضة اللي فازت فيها السعودية ببطولة عالمية وأقامت احتفالاً ضخماً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "كرة القدم (الفوز على الأرجنتين في كأس العالم 2022)",
           "hint": "مباراة تاريخية لا تُنسى",
           "points": 200
@@ -1820,7 +1820,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم النادي الرياضي السعودي الذي انضم إليه نيمار البرازيلي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Al-Hilal_FC_Logo.svg/480px-Al-Hilal_FC_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "نادي الهلال",
           "hint": "النادي الأزرق الملكي",
           "points": 400
@@ -1830,7 +1830,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم اللاعب السعودي الأول في تاريخ كرة القدم الذي لعب في الدوري الألماني؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "سامي الجابر - لعب لفولفسبورغ الألماني",
           "hint": "أسطورة الهلال لعب في الدوري الألماني عام 1997",
           "points": 600
@@ -1840,7 +1840,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الحفل الرياضي الكبير اللي تستضيفه المملكة لأول مرة عام 2034؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "كأس العالم FIFA 2034",
           "hint": "المملكة فازت باستضافة أكبر حدث رياضي في العالم",
           "points": 200
@@ -1850,7 +1850,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الحدث العالمي الكبير اللي تستضيفه المملكة عام 2030؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "معرض إكسبو 2030 في الرياض",
           "hint": "المعرض العالمي الأشمل للابتكار والتكنولوجيا",
           "points": 400
@@ -1860,7 +1860,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم رياضة الفروسية السعودية الشعبية التراثية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "المطية أو التحطيب",
           "hint": "رياضة فنون القتال التراثية بالعصا",
           "points": 200
@@ -1870,7 +1870,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الشركة السعودية الأكثر قيمة بعد أرامكو في سوق الأسهم السعودي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/STC_logo.svg/480px-STC_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/stc.com.sa",
           "correctAnswer": "شركة الاتصالات السعودية (STC)",
           "hint": "من أكبر شركات الاتصالات إقليمياً",
           "points": 400
@@ -1880,7 +1880,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم سوق الأسهم السعودية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "تداول (سوق الأسهم السعودية)",
           "hint": "من أكبر الأسواق المالية في منطقة الشرق الأوسط",
           "points": 600
@@ -1890,7 +1890,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم صندوق الاستثمارات الحكومي السعودي الأكبر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vision_2030_logo.svg/480px-Vision_2030_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/vision2030.gov.sa",
           "correctAnswer": "صندوق الاستثمارات العامة (PIF)",
           "hint": "من أكبر صناديق الثروة السيادية في العالم",
           "points": 400
@@ -1900,7 +1900,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الجهة الحكومية السعودية المسؤولة عن الإفتاء والشريعة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "هيئة كبار العلماء",
           "hint": "أعلى مرجعية دينية في المملكة",
           "points": 200
@@ -1910,7 +1910,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم المشروع السعودي الأضخم اللي يُعدّ خطاً معمارياً مستقيماً طوله 170 كيلومتر؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/NEOM_logo.svg/480px-NEOM_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/neom.com",
           "correctAnswer": "ذا لاين (The Line)",
           "hint": "مدينة بلا سيارات تعمل بالطاقة المتجددة",
           "points": 400
@@ -1920,7 +1920,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم المشاهير اليوتيوب السعودي الذي يُعدّ من أكثر المحتوى العربي مشاهدةً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "عمر يوسف أو بدر صالح (من أشهر اليوتيوبرز السعوديين)",
           "hint": "صنّاع محتوى كوميدي وترفيهي سعودي",
           "points": 200
@@ -1930,7 +1930,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أشهر شاعر نبطي سعودي معاصر مشهور في قصائد الحنين والوطنية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "بدر بن عبدالمحسن",
           "hint": "أمير وشاعر سعودي كبير رحمه الله",
           "points": 400
@@ -1940,7 +1940,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم اليوم الوطني للمملكة العربية السعودية ومتى يُحتفل فيه؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "اليوم الوطني السعودي في 23 سبتمبر",
           "hint": "يُحيي توحيد المملكة عام 1932م",
           "points": 200
@@ -1950,7 +1950,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم الجهة الحكومية اللي تُشرف على الإعلام في المملكة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "وزارة الإعلام السعودية",
           "hint": "تُنظّم القطاع الإعلامي والصحفي",
           "points": 400
@@ -1960,7 +1960,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم برنامج مسابقات الغناء العربي الأشهر اللي بدأ من قناة MBC؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/4/4e/Mbc_logo.png/320px-Mbc_logo.png",
+          "mediaUrl": "https://logo.clearbit.com/mbc.net",
           "correctAnswer": "Arab Idol",
           "hint": "نسخة عربية من برنامج American Idol",
           "points": 200
@@ -1970,7 +1970,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم أول فيلم سعودي يُعرض في مهرجان فينيسيا السينمائي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "فيلم وجدة للمخرجة هيفاء المنصور",
           "hint": "أول فيلم طويل تُخرجه امرأة سعودية",
           "points": 600
@@ -1980,7 +1980,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم أول لاعبة سعودية تشارك في الألعاب الأولمبية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "وجدان شهركاني (أولمبياد لندن 2012)",
           "hint": "شاركت في الجودو وكانت تاريخية",
           "points": 400
@@ -1990,7 +1990,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم اللاعب السعودي الأسطورة الذي كان يلعب للهلال ويُلقّب بـ'عميد الكرة السعودية'؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Al-Hilal_FC_Logo.svg/480px-Al-Hilal_FC_Logo.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "ماجد عبدالله",
           "hint": "أيقونة كرة القدم السعودية الأشهر",
           "points": 200
@@ -2000,7 +2000,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الاتفاقية التاريخية اللي أبرمتها السعودية مع أمريكا عام 1945 على متن سفينة يو إس إس كوينسي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/King_Abdulaziz.jpg/480px-King_Abdulaziz.jpg",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "اتفاقية الملك عبدالعزيز والرئيس روزفلت (النفط مقابل الأمن)",
           "hint": "أسّست لشراكة استراتيجية طويلة المدى بين البلدين",
           "points": 600
@@ -2010,7 +2010,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "كم عدد قنوات شبكة المجد التلفزيونية تقريباً؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "أكثر من 10 قنوات متخصصة",
           "hint": "تشمل قرآن وعلمية وأطفال وتاريخ وأسرة",
           "points": 400
@@ -2020,7 +2020,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم القناة الإسلامية في شبكة المجد المخصصة للمرأة المسلمة والأسرة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مجد الاجتماعية",
           "hint": "تعنى بقضايا المرأة والأسرة المسلمة",
           "points": 400
@@ -2030,7 +2030,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم برنامج شبكة المجد الذي يُعرض تلاوات القرآن الكريم المستمرة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "بث مجد القرآن الكريم",
           "hint": "يعرض تلاوات للقراء المتميزين",
           "points": 200
@@ -2040,7 +2040,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم البرنامج الذي تقدمه شبكة المجد لتعليم قراءة القرآن الكريم للأطفال؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "برامج قناة مجد للأطفال التعليمية",
           "hint": "تضم دروساً لتحفيظ القرآن",
           "points": 400
@@ -2050,7 +2050,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "في أي مدينة يقع مقر شبكة المجد التلفزيونية الرئيسي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "الرياض - المملكة العربية السعودية",
           "hint": "عاصمة المملكة",
           "points": 600
@@ -2060,7 +2060,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم البرنامج الديني على شبكة المجد الذي يُعقد فيه نقاشات علمية بين علماء الشريعة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مجلس العلماء أو فقه الحياة",
           "hint": "حلقات علمية يشارك فيها أكثر من عالم",
           "points": 400
@@ -2070,7 +2070,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم قناة شبكة المجد المخصصة لعرض البرامج الوثائقية والعلمية الإسلامية؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "مجد العلمية",
           "hint": "وثائقيات علمية بنظرة إسلامية",
           "points": 200
@@ -2080,7 +2080,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم تطبيق شبكة المجد الذي يمكن من خلاله متابعة قنواتها على الجوال؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/ar/thumb/0/0c/Almajd_tv_network.png/320px-Almajd_tv_network.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "تطبيق مجد",
           "hint": "متاح على iOS وAndroid",
           "points": 400
@@ -2090,7 +2090,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم الحاسب الصغير الذي طورته شركة آبل ويعمل بنظام macOS؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/480px-Apple_logo_grey.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/apple.com",
           "correctAnswer": "ماك بوك",
           "hint": "MacBook — لابتوب آبل الشهير",
           "points": 200
@@ -2100,7 +2100,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم نظام التشغيل المستخدم في هواتف شركة آبل؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/480px-Apple_logo_grey.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/apple.com",
           "correctAnswer": "iOS",
           "hint": "يختلف عن Android",
           "points": 200
@@ -2110,7 +2110,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم عملة تيثر الرقمية المشهورة والمثبّتة بالدولار الأمريكي؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "USDT أو تيثر",
           "hint": "من أشهر العملات الرقمية المستقرة",
           "points": 400
@@ -2120,7 +2120,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم التطبيق الأزرق الشهير لمحادثات الفيديو والصوت؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Zoom_Communications_Logo.svg/480px-Zoom_Communications_Logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/zoom.us",
           "correctAnswer": "زوم Zoom",
           "hint": "انتشر بشكل ضخم في جائحة كورونا",
           "points": 200
@@ -2130,7 +2130,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم قاعدة البيانات الأكثر استخداماً في تطوير المواقع والتطبيقات؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "MySQL",
           "hint": "قاعدة بيانات علائقية مفتوحة المصدر",
           "points": 400
@@ -2140,7 +2140,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_600",
           "question": "وش اسم الذكاء الاصطناعي الشهير الذي طورته شركة OpenAI وانتشر عام 2022؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/480px-ChatGPT_logo.svg.png",
+          "mediaUrl": "https://logo.clearbit.com/openai.com",
           "correctAnswer": "ChatGPT",
           "hint": "نموذج لغوي ضخم قلب عالم التقنية",
           "points": 600
@@ -2150,7 +2150,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_200",
           "question": "وش اسم منصة التواصل الاحترافي للموظفين وأصحاب الأعمال؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/480px-LinkedIn_logo_initials.png",
+          "mediaUrl": "https://logo.clearbit.com/linkedin.com",
           "correctAnswer": "لينكدإن LinkedIn",
           "hint": "مخصص لعرض السيرة الذاتية والتواصل المهني",
           "points": 200
@@ -2160,7 +2160,7 @@ const DATA_BANK = {
           "difficulty": "CLASS_400",
           "question": "وش اسم التقنية اللاسلكية قصيرة المدى المستخدمة في نقل الملفات بين الأجهزة القريبة؟",
           "mediaType": "image",
-          "mediaUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/480px-Flag_of_Saudi_Arabia.svg.png",
+          "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
           "correctAnswer": "بلوتوث Bluetooth",
           "hint": "رمزها شعار B أزرق",
           "points": 400
