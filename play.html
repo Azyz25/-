@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ألعاب جماعية</title>
+    <title>العاب جماعية</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,6 @@
             transition: opacity 1s ease-in-out;
         }
 
-        /* تكبير سلس وبطيء في النهاية لعدم إزعاج العين */
         .logo-img {
             width: 150px; height: 150px;
             object-fit: contain;
@@ -43,13 +42,13 @@
 
         @keyframes smoothPulseToExplode {
             0%      { transform: scale(1); opacity: 1; }
-            12%     { transform: scale(1.8); opacity: 1; } /* نبضة 1 */
+            12%     { transform: scale(1.8); opacity: 1; } 
             24%     { transform: scale(1); opacity: 1; }
-            36%     { transform: scale(1.8); opacity: 1; } /* نبضة 2 */
+            36%     { transform: scale(1.8); opacity: 1; } 
             48%     { transform: scale(1); opacity: 1; }
-            60%     { transform: scale(1.8); opacity: 1; } /* نبضة 3 */
-            75%     { transform: scale(1); opacity: 1; }   /* راحة قبل الانفجار */
-            100%    { transform: scale(1000); opacity: 0; } /* زحلفة بطيئة لنهاية الشاشة */
+            60%     { transform: scale(1.8); opacity: 1; } 
+            75%     { transform: scale(1); opacity: 1; }   
+            100%    { transform: scale(1000); opacity: 0; } 
         }
 
         @keyframes bgToOrange {
@@ -96,7 +95,7 @@
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(222, 98, 65, 0.4); }
         .btn-sec { background: transparent; border: 2px solid var(--primary-orange); color: var(--primary-orange); padding: 15px 40px; font-size: 22px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; margin: 10px; }
 
-        /* ================= 6. تخطيط الجيوباردي (سين جيم والإيموجي) ================= */
+        /* ================= 6. تخطيط الجيوباردي ================= */
         .progress-text { font-size: 20px; font-weight: bold; color: var(--text-gray); margin-bottom: 20px; }
         .progress-text span { color: var(--primary-orange); font-size: 24px; }
 
@@ -124,7 +123,7 @@
         .huroof-btn:hover { background: var(--primary-orange); color: white; border-color: var(--primary-orange); }
         .huroof-btn.used { opacity: 0.2; pointer-events: none; background: #ccc; }
 
-        /* ================= 8. شاشة السؤال ================= */
+        /* ================= 8. شاشة السؤال والتلميح ================= */
         .q-display { font-size: 45px; font-weight: 800; margin: 30px 0; color: var(--text-dark); line-height: 1.5; }
         .q-media { max-width: 100%; max-height: 350px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
@@ -133,6 +132,14 @@
             margin: 30px 0; display: none; background: var(--bg-answer); 
             padding: 25px; border-radius: 12px; border: 2px dashed var(--primary-orange);
             line-height: 1.6;
+        }
+
+        /* تنسيق صندوق التلميح المضاف حديثاً */
+        .hint-display {
+            font-size: 28px; font-weight: 700; color: #d35400; 
+            margin: 20px 0; display: none; background: #fff3e0; 
+            padding: 20px; border-radius: 12px; border: 1px solid #e67e22;
+            line-height: 1.5; text-align: center;
         }
         
         .referee-box { margin-top: 40px; padding-top: 30px; border-top: 2px solid #ddd; display: none; }
@@ -169,7 +176,7 @@
             .huroof-btn { font-size: 24px; padding: 10px 0; }
 
             .q-display { font-size: 28px; margin: 15px 0; }
-            .a-display { font-size: 24px; padding: 15px; }
+            .a-display, .hint-display { font-size: 24px; padding: 15px; }
             #q-meta { font-size: 20px !important; }
 
             #screen-setup h1 { font-size: 32px !important; }
@@ -189,7 +196,7 @@
             .score-adjust { flex-direction: row; }
             .turn-badge { font-size: 18px; padding: 6px 20px; }
             .q-display { font-size: 22px; }
-            .a-display { font-size: 20px; }
+            .a-display, .hint-display { font-size: 20px; }
             .referee-title { font-size: 20px; }
         }
     </style>
@@ -208,7 +215,7 @@
                 <button class="btn-icon" onclick="toggleFullscreen()" title="تكبير الشاشة">⛶</button>
                 <img src="za.png" class="header-logo-img" alt="ZA Logo">
             </div>
-            <div class="header-title" id="main-title">ألعاب جماعية</div>
+            <div class="header-title" id="main-title">الديوانية الرقمية</div>
             <div class="header-spacer"></div>
         </header>
 
@@ -244,9 +251,9 @@
 
             <div id="screen-setup" class="screen active">
                 <h1 style="color: var(--primary-orange); margin-bottom: 20px; font-size: 45px; font-weight: 800;">إعداد الجلسة</h1>
-                <input type="text" id="input-t1" class="setup-input" placeholder="اسم الفريق الأول (يمين)" value="الفريق الأول">
+                <input type="text" id="input-t1" class="setup-input" placeholder="اسم الفريق الأول (يمين)">
                 <br>
-                <input type="text" id="input-t2" class="setup-input" placeholder="اسم الفريق الثاني (يسار)" value="الفريق الثاني">
+                <input type="text" id="input-t2" class="setup-input" placeholder="اسم الفريق الثاني (يسار)">
                 <br><br>
                 <button class="btn-main" onclick="startSession()">اعتماد وبدء اللعب</button>
             </div>
@@ -263,8 +270,13 @@
                 <div id="q-content" class="q-display"></div>
                 <div id="q-media-container"></div>
                 
+                <div id="q-hint-display" class="hint-display"></div>
+
                 <div id="a-content" class="a-display"></div>
                 
+                <button class="btn-sec" id="btn-show-hint" onclick="showHint()" style="display: none;">تلميح (-50 نقطة)</button>
+                <br>
+
                 <button class="btn-main" id="btn-show-ans" onclick="showAnswer()">عرض الإجابة</button>
                 <button class="btn-sec" id="btn-skip" onclick="closeQuestion(false)">إلغاء (عودة للوحة)</button>
                 
@@ -335,11 +347,20 @@
             return array;
         }
 
+        // إجبار المستخدم على إدخال الأسماء قبل بدء اللعب
         function startSession() {
             if(!ALL_GAMES) { alert("جارِ تحميل الأسئلة، الرجاء الانتظار..."); return; }
             
-            teamNames[0] = document.getElementById('input-t1').value || "الفريق الأول";
-            teamNames[1] = document.getElementById('input-t2').value || "الفريق الثاني";
+            let t1_name = document.getElementById('input-t1').value.trim();
+            let t2_name = document.getElementById('input-t2').value.trim();
+
+            if (t1_name === "" || t2_name === "") {
+                alert("الرجاء إدخال أسماء الفريقين لاعتمادها وبدء اللعب!");
+                return; 
+            }
+            
+            teamNames[0] = t1_name;
+            teamNames[1] = t2_name;
             turn = 0;
 
             document.getElementById('name-t1').innerText = teamNames[0];
@@ -497,6 +518,7 @@
             board.innerHTML = html;
         }
 
+        // حفظ التلميح (hint) داخل نافذة الذاكرة المخصصة للزر
         function createJeopardyBtn(qObj, defaultPts, catName, gameType, idField) {
             if(!qObj) return `<button class="sj-pt-btn used">${defaultPts}</button>`;
             
@@ -509,7 +531,8 @@
                     q: `<div style="font-size:100px; letter-spacing:10px;">${qObj.emojis}</div>`,
                     a: `${qObj.proverb || qObj.answer}<br><br><span style="font-size:32px; color:#555;">${qObj.meaning ? 'المعنى: ' + qObj.meaning : ''}</span>`,
                     pts: pts,
-                    cat: catName
+                    cat: catName,
+                    hint: qObj.hint || "" 
                 };
             } else {
                 window.questionMap[qId] = {
@@ -519,7 +542,8 @@
                     pts: pts,
                     cat: catName,
                     media: qObj.mediaUrl,
-                    mType: qObj.mediaType
+                    mType: qObj.mediaType,
+                    hint: qObj.hint || "" 
                 };
             }
             
@@ -527,6 +551,7 @@
         }
 
         function buildBarraSalfa() {
+            // كود برا السالفة إذا احتجت تستخدمه مجدداً
             sessionLimit = 8;
             const board = document.getElementById('board-content');
             document.getElementById('main-title').innerText = "برا السالفة" + getRoundText('barra_salfa');
@@ -542,7 +567,8 @@
                     q: `<div style="color:var(--text-gray); font-size:40px; line-height: 1.8;">${item.items.join(' - ')}</div>`,
                     a: item.category,
                     pts: 400,
-                    cat: `تصنيف ${i+1}`
+                    cat: `تصنيف ${i+1}`,
+                    hint: item.hint || ""
                 };
                 html += `<button class="card-btn" onclick="openMappedQ('${qId}', this)">تصنيف ${i+1}</button>`;
             });
@@ -572,7 +598,7 @@
                 let finalQ = availableQs.length > 0 ? shuffle(availableQs)[0] : shuffle(matchingQs)[0];
 
                 if(!finalQ) {
-                    finalQ = { question: `اذكر أي شيء أو كلمة تبدأ بحرف ( ${l} )`, answer: "حسب تقييم الحكم للكلمة", points: 200 };
+                    finalQ = { question: `اذكر أي شيء أو كلمة تبدأ بحرف ( ${l} )`, answer: "حسب تقييم الحكم للكلمة", points: 200, hint: "" };
                 }
 
                 const qId = 'hr_' + l;
@@ -581,7 +607,8 @@
                     q: finalQ.question || finalQ.q, 
                     a: finalQ.answer || finalQ.a, 
                     pts: finalQ.points || 200, 
-                    cat: `حرف الـ ${l}` 
+                    cat: `حرف الـ ${l}`,
+                    hint: finalQ.hint || ""
                 };
                 
                 html += `<button class="huroof-btn" onclick="openMappedQ('${qId}', this)">${l}</button>`;
@@ -611,6 +638,17 @@
                 mediaContainer.style.display = 'none';
             }
 
+            // إخفاء صندوق التلميح السابق وإعادة تعيين الزر
+            document.getElementById('q-hint-display').style.display = 'none';
+            document.getElementById('q-hint-display').innerHTML = '';
+            
+            // إظهار زر التلميح فقط إذا كان السؤال يحتوي على تلميح
+            if (qData.hint && qData.hint.trim() !== "") {
+                document.getElementById('btn-show-hint').style.display = 'inline-block';
+            } else {
+                document.getElementById('btn-show-hint').style.display = 'none';
+            }
+
             document.getElementById('a-content').style.display = 'none';
             document.getElementById('referee-box').style.display = 'none';
             document.getElementById('btn-show-ans').style.display = 'inline-block';
@@ -619,10 +657,35 @@
             navTo('screen-question');
         }
 
+        // دالة التلميح الجديدة
+        function showHint() {
+            const qData = window.questionMap[activeQ_ID];
+            if (!qData || !qData.hint) return;
+
+            let confirmHint = confirm("هل أنت متأكد من عرض التلميح؟ سيتم خصم 50 نقطة من قيمة هذا السؤال.");
+            if (confirmHint) {
+                // خصم 50 نقطة من قيمة السؤال ومنعها من أن تكون بالسالب
+                qData.pts = Math.max(0, qData.pts - 50); 
+                
+                // تحديث واجهة النقاط الحالية
+                document.getElementById('q-pts-val').innerText = qData.pts;
+                document.getElementById('q-meta').innerHTML = `${qData.cat} - (النقاط: ${qData.pts})`;
+                
+                // عرض نص التلميح
+                const hintDisplay = document.getElementById('q-hint-display');
+                hintDisplay.innerHTML = "💡 <b>تلميح:</b> " + qData.hint;
+                hintDisplay.style.display = 'block';
+                
+                // إخفاء زر التلميح حتى لا يخصم مرة أخرى
+                document.getElementById('btn-show-hint').style.display = 'none';
+            }
+        }
+
         function showAnswer() {
             document.getElementById('a-content').style.display = 'block';
             document.getElementById('btn-show-ans').style.display = 'none';
             document.getElementById('btn-skip').style.display = 'none';
+            document.getElementById('btn-show-hint').style.display = 'none'; // إخفاء زر التلميح بعد كشف الجواب
             document.getElementById('referee-box').style.display = 'block';
         }
 
