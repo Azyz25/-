@@ -3,89 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>العاب جماعية</title>
+    <title>الديوانية الرقمية</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <style>
         /* ================= 1. المتغيرات والأساسيات ================= */
         :root {
-            --primary-orange: #DE6241;
-            --bg-page: #F5F2E9;
-            --bg-board: #F1EFE3;
-            --bg-btn-white: #FCFAEF;
-            --bg-answer: #FFFEF5;
-            --text-dark: #222222;
-            --text-gray: #666666;
-            --font-main: 'Tajawal', sans-serif;
+            --primary-orange: #DE6241; --bg-page: #F5F2E9; --bg-board: #F1EFE3;
+            --bg-btn-white: #FCFAEF; --bg-answer: #FFFEF5; --text-dark: #222222;
+            --text-gray: #666666; --font-main: 'Tajawal', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
         body { background-color: var(--bg-page); color: var(--text-dark); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* ================= 2. شاشة التحميل (الأنيميشن المريح) ================= */
-        #loading-screen {
-            position: fixed; inset: 0; z-index: 9999;
-            display: flex; justify-content: center; align-items: center; overflow: hidden;
-            animation: bgToOrange 6s forwards;
-            transition: opacity 1s ease-in-out;
-        }
+        /* شاشة التحميل والشعار */
+        #loading-screen { position: fixed; inset: 0; z-index: 9999; display: flex; justify-content: center; align-items: center; overflow: hidden; animation: bgToOrange 6s forwards; transition: opacity 1s ease-in-out; }
+        .logo-img { width: 150px; height: 150px; object-fit: contain; transform-origin: center center; animation: smoothPulseToExplode 6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes smoothPulseToExplode { 0% { transform: scale(1); opacity: 1; } 12% { transform: scale(1.8); opacity: 1; } 24% { transform: scale(1); opacity: 1; } 36% { transform: scale(1.8); opacity: 1; } 48% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.8); opacity: 1; } 75% { transform: scale(1); opacity: 1; } 100% { transform: scale(1000); opacity: 0; } }
+        @keyframes bgToOrange { 0%, 75% { background-color: var(--bg-page); } 95%, 100% { background-color: var(--primary-orange); } }
 
-        .logo-img {
-            width: 150px; height: 150px;
-            object-fit: contain;
-            transform-origin: center center;
-            animation: smoothPulseToExplode 6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes smoothPulseToExplode {
-            0%      { transform: scale(1); opacity: 1; }
-            12%     { transform: scale(1.8); opacity: 1; } 
-            24%     { transform: scale(1); opacity: 1; }
-            36%     { transform: scale(1.8); opacity: 1; } 
-            48%     { transform: scale(1); opacity: 1; }
-            60%     { transform: scale(1.8); opacity: 1; } 
-            75%     { transform: scale(1); opacity: 1; }   
-            100%    { transform: scale(1000); opacity: 0; } 
-        }
-
-        @keyframes bgToOrange {
-            0%, 75% { background-color: var(--bg-page); }
-            95%, 100% { background-color: var(--primary-orange); }
-        }
-
-        /* ================= 3. التخطيط العلوي ================= */
+        /* التخطيط العلوي */
         #app-container { opacity: 0; flex: 1; display: flex; flex-direction: column; transition: opacity 0.5s ease; }
         .top-line { width: 100%; height: 12px; background-color: var(--primary-orange); }
-        
         header { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; position: relative; }
-        .header-spacer { width: 120px; }
+        
+        /* كود الجلسة في الهيدر */
+        .room-code-badge { background: #2c3e50; color: white; padding: 8px 20px; border-radius: 8px; font-size: 22px; font-weight: bold; letter-spacing: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none;}
+        .room-code-badge span { color: #f1c40f; }
+
         .header-title { flex: 1; text-align: center; font-size: 28px; font-weight: 800; }
-        .header-left { display: flex; align-items: center; gap: 20px; width: 120px; justify-content: flex-end; }
+        .header-left { display: flex; align-items: center; gap: 20px; justify-content: flex-end; }
         .header-logo-img { width: 50px; height: 50px; object-fit: contain; }
         .btn-icon { background: none; border: none; cursor: pointer; color: var(--primary-orange); font-size: 30px; transition: transform 0.2s; }
-        .btn-icon:hover { transform: scale(1.1); }
         
+        /* التابات */
         .tabs-container { display: flex; justify-content: center; gap: 40px; padding-top: 10px; transition: all 0.4s; overflow: hidden; max-height: 80px;}
         .tabs-container.hidden { max-height: 0; opacity: 0; padding: 0;}
         .tab { font-size: 22px; font-weight: 700; color: var(--text-gray); cursor: pointer; padding: 10px 20px; border-bottom: 3px solid transparent; transition: 0.3s; }
         .tab.active { color: var(--primary-orange); border-bottom: 3px solid var(--primary-orange); }
 
-        /* ================= 4. لوحة النتائج ================= */
+        /* لوحة النتائج */
         .game-area { flex: 1; background-color: var(--bg-board); margin: 20px 40px 40px 40px; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; align-items: center; transition: all 0.3s; }
         .game-area.expanded { margin: 0; border-radius: 0; min-height: calc(100vh - 12px); }
-
         .dashboard { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: rgba(255,255,255,0.6); padding: 15px 30px; border-radius: 10px; border: 1px solid #e0dfd5;}
         .team-info { display: flex; align-items: center; gap: 15px; font-size: 24px; font-weight: 700; }
         .score-val { color: var(--primary-orange); font-size: 36px; font-weight: 800; min-width: 70px; text-align: center; }
         .score-adjust { display: flex; flex-direction: column; gap: 5px; }
         .score-adjust button { background: white; border: 1px solid #ccc; border-radius: 4px; width: 30px; height: 25px; cursor: pointer; font-weight: bold; color: var(--primary-orange); transition: 0.2s;}
-        
         .turn-badge { font-size: 24px; font-weight: 700; background: var(--primary-orange); color: white; padding: 8px 30px; border-radius: 30px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); } 
 
-        /* ================= 5. الشاشات ================= */
+        /* الشاشات */
         .screen { display: none; width: 100%; max-width: 1200px; text-align: center; animation: fadeUp 0.4s ease forwards; }
         .screen.active { display: block; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -95,109 +69,43 @@
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(222, 98, 65, 0.4); }
         .btn-sec { background: transparent; border: 2px solid var(--primary-orange); color: var(--primary-orange); padding: 15px 40px; font-size: 22px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; margin: 10px; }
 
-        /* ================= 6. تخطيط الجيوباردي ================= */
+        /* الجيوباردي */
         .progress-text { font-size: 20px; font-weight: bold; color: var(--text-gray); margin-bottom: 20px; }
         .progress-text span { color: var(--primary-orange); font-size: 24px; }
-
         .sj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
         .sj-block { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.4); padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);}
         .sj-col { display: flex; flex-direction: column; gap: 12px; }
         .sj-cat-name { font-size: 24px; font-weight: 800; color: #333; text-align: center; flex: 1; padding: 0 10px; line-height: 1.3;}
-        
-        .sj-pt-btn { 
-            background: var(--bg-btn-white); color: var(--text-dark); border: 2px solid #eaeaea; 
-            width: 80px; height: 45px; border-radius: 25px; font-size: 22px; font-weight: 800; 
-            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; 
-        }
+        .sj-pt-btn { background: var(--bg-btn-white); color: var(--text-dark); border: 2px solid #eaeaea; width: 80px; height: 45px; border-radius: 25px; font-size: 22px; font-weight: 800; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
         .sj-pt-btn:hover { background: var(--primary-orange); color: white; border-color: var(--primary-orange); transform: scale(1.05); }
         .sj-pt-btn.used { opacity: 0.2; pointer-events: none; background: #ccc; border-color: #ccc;} 
 
-        /* ================= 7. الألعاب الأخرى ================= */
-        .generic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card-btn { background: var(--bg-btn-white); border: 2px solid #e0dfd5; padding: 25px; font-size: 26px; font-weight: 700; border-radius: 12px; cursor: pointer; color: var(--text-dark); transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
-        .card-btn:hover { border-color: var(--primary-orange); color: var(--primary-orange); transform: translateY(-3px);}
-        .card-btn.used { opacity: 0.3; pointer-events: none; background: #ccc; border-color: #bbb; }
-
+        /* الحروف */
         .huroof-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; direction: rtl; margin-top: 20px; }
         .huroof-btn { background: var(--bg-btn-white); border: 1px solid #ddd; font-size: 34px; font-weight: 800; padding: 15px 0; border-radius: 8px; cursor: pointer; transition: 0.2s; }
         .huroof-btn:hover { background: var(--primary-orange); color: white; border-color: var(--primary-orange); }
         .huroof-btn.used { opacity: 0.2; pointer-events: none; background: #ccc; }
 
-        /* ================= 8. شاشة السؤال والتلميح ================= */
+        /* شاشة السؤال */
         .q-display { font-size: 45px; font-weight: 800; margin: 30px 0; color: var(--text-dark); line-height: 1.5; }
         .q-media { max-width: 100%; max-height: 350px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
-        .a-display { 
-            font-size: 40px; color: var(--primary-orange); font-weight: 800; 
-            margin: 30px 0; display: none; background: var(--bg-answer); 
-            padding: 25px; border-radius: 12px; border: 2px dashed var(--primary-orange);
-            line-height: 1.6;
-        }
-
-        .hint-display {
-            font-size: 28px; font-weight: 700; color: #d35400; 
-            margin: 20px 0; display: none; background: #fff3e0; 
-            padding: 20px; border-radius: 12px; border: 1px solid #e67e22;
-            line-height: 1.5; text-align: center;
-        }
+        .a-display { font-size: 40px; color: var(--primary-orange); font-weight: 800; margin: 30px 0; display: none; background: var(--bg-answer); padding: 25px; border-radius: 12px; border: 2px dashed var(--primary-orange); line-height: 1.6;}
+        .hint-display { font-size: 28px; font-weight: 700; color: #d35400; margin: 20px 0; display: none; background: #fff3e0; padding: 20px; border-radius: 12px; border: 1px solid #e67e22; line-height: 1.5; text-align: center;}
         
         .referee-box { margin-top: 40px; padding-top: 30px; border-top: 2px solid #ddd; display: none; }
         .referee-title { font-size: 26px; margin-bottom: 20px; font-weight: 700; color: var(--text-gray); }
 
-        /* ================= 9. التجاوب (Responsive Design) ================= */
-        @media screen and (max-width: 1024px) {
-            .sj-grid { grid-template-columns: repeat(2, 1fr); }
-            .dashboard { flex-direction: column; gap: 20px; text-align: center; }
-            .turn-badge { order: -1; }
+        /* ================= شاشة البازر المنبثقة (الحكم) ================= */
+        #buzzer-alert-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center; backdrop-filter: blur(5px);
         }
+        #buzzer-player-name { font-size: 80px; font-weight: 900; color: #f1c40f; text-shadow: 0 0 20px rgba(241,196,15,0.5); margin: 20px 0; }
+        .buzzer-controls button { margin: 15px; font-size: 24px; padding: 15px 40px; }
+        .btn-correct { background: #27ae60; border: none; color: white; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .btn-wrong { background: #c0392b; border: none; color: white; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-        @media screen and (max-width: 768px) {
-            header { padding: 15px; flex-direction: column; gap: 15px; }
-            .header-spacer { display: none; }
-            .header-left { width: 100%; justify-content: space-between; flex-direction: row-reverse; }
-            .header-title { font-size: 24px; text-align: center; width: 100%; }
-            
-            .tabs-container { gap: 10px; flex-wrap: wrap; max-height: 150px; padding-bottom: 10px; }
-            .tabs-container.hidden { max-height: 0; }
-            .tab { font-size: 18px; padding: 8px 12px; }
-
-            .game-area { margin: 10px; padding: 15px; }
-
-            .sj-grid { grid-template-columns: 1fr; }
-            .sj-block { padding: 12px; }
-            .sj-cat-name { font-size: 20px; }
-            .sj-pt-btn { width: 60px; height: 40px; font-size: 18px; }
-
-            .generic-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-            .card-btn { padding: 15px; font-size: 20px; }
-
-            .huroof-grid { grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); }
-            .huroof-btn { font-size: 24px; padding: 10px 0; }
-
-            .q-display { font-size: 28px; margin: 15px 0; }
-            .a-display, .hint-display { font-size: 24px; padding: 15px; }
-            #q-meta { font-size: 20px !important; }
-
-            #screen-setup h1 { font-size: 32px !important; }
-            .setup-input { width: 90%; max-width: 300px; }
-            .btn-main, .btn-sec { font-size: 18px; padding: 12px 20px; width: 90%; max-width: 300px; margin: 10px auto; display: block; }
-            
-            #screen-end h1 { font-size: 40px !important; }
-            #winner-announcement { font-size: 28px !important; }
-
-            .referee-box > div { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-            .referee-box > div > button { width: 100%; max-width: 300px; margin: 0; }
-        }
-
-        @media screen and (max-width: 480px) {
-            .team-info { font-size: 18px; gap: 10px; flex-direction: column; }
-            .score-val { font-size: 28px; min-width: 50px; }
-            .score-adjust { flex-direction: row; }
-            .turn-badge { font-size: 18px; padding: 6px 20px; }
-            .q-display { font-size: 22px; }
-            .a-display, .hint-display { font-size: 20px; }
-            .referee-title { font-size: 20px; }
-        }
     </style>
 </head>
 <body>
@@ -206,21 +114,32 @@
         <img src="za.png" class="logo-img" id="loading-logo" alt="ZA Logo">
     </div>
 
+    <div id="buzzer-alert-overlay">
+        <h2 style="font-size: 40px;">الأسرع في الضغط هو:</h2>
+        <div id="buzzer-player-name">الاسم</div>
+        <h3 style="font-size: 24px; margin-bottom: 30px; font-weight: normal;">هل إجابته صحيحة؟ (حدد الفريق اللي ينتمي له)</h3>
+        <div>
+            <button class="buzzer-controls btn-correct" onclick="judgeBuzzer(true, 0)" id="btn-buzzer-t1">إجابة صح (نقاط للفريق 1)</button>
+            <button class="buzzer-controls btn-correct" onclick="judgeBuzzer(true, 1)" id="btn-buzzer-t2">إجابة صح (نقاط للفريق 2)</button>
+        </div>
+        <button class="buzzer-controls btn-wrong" onclick="judgeBuzzer(false, -1)">إجابة خاطئة (إقصاء + إتاحة الزر للباقين)</button>
+    </div>
+
     <div id="app-container">
         <div class="top-line"></div>
         
         <header>
+            <div class="room-code-badge" id="room-code-display">كود الجلسة: <span id="code-val">----</span></div>
+            <div class="header-title" id="main-title">الديوانية الرقمية</div>
             <div class="header-left">
                 <button class="btn-icon" onclick="toggleFullscreen()" title="تكبير الشاشة">⛶</button>
                 <img src="za.png" class="header-logo-img" alt="ZA Logo">
             </div>
-            <div class="header-title" id="main-title">العاب جماعية</div>
-            <div class="header-spacer"></div>
         </header>
 
         <nav class="tabs-container" id="tabs-container">
             <div class="tab" onclick="switchGame('huroof_waloof')">حروف و الوف</div>
-            <div class="tab" onclick="switchGame('emoji')">امثال بالايموجي</div>
+            <div class="tab" onclick="switchGame('emoji')">الايـمـوجي</div>
             <div class="tab active" onclick="switchGame('seen_jeem')">سين جيم</div>
         </nav>
 
@@ -235,9 +154,7 @@
                     </div>
                     <div class="score-val" id="score-t1">0</div>
                 </div>
-                
                 <div class="turn-badge" id="turn-badge">دور الاختيار: الفريق الأيمن</div>
-                
                 <div class="team-info">
                     <div class="score-val" id="score-t2">0</div>
                     <div class="score-adjust">
@@ -254,7 +171,7 @@
                 <br>
                 <input type="text" id="input-t2" class="setup-input" placeholder="اسم الفريق الثاني (يسار)">
                 <br><br>
-                <button class="btn-main" onclick="startSession()">اعتماد وبدء اللعب</button>
+                <button class="btn-main" onclick="startSession()">اعتماد وإنشاء الجلسة</button>
             </div>
 
             <div id="screen-board" class="screen">
@@ -268,15 +185,12 @@
                 <div id="q-meta" style="font-size: 26px; font-weight: 700; color: var(--text-gray); margin-bottom: 20px;"></div>
                 <div id="q-content" class="q-display"></div>
                 <div id="q-media-container"></div>
-                
                 <div id="q-hint-display" class="hint-display"></div>
-
                 <div id="a-content" class="a-display"></div>
                 
                 <button class="btn-sec" id="btn-show-hint" onclick="showHint()" style="display: none;">تلميح (-50 نقطة)</button>
                 <br>
-
-                <button class="btn-main" id="btn-show-ans" onclick="showAnswer()">عرض الإجابة</button>
+                <button class="btn-main" id="btn-show-ans" onclick="showAnswer()">عرض الإجابة يدوياً</button>
                 <button class="btn-sec" id="btn-skip" onclick="closeQuestion(false)">إلغاء (عودة للوحة)</button>
                 
                 <div class="referee-box" id="referee-box">
@@ -301,21 +215,37 @@
     <script src="data.js"></script>
 
     <script>
+        // إعدادات الفايربيس للديوانية (Host)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA",
+            authDomain: "appd-75fbf.firebaseapp.com",
+            databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com",
+            projectId: "appd-75fbf",
+            storageBucket: "appd-75fbf.appspot.com",
+            messagingSenderId: "38346789995",
+            appId: "1:38346789995:web:4bc14686f2758164dfcd2e",
+            measurementId: "G-JDLLQ5P4YR"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        let currentRoomCode = "";
+        let activeBuzzerPlayer = ""; // يخزن اسم اللاعب اللي ضغط
+
         const ALL_GAMES = DATA_BANK.games;
         const alphabet = "أبتثجحخدذرزسشصضطظعغفقكلمنهوي".split('');
         window.questionMap = {};
 
         let teamNames = ["", ""];
-        let gameScores = { 'seen_jeem': [0, 0], 'emoji': [0, 0], 'barra_salfa': [0, 0], 'huroof_waloof': [0, 0] };
+        let gameScores = { 'seen_jeem': [0, 0], 'emoji': [0, 0], 'huroof_waloof': [0, 0] };
         let turn = 0; 
         let activeGame = 'seen_jeem';
         let sessionLimit = 0;
         let itemsUsed = 0;
         let activeQ_ID = null; 
-        let isSessionStarted = false; // القفل البرمجي للتابات
+        let isSessionStarted = false; 
 
-        if(!localStorage.getItem('diw_used')) localStorage.setItem('diw_used', JSON.stringify({ seen_jeem: [], emoji: [], barra_salfa: [], huroof_waloof: [] }));
-        if(!localStorage.getItem('diw_rounds')) localStorage.setItem('diw_rounds', JSON.stringify({ seen_jeem: 1, emoji: 1, barra_salfa: 1, huroof_waloof: 1 }));
+        if(!localStorage.getItem('diw_used')) localStorage.setItem('diw_used', JSON.stringify({ seen_jeem: [], emoji: [], huroof_waloof: [] }));
+        if(!localStorage.getItem('diw_rounds')) localStorage.setItem('diw_rounds', JSON.stringify({ seen_jeem: 1, emoji: 1, huroof_waloof: 1 }));
 
         window.onload = async () => {
             setTimeout(() => {
@@ -325,11 +255,9 @@
             }, 5500); 
         };
 
-        let isTabsHidden = false;
         function toggleFullscreen() {
-            isTabsHidden = !isTabsHidden;
-            document.getElementById('tabs-container').classList.toggle('hidden', isTabsHidden);
-            document.getElementById('game-area').classList.toggle('expanded', isTabsHidden);
+            document.getElementById('tabs-container').classList.toggle('hidden');
+            document.getElementById('game-area').classList.toggle('expanded');
         }
 
         function navTo(screenId) {
@@ -347,7 +275,7 @@
             return array;
         }
 
-        // دالة بدء الجلسة مع التأكد الإجباري من الأسماء
+        // إنشاء الجلسة في الفايربيس
         function startSession() {
             if(!ALL_GAMES) { alert("جارِ تحميل الأسئلة، الرجاء الانتظار..."); return; }
             
@@ -356,10 +284,10 @@
 
             if (t1_name === "" || t2_name === "") {
                 alert("الرجاء إدخال أسماء الفريقين لاعتمادها وبدء اللعب!");
-                return; // يمنع بدء اللعبة حتى يتم كتابة الأسماء
+                return; 
             }
             
-            isSessionStarted = true; // فتح القفل للتابات
+            isSessionStarted = true; 
             teamNames[0] = t1_name;
             teamNames[1] = t2_name;
             turn = 0;
@@ -368,6 +296,30 @@
             document.getElementById('name-t2').innerText = teamNames[1];
             document.getElementById('btn-aw-t1').innerText = teamNames[0];
             document.getElementById('btn-aw-t2').innerText = teamNames[1];
+            document.getElementById('btn-buzzer-t1').innerText = "إجابة صح (نقاط لـ " + teamNames[0] + ")";
+            document.getElementById('btn-buzzer-t2').innerText = "إجابة صح (نقاط لـ " + teamNames[1] + ")";
+            
+            // توليد كود الغرفة للفايربيس
+            currentRoomCode = Math.floor(1000 + Math.random() * 9000).toString();
+            document.getElementById('code-val').innerText = currentRoomCode;
+            document.getElementById('room-code-display').style.display = 'block';
+
+            // إنشاء الغرفة
+            db.ref('rooms/' + currentRoomCode).set({
+                status: 'waiting', // waiting, question_active
+                buzzed_by: '',
+                wrong_answers: {}
+            });
+
+            // الاستماع لمين ضغط الزر أول
+            db.ref('rooms/' + currentRoomCode + '/buzzed_by').on('value', (snapshot) => {
+                let playerWhoBuzzed = snapshot.val();
+                if(playerWhoBuzzed && playerWhoBuzzed !== "") {
+                    activeBuzzerPlayer = playerWhoBuzzed;
+                    document.getElementById('buzzer-player-name').innerText = activeBuzzerPlayer;
+                    document.getElementById('buzzer-alert-overlay').style.display = 'flex';
+                }
+            });
             
             document.getElementById('dashboard').style.display = 'flex';
             switchGame('seen_jeem');
@@ -396,20 +348,16 @@
         function getUnusedQuestions(gameKey, fullBank, requiredCount, idField) {
             let usedObj = JSON.parse(localStorage.getItem('diw_used'));
             let usedList = usedObj[gameKey];
-            
             let available = fullBank.filter(item => !usedList.includes(item[idField]));
 
             if (available.length < requiredCount) {
                 usedObj[gameKey] = [];
                 localStorage.setItem('diw_used', JSON.stringify(usedObj));
-                
                 let roundsObj = JSON.parse(localStorage.getItem('diw_rounds'));
                 roundsObj[gameKey]++;
                 localStorage.setItem('diw_rounds', JSON.stringify(roundsObj));
-                
                 available = fullBank.slice(); 
             }
-
             return shuffle(available).slice(0, requiredCount);
         }
 
@@ -427,28 +375,20 @@
         }
 
         function switchGame(gameKey) {
-            // القفل البرمجي: يمنع اختيار تاب قبل تسجيل الأسماء
-            if (!isSessionStarted) {
-                alert("الرجاء إدخال أسماء الفريقين واعتمادها قبل اختيار اللعبة!");
-                return;
-            }
+            if (!isSessionStarted) { alert("الرجاء إدخال أسماء الفريقين واعتمادها قبل اختيار اللعبة!"); return; }
             if(!ALL_GAMES) return;
 
             activeGame = gameKey;
             itemsUsed = 0;
             window.questionMap = {};
 
-            document.querySelectorAll('.tab').forEach(t => {
-                t.classList.remove('active');
-                if(t.getAttribute('onclick').includes(gameKey)) t.classList.add('active');
-            });
+            document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active'); if(t.getAttribute('onclick').includes(gameKey)) t.classList.add('active'); });
 
             updateScoreUI(); 
             updateTurnUI();
 
             if (gameKey === 'seen_jeem') buildSeenJeem();
             else if (gameKey === 'emoji') buildEmoji();
-            else if (gameKey === 'barra_salfa') buildBarraSalfa();
             else if (gameKey === 'huroof_waloof') buildHuroof();
 
             updateProgress();
@@ -460,8 +400,7 @@
             const board = document.getElementById('board-content');
             document.getElementById('main-title').innerText = "سين جيم" + getRoundText('seen_jeem');
             
-            let fullQs = ALL_GAMES.seen_jeem.questions;
-            let qs = getUnusedQuestions('seen_jeem', fullQs, 36, 'question');
+            let qs = getUnusedQuestions('seen_jeem', ALL_GAMES.seen_jeem.questions, 36, 'question');
             
             let q200 = shuffle(qs.filter(q => q.points === 200 || q.difficulty === "CLASS_200"));
             let q400 = shuffle(qs.filter(q => q.points === 400 || q.difficulty === "CLASS_400"));
@@ -473,7 +412,6 @@
 
             let html = '<div class="sj-grid">';
             let catNames = ["فئة 1", "فئة 2", "فئة 3", "فئة 4", "فئة 5", "فئة 6"];
-            
             for(let i=0; i<6; i++) {
                 html += `<div class="sj-block"><div class="sj-col">`;
                 html += createJeopardyBtn(q200.pop(), 200, catNames[i], 'seen_jeem', 'question');
@@ -507,7 +445,6 @@
 
             let html = '<div class="sj-grid">';
             let catNames = ["لغز 1", "لغز 2", "لغز 3", "لغز 4", "لغز 5", "لغز 6"];
-            
             for(let i=0; i<6; i++) {
                 html += `<div class="sj-block"><div class="sj-col">`;
                 html += createJeopardyBtn(q200.pop(), 200, catNames[i], 'emoji', 'emojis');
@@ -523,99 +460,38 @@
             board.innerHTML = html;
         }
 
-        function createJeopardyBtn(qObj, defaultPts, catName, gameType, idField) {
-            if(!qObj) return `<button class="sj-pt-btn used">${defaultPts}</button>`;
-            
+        function createJeopardyBtn(qObj, forcedPts, catName, gameType, idField) {
+            if(!qObj) return `<button class="sj-pt-btn used" style="opacity:0; pointer-events:none;">${forcedPts}</button>`;
             const qId = 'id_' + Math.random().toString(36).substr(2, 9);
-            let pts = qObj.points || defaultPts;
-
+            
             if(gameType === 'emoji') {
-                window.questionMap[qId] = {
-                    dbId: qObj[idField],
-                    q: `<div style="font-size:100px; letter-spacing:10px;">${qObj.emojis}</div>`,
-                    a: `${qObj.proverb || qObj.answer}<br><br><span style="font-size:32px; color:#555;">${qObj.meaning ? 'المعنى: ' + qObj.meaning : ''}</span>`,
-                    pts: pts,
-                    cat: catName,
-                    hint: qObj.hint || "" 
-                };
+                window.questionMap[qId] = { dbId: qObj[idField], q: `<div style="font-size:100px; letter-spacing:10px;">${qObj.emojis}</div>`, a: `${qObj.proverb || qObj.answer}<br><br><span style="font-size:32px; color:#555;">${qObj.meaning ? 'المعنى: ' + qObj.meaning : ''}</span>`, pts: forcedPts, cat: catName, hint: qObj.hint || "" };
             } else {
-                window.questionMap[qId] = {
-                    dbId: qObj[idField],
-                    q: qObj.question || qObj.q,
-                    a: qObj.correctAnswer || qObj.a,
-                    pts: pts,
-                    cat: catName,
-                    media: qObj.mediaUrl,
-                    mType: qObj.mediaType,
-                    hint: qObj.hint || "" 
-                };
+                window.questionMap[qId] = { dbId: qObj[idField], q: qObj.question || qObj.q, a: qObj.correctAnswer || qObj.a, pts: forcedPts, cat: catName, media: qObj.mediaUrl, mType: qObj.mediaType, hint: qObj.hint || "" };
             }
-            
-            return `<button class="sj-pt-btn" onclick="openMappedQ('${qId}', this)">${pts}</button>`;
-        }
-
-        function buildBarraSalfa() {
-            sessionLimit = 8;
-            const board = document.getElementById('board-content');
-            document.getElementById('main-title').innerText = "برا السالفة" + getRoundText('barra_salfa');
-
-            let fullQs = ALL_GAMES.barra_salfa.categories || ALL_GAMES.barra_salfa;
-            let items = getUnusedQuestions('barra_salfa', fullQs, 8, 'category');
-            
-            let html = `<div class="generic-grid">`;
-            items.forEach((item, i) => {
-                const qId = 'bs_' + i;
-                window.questionMap[qId] = {
-                    dbId: item.category,
-                    q: `<div style="color:var(--text-gray); font-size:40px; line-height: 1.8;">${item.items.join(' - ')}</div>`,
-                    a: item.category,
-                    pts: 400,
-                    cat: `تصنيف ${i+1}`,
-                    hint: item.hint || ""
-                };
-                html += `<button class="card-btn" onclick="openMappedQ('${qId}', this)">تصنيف ${i+1}</button>`;
-            });
-            html += `</div>`;
-            board.innerHTML = html;
+            return `<button class="sj-pt-btn" onclick="openMappedQ('${qId}', this)">${forcedPts}</button>`;
         }
 
         function buildHuroof() {
             sessionLimit = 28;
             const board = document.getElementById('board-content');
             document.getElementById('main-title').innerText = "حروف وألوف" + getRoundText('huroof_waloof');
-            
             let html = `<div class="huroof-grid">`;
             
             alphabet.forEach(l => {
                 let matchingQs = [];
-                
-                if(Array.isArray(ALL_GAMES.huroof_waloof)) {
-                    matchingQs = ALL_GAMES.huroof_waloof.filter(x => (x.answer || x.a).startsWith(l) || (x.answer || x.a).startsWith(l.replace('أ','ا')));
-                } else if (ALL_GAMES.huroof_waloof.letters) {
-                    matchingQs = ALL_GAMES.huroof_waloof.letters[l] || [];
-                }
+                if(Array.isArray(ALL_GAMES.huroof_waloof)) matchingQs = ALL_GAMES.huroof_waloof.filter(x => (x.answer || x.a).startsWith(l) || (x.answer || x.a).startsWith(l.replace('أ','ا')));
+                else if (ALL_GAMES.huroof_waloof.letters) matchingQs = ALL_GAMES.huroof_waloof.letters[l] || [];
 
                 let usedObj = JSON.parse(localStorage.getItem('diw_used'));
                 let availableQs = matchingQs.filter(x => !usedObj['huroof_waloof'].includes(x.question || x.q));
-                
                 let finalQ = availableQs.length > 0 ? shuffle(availableQs)[0] : shuffle(matchingQs)[0];
 
-                if(!finalQ) {
-                    finalQ = { question: `اذكر أي شيء أو كلمة تبدأ بحرف ( ${l} )`, answer: "حسب تقييم الحكم للكلمة", points: 200, hint: "" };
-                }
+                if(!finalQ) finalQ = { question: `اذكر أي شيء أو كلمة تبدأ بحرف ( ${l} )`, answer: "حسب تقييم الحكم للكلمة", points: 200, hint: "" };
 
                 const qId = 'hr_' + l;
-                window.questionMap[qId] = { 
-                    dbId: finalQ.question || finalQ.q, 
-                    q: finalQ.question || finalQ.q, 
-                    a: finalQ.answer || finalQ.a, 
-                    pts: finalQ.points || 200, 
-                    cat: `حرف الـ ${l}`,
-                    hint: finalQ.hint || ""
-                };
-                
+                window.questionMap[qId] = { dbId: finalQ.question || finalQ.q, q: finalQ.question || finalQ.q, a: finalQ.answer || finalQ.a, pts: finalQ.points || 200, cat: `حرف الـ ${l}`, hint: finalQ.hint || "" };
                 html += `<button class="huroof-btn" onclick="openMappedQ('${qId}', this)">${l}</button>`;
-                
             });
             html += `</div>`;
             board.innerHTML = html;
@@ -634,52 +510,54 @@
             document.getElementById('q-pts-val').innerText = qData.pts;
 
             const mediaContainer = document.getElementById('q-media-container');
-            if(qData.mType === 'image' && qData.media) {
-                mediaContainer.innerHTML = `<img src="${qData.media}" class="q-media" alt="صورة">`;
-                mediaContainer.style.display = 'block';
-            } else {
-                mediaContainer.style.display = 'none';
-            }
+            if(qData.mType === 'image' && qData.media) { mediaContainer.innerHTML = `<img src="${qData.media}" class="q-media" alt="صورة">`; mediaContainer.style.display = 'block'; } 
+            else { mediaContainer.style.display = 'none'; }
 
-            // إخفاء صندوق التلميح السابق وإعادة تعيين الزر
             document.getElementById('q-hint-display').style.display = 'none';
-            document.getElementById('q-hint-display').innerHTML = '';
-            
-            // إظهار زر التلميح فقط إذا كان السؤال يحتوي على تلميح
-            if (qData.hint && qData.hint.trim() !== "") {
-                document.getElementById('btn-show-hint').style.display = 'inline-block';
-            } else {
-                document.getElementById('btn-show-hint').style.display = 'none';
-            }
+            if (qData.hint && qData.hint.trim() !== "") document.getElementById('btn-show-hint').style.display = 'inline-block';
+            else document.getElementById('btn-show-hint').style.display = 'none';
 
             document.getElementById('a-content').style.display = 'none';
             document.getElementById('referee-box').style.display = 'none';
             document.getElementById('btn-show-ans').style.display = 'inline-block';
             document.getElementById('btn-skip').style.display = 'inline-block';
 
+            // تفعيل البازر في الفايربيس (الجوالات تصير حمراء ومتاحة للضغط)
+            if(isSessionStarted) {
+                db.ref('rooms/' + currentRoomCode).update({ status: 'question_active', buzzed_by: '', wrong_answers: {} });
+            }
+
             navTo('screen-question');
         }
 
-        // دالة التلميح
+        // دالة الحكم لما يطلع البوب أب (هل الأسرع جاوب صح ولا غلط؟)
+        function judgeBuzzer(isCorrect, teamIndex) {
+            document.getElementById('buzzer-alert-overlay').style.display = 'none'; // نخفي التنبيه
+
+            if (isCorrect) {
+                // إذا صح، نعرض الإجابة ونعطيه النقاط ونروح للسؤال اللي بعده
+                showAnswer();
+                awardPoints(teamIndex);
+            } else {
+                // إذا خطأ، نسجل اسمه بقائمة المحرومين في الفايربيس عشان جواله يتقفل
+                let updates = {};
+                updates['wrong_answers/' + activeBuzzerPlayer] = true;
+                updates['buzzed_by'] = ''; // نفتح الزر للباقين
+                db.ref('rooms/' + currentRoomCode).update(updates);
+            }
+        }
+
         function showHint() {
             const qData = window.questionMap[activeQ_ID];
             if (!qData || !qData.hint) return;
-
             let confirmHint = confirm("هل أنت متأكد من عرض التلميح؟ سيتم خصم 50 نقطة من قيمة هذا السؤال.");
             if (confirmHint) {
-                // خصم 50 نقطة من قيمة السؤال ومنعها من أن تكون بالسالب
                 qData.pts = Math.max(0, qData.pts - 50); 
-                
-                // تحديث واجهة النقاط الحالية
                 document.getElementById('q-pts-val').innerText = qData.pts;
                 document.getElementById('q-meta').innerHTML = `${qData.cat} - (النقاط: ${qData.pts})`;
-                
-                // عرض نص التلميح
                 const hintDisplay = document.getElementById('q-hint-display');
                 hintDisplay.innerHTML = "💡 <b>تلميح:</b> " + qData.hint;
                 hintDisplay.style.display = 'block';
-                
-                // إخفاء زر التلميح حتى لا يخصم مرة أخرى
                 document.getElementById('btn-show-hint').style.display = 'none';
             }
         }
@@ -688,8 +566,13 @@
             document.getElementById('a-content').style.display = 'block';
             document.getElementById('btn-show-ans').style.display = 'none';
             document.getElementById('btn-skip').style.display = 'none';
-            document.getElementById('btn-show-hint').style.display = 'none'; // إخفاء زر التلميح بعد كشف الجواب
+            document.getElementById('btn-show-hint').style.display = 'none'; 
             document.getElementById('referee-box').style.display = 'block';
+            
+            // قفل البازر في الفايربيس (إرجاع الجوالات للانتظار)
+            if(isSessionStarted) {
+                db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' });
+            }
         }
 
         function awardPoints(teamIndex) {
@@ -703,9 +586,10 @@
         function closeQuestion() {
             itemsUsed++;
             updateProgress();
-
             turn = turn === 0 ? 1 : 0; 
             updateTurnUI();
+
+            if(isSessionStarted) { db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); }
 
             if (itemsUsed >= sessionLimit) showWinner();
             else navTo('screen-board');

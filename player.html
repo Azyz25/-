@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>جهاز التحكم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <style>
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+        body { background: #F5F2E9; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        
+        .screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+        .screen.active { display: flex; }
+        
+        /* شاشة الدخول */
+        h1 { color: #DE6241; font-size: 36px; margin-bottom: 30px; font-weight: 900; }
+        input { width: 90%; max-width: 350px; padding: 15px; font-size: 22px; margin: 10px 0; border: 2px solid #ccc; border-radius: 10px; text-align: center; font-weight: bold; }
+        button.btn-join { background: #DE6241; color: white; border: none; padding: 15px 40px; font-size: 24px; border-radius: 10px; font-weight: bold; width: 90%; max-width: 350px; margin-top: 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(222,98,65,0.3); }
+        
+        /* شاشة الانتظار */
+        .waiting-bg { background: #f39c12; color: white; }
+        .waiting-text { font-size: 32px; font-weight: 900; animation: pulse 1.5s infinite; }
+        
+        /* شاشة الزر (Buzzer) */
+        .buzzer-bg { background: #2c3e50; }
+        .buzzer-btn { 
+            background: #e74c3c; width: 250px; height: 250px; border-radius: 50%; 
+            border: 10px solid #c0392b; box-shadow: 0 15px 0 #c0392b, 0 20px 20px rgba(0,0,0,0.5); 
+            color: white; font-size: 50px; font-weight: 900; cursor: pointer; transition: 0.1s;
+        }
+        .buzzer-btn:active { transform: translateY(15px); box-shadow: 0 0 0 #c0392b, 0 5px 10px rgba(0,0,0,0.5); }
+        
+        /* شاشة الإقصاء (إذا جاوب غلط) */
+        .eliminated-bg { background: #7f8c8d; color: white; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen" class="screen active">
+        <h1>انضمام للجلسة</h1>
+        <input type="text" id="player-name" placeholder="اسمك (أو لقبك)" maxlength="15">
+        <input type="number" id="room-code" placeholder="كود الجلسة (4 أرقام)">
+        <button class="btn-join" onclick="joinRoom()">انضمام</button>
+        <p id="error-msg" style="color: red; margin-top: 15px; font-weight: bold;"></p>
+    </div>
+
+    <div id="waiting-screen" class="screen waiting-bg">
+        <div class="waiting-text">⏳ بانتظار السؤال...</div>
+        <p style="margin-top: 20px; font-size: 20px;">خلك جاهز عشان تضغط الزر!</p>
+    </div>
+
+    <div id="buzzer-screen" class="screen buzzer-bg">
+        <button class="buzzer-btn" onclick="hitBuzzer()">اضغط</button>
+    </div>
+
+    <div id="eliminated-screen" class="screen eliminated-bg">
+        <div style="font-size: 60px;">❌</div>
+        <div class="waiting-text" style="margin-top: 20px;">إجابة خاطئة!</div>
+        <p style="margin-top: 10px; font-size: 20px;">راحت عليك الفرصة في هذا السؤال.</p>
+    </div>
+
+    <script>
+        // إعدادات الفايربيس حقتك
+        const firebaseConfig = {
+            apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA",
+            authDomain: "appd-75fbf.firebaseapp.com",
+            databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com",
+            projectId: "appd-75fbf",
+            storageBucket: "appd-75fbf.appspot.com",
+            messagingSenderId: "38346789995",
+            appId: "1:38346789995:web:4bc14686f2758164dfcd2e",
+            measurementId: "G-JDLLQ5P4YR"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let myName = "";
+        let currentRoom = "";
+        let roomRef = null;
+
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function joinRoom() {
+            myName = document.getElementById('player-name').value.trim();
+            currentRoom = document.getElementById('room-code').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+
+            if(!myName || !currentRoom) { errorMsg.innerText = "اكتب اسمك وكود الجلسة!"; return; }
+
+            roomRef = db.ref('rooms/' + currentRoom);
+            
+            // التحقق من وجود الجلسة
+            roomRef.once('value', (snapshot) => {
+                if(snapshot.exists()) {
+                    listenToRoom();
+                } else {
+                    errorMsg.innerText = "كود الجلسة غير صحيح أو الجلسة انتهت!";
+                }
+            });
+        }
+
+        function listenToRoom() {
+            roomRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(!data) return;
+
+                // إذا اللاعب سبق وجاوب غلط في هالسؤال
+                if(data.wrong_answers && data.wrong_answers[myName]) {
+                    showScreen('eliminated-screen');
+                    return;
+                }
+
+                // حالة الغرفة
+                if(data.status === 'question_active') {
+                    // إذا محد ضغط الزر للحين
+                    if(data.buzzed_by === "") {
+                        showScreen('buzzer-screen');
+                    } else {
+                        showScreen('waiting-screen'); // تم ضغط الزر من شخص آخر
+                    }
+                } else {
+                    showScreen('waiting-screen'); // بانتظار سؤال جديد
+                }
+            });
+        }
+
+        function hitBuzzer() {
+            // محاولة تسجيل اسم اللاعب كأول من ضغط الزر (معالجة التزامن)
+            roomRef.child('buzzed_by').transaction((currentValue) => {
+                if (currentValue === "") {
+                    return myName; // إذا كان فاضي، سجل اسمي
+                }
+                return; // إذا فيه اسم، لا تسوي شي (أحد سبقني)
+            });
+        }
+    </script>
+</body>
+</html>
