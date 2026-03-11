@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>لوحة الإدمن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <style>
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
+        body { background: #111; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .screen { display: none; width: 100%; flex-direction: column; align-items: center; text-align: center; }
+        .screen.active { display: flex; }
+        input { width: 80%; padding: 15px; font-size: 22px; text-align: center; border-radius: 10px; background: #222; color: white; border: 2px solid #555; }
+        .btn-main { background: #3498db; color: white; padding: 15px 40px; font-size: 24px; border-radius: 10px; margin-top: 20px; cursor: pointer; border: none; }
+        .jumpscare-btn { background: #c0392b; width: 250px; height: 250px; border-radius: 50%; border: 15px solid #900000; box-shadow: 0 15px 0 #700000; color: white; font-size: 45px; font-weight: 900; cursor: pointer; margin-top: 30px;}
+        .jumpscare-btn:active { transform: translateY(15px); box-shadow: 0 0 0 #700000; }
+    </style>
+</head>
+<body>
+    <div id="login-screen" class="screen active">
+        <h1 style="color: #e74c3c; margin-bottom: 20px;">دخول الإدمن 🤫</h1>
+        <input type="number" id="room-code" placeholder="كود الجلسة">
+        <button class="btn-main" onclick="verifyAdmin()">تسجيل الدخول</button>
+    </div>
+    <div id="admin-screen" class="screen">
+        <h2 style="color: #7f8c8d;">جاهز تفجعهم؟</h2>
+        <button class="jumpscare-btn" onclick="triggerJumpscare()">رعّبهم 👻</button>
+    </div>
+    <script>
+        const firebaseConfig = { apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA", authDomain: "appd-75fbf.firebaseapp.com", databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com", projectId: "appd-75fbf", storageBucket: "appd-75fbf.appspot.com", messagingSenderId: "38346789995", appId: "1:38346789995:web:4bc14686f2758164dfcd2e" };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        let currentRoom = "";
+        function verifyAdmin() {
+            currentRoom = document.getElementById('room-code').value.trim();
+            if(currentRoom) { document.getElementById('login-screen').classList.remove('active'); document.getElementById('admin-screen').classList.add('active'); }
+        }
+        function triggerJumpscare() { db.ref('rooms/' + currentRoom + '/jumpscare').set(Date.now()); }
+    </script>
+</body>
+</html>
