@@ -237,11 +237,9 @@
     <script src="data.js"></script>
     <script>
 // ============================================================
-//  الديوانية الرقمية — قسم JavaScript المُصلَح بالكامل
-//  يُستبدل به محتوى وسم <script> في ملف index.html
+//  الديوانية الرقمية — JavaScript المُصلَح
 // ============================================================
 
-// ─── إعدادات Firebase ────────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA",
   authDomain: "appd-75fbf.firebaseapp.com",
@@ -255,30 +253,29 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ─── متغيرات الحالة العامة ────────────────────────────────────
-let currentRoomCode   = "";
+// ─── متغيرات الحالة ─────────────────────────────────────────
+let currentRoomCode    = "";
 let activeBuzzerPlayer = null;
-let sessionStartTime  = Date.now();
-let isSessionStarted  = false;
-let activeGame        = "seen_jeem";
-let activeQ_ID        = null;
-let turn              = 0;          // ✅ FIX: كان مفقوداً → يسبب Crash
-let itemsUsed         = 0;          // ✅ FIX: كان مفقوداً → يسبب Crash
-window.questionMap    = {};
-let teamNames         = ["", ""];
-let playerStats       = {};
-let gameScores        = {
-  seen_jeem:    [0, 0],
-  emoji:        [0, 0],
-  auction:      [0, 0],
-  clicker:      [0, 0],
-  spy:          [0, 0],
-  wager:        [0, 0],
-  drawing:      [0, 0],
-  huroof_waloof:[0, 0]
+let sessionStartTime   = Date.now();
+let isSessionStarted   = false;
+let activeGame         = "seen_jeem";
+let activeQ_ID         = null;
+let turn               = 0;
+let itemsUsed          = 0;
+window.questionMap     = {};
+let teamNames          = ["", ""];
+let playerStats        = {};
+let gameScores = {
+  seen_jeem:     [0, 0],
+  emoji:         [0, 0],
+  auction:       [0, 0],
+  clicker:       [0, 0],
+  spy:           [0, 0],
+  wager:         [0, 0],
+  drawing:       [0, 0],
+  huroof_waloof: [0, 0]
 };
 
-// ✅ FIX: الأبجدية العربية كانت مفقودة كلياً → تنهار buildHuroof
 const alphabet = [
   "ا","ب","ت","ث","ج","ح","خ",
   "د","ذ","ر","ز","س","ش","ص",
@@ -286,31 +283,27 @@ const alphabet = [
   "ك","ل","م","ن","ه","و","ي"
 ];
 
-// ─── تحميل بيانات الأسئلة بأمان ──────────────────────────────
+// ─── تحميل الداتا ────────────────────────────────────────────
 let ALL_GAMES = null;
 
 function loadGameData() {
   try {
-    if (typeof DATA_BANK === "undefined" || !DATA_BANK) {
-      console.error("❌ DATA_BANK غير موجود — تأكد من تحميل data.js قبل هذا الملف");
-      return false;
-    }
-    if (!DATA_BANK.games) {
-      console.error("❌ DATA_BANK.games غير موجود — تحقق من بنية data.js");
+    if (typeof DATA_BANK === "undefined" || !DATA_BANK || !DATA_BANK.games) {
+      console.error("❌ DATA_BANK غير موجود أو ناقص");
       return false;
     }
     ALL_GAMES = DATA_BANK.games;
-    console.log("✅ DATA_BANK محمّل بنجاح، الألعاب المتاحة:", Object.keys(ALL_GAMES));
+    console.log("✅ DATA_BANK محمّل:", Object.keys(ALL_GAMES));
     return true;
   } catch (err) {
-    console.error("❌ خطأ غير متوقع أثناء تحميل DATA_BANK:", err);
+    console.error("❌ خطأ في تحميل DATA_BANK:", err);
     return false;
   }
 }
 
-// ─── مساعدات عامة ────────────────────────────────────────────
+// ─── تهيئة الصفحة ────────────────────────────────────────────
 window.onload = () => {
-  loadGameData(); // حاول التحميل مبكراً
+  loadGameData();
   setTimeout(() => {
     const ls = document.getElementById("loading-screen");
     ls.style.opacity = "0";
@@ -318,6 +311,7 @@ window.onload = () => {
   }, 1500);
 };
 
+// ─── مساعدات ─────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById("toast-notification");
   t.innerText = msg;
@@ -325,118 +319,102 @@ function showToast(msg) {
   setTimeout(() => (t.style.right = "-300px"), 4000);
 }
 
-// ✅ FIX: navTo تُخفي كل الشاشات أولاً ثم تُظهر المطلوبة فقط
 function navTo(screenId) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   const target = document.getElementById(screenId);
-  if (target) {
-    target.classList.add("active");
-  } else {
-    console.warn(`⚠️ navTo: لا توجد شاشة بالمعرّف "${screenId}"`);
-  }
+  if (target) target.classList.add("active");
 }
 
 function shuffle(arr) {
   const a = [...arr];
   let c = a.length, r;
-  while (c !== 0) {
-    r = Math.floor(Math.random() * c);
-    c--;
-    [a[c], a[r]] = [a[r], a[c]];
-  }
+  while (c !== 0) { r = Math.floor(Math.random() * c); c--; [a[c], a[r]] = [a[r], a[c]]; }
   return a;
 }
 
 function toggleFullscreen() {
   document.getElementById("tabs-container").classList.toggle("hidden");
-  const ga = document.getElementById("game-area");
-  if (ga) ga.classList.toggle("expanded");
 }
 
-// ─── إعداد الجلسة ────────────────────────────────────────────
+function playSound(id) {
+  const audio = document.getElementById(id);
+  if (!audio) return;
+  audio.currentTime = 0;
+  audio.play().catch(e => console.warn("تعذر تشغيل الصوت:", e));
+}
+
+function escapeAttr(str) {
+  return String(str)
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/"/g, "&quot;")
+    .replace(/\n/g, " ")
+    .replace(/\r/g, "");
+}
+
+// ─── بدء الجلسة ──────────────────────────────────────────────
 function startSession() {
-  // ✅ FIX: التحقق من البيانات أولاً مع alert واضح بدلاً من تجميد الشاشة
   if (!ALL_GAMES && !loadGameData()) {
-    alert("⚠️ لم يتم تحميل ملف الأسئلة (data.js)!\nتأكد من وجود الملف في نفس المجلد وإعادة تحميل الصفحة.");
+    alert("⚠️ لم يتم تحميل ملف الأسئلة (data.js)\nتأكد من وجوده بنفس المجلد.");
     return;
   }
 
   const t1 = document.getElementById("input-t1").value.trim();
   const t2 = document.getElementById("input-t2").value.trim();
-  if (!t1 || !t2) {
-    alert("أدخل أسماء الفرقين أولاً!");
-    return;
-  }
+  if (!t1 || !t2) { alert("أدخل أسماء الفرقين!"); return; }
 
-  // تهيئة الحالة
   isSessionStarted = true;
-  teamNames        = [t1, t2];
-  playerStats      = {};
-  turn             = 0;
+  teamNames = [t1, t2];
+  playerStats = {};
+  turn = 0;
 
-  // تحديث الواجهة بأسماء الفرق
   document.getElementById("name-t1").innerText = t1;
   document.getElementById("name-t2").innerText = t2;
   document.getElementById("wager-t1-name").innerText = t1;
   document.getElementById("wager-t2-name").innerText = t2;
-  document.getElementById("btn-aw-t1").innerText = `✅ ${t1}`;
-  document.getElementById("btn-aw-t2").innerText = `✅ ${t2}`;
+  document.getElementById("btn-aw-t1").innerText = "✅ " + t1;
+  document.getElementById("btn-aw-t2").innerText = "✅ " + t2;
 
-  // إنشاء كود الجلسة
   currentRoomCode = Math.floor(1000 + Math.random() * 9000).toString();
   document.getElementById("code-val").innerText = currentRoomCode;
   document.getElementById("room-code-display").style.display = "block";
 
-  // ✅ FIX: إيقاف المستمعين القدامى قبل إنشاء مستمعين جدد (يمنع التضاعف)
-  db.ref("rooms/" + currentRoomCode).off();
-
-  // حفظ الجلسة في Firebase
-  db.ref("rooms/" + currentRoomCode).set({
-    status: "waiting",
-    team_names: teamNames,
-    session_start: Date.now()
-  });
-
   sessionStartTime = Date.now();
+  db.ref("rooms/" + currentRoomCode).off();
+  db.ref("rooms/" + currentRoomCode).set({ status: "waiting", team_names: teamNames, session_start: sessionStartTime });
 
-  // مستمع البازر
   db.ref("rooms/" + currentRoomCode + "/buzzed_by").on("value", snap => {
     const p = snap.val();
     if (p && p.name) {
       activeBuzzerPlayer = p;
       playSound("sfx-buzzer");
       document.getElementById("buzzer-player-name").innerText = p.name;
-      document.getElementById("buzzer-team-name").innerText  = `(فريق: ${teamNames[p.team] || "?"})`;
+      document.getElementById("buzzer-team-name").innerText = "(فريق: " + (teamNames[p.team] || "؟") + ")";
       document.getElementById("buzzer-alert-overlay").style.display = "flex";
     }
   });
 
-  // مستمع انضمام اللاعبين
   db.ref("rooms/" + currentRoomCode + "/latest_join").on("value", snap => {
-    if (snap.val()) showToast(`✅ انضم ${snap.val().name}`);
+    if (snap.val()) showToast("✅ انضم " + snap.val().name);
   });
 
-  // مستمع Jumpscare
   db.ref("rooms/" + currentRoomCode + "/jumpscare").on("value", snap => {
     if (snap.val() && snap.val() > sessionStartTime) {
-      const overlay = document.getElementById("jumpscare-overlay");
-      overlay.style.display = "flex";
+      document.getElementById("jumpscare-overlay").style.display = "flex";
       playSound("sfx-scream");
-      setTimeout(() => (overlay.style.display = "none"), 3500);
+      setTimeout(() => (document.getElementById("jumpscare-overlay").style.display = "none"), 3500);
     }
   });
 
-  // مستمع الرسم الحي
   db.ref("rooms/" + currentRoomCode + "/drawing_data").on("value", snap => {
     if (snap.val()) document.getElementById("live-drawing-img").src = snap.val();
   });
 
-  // ✅ FIX: إظهار لوحة النقاط ثم الانتقال — كان الترتيب يسبب بقاء شاشة الإعداد
   document.getElementById("dashboard").style.display = "flex";
   switchGame("seen_jeem");
 }
 
-// ─── مساعدات النقاط ──────────────────────────────────────────
+// ─── النقاط ──────────────────────────────────────────────────
 function adjustScore(tIdx, amt) {
   if (tIdx < 0 || tIdx > 1) return;
   gameScores[activeGame][tIdx] += amt;
@@ -449,295 +427,165 @@ function updateScoreUI() {
 }
 
 function updateTurnUI() {
-  document.getElementById("turn-badge").innerText = `دور الاختيار: ${teamNames[turn]}`;
+  document.getElementById("turn-badge").innerText = "دور الاختيار: " + teamNames[turn];
 }
 
 // ─── التنقل بين الألعاب ──────────────────────────────────────
 function switchGame(key) {
-  if (!isSessionStarted) {
-    alert("أنشئ الجلسة أولاً من شاشة الإعداد!");
-    return;
-  }
-  if (!ALL_GAMES) {
-    alert("⚠️ بيانات الأسئلة غير متاحة. أعد تحميل الصفحة وتأكد من وجود data.js");
-    return;
-  }
+  if (!isSessionStarted) { alert("أنشئ الجلسة أولاً!"); return; }
+  if (!ALL_GAMES) { alert("⚠️ بيانات الأسئلة غير متاحة، أعد تحميل الصفحة."); return; }
 
-  activeGame  = key;
-  itemsUsed   = 0;
+  activeGame = key;
+  itemsUsed = 0;
   window.questionMap = {};
 
-  // تحديث التابات
   document.querySelectorAll(".tab").forEach(t => {
     t.classList.remove("active");
-    const onclick = t.getAttribute("onclick") || "";
-    if (onclick.includes(`'${key}'`)) t.classList.add("active");
+    if ((t.getAttribute("onclick") || "").includes("'" + key + "'")) t.classList.add("active");
   });
 
   updateScoreUI();
   updateTurnUI();
 
-  console.log(`🎮 تحويل إلى لعبة: ${key}`);
-
   try {
-    switch (key) {
-      case "seen_jeem":
-      case "emoji":
-        buildJeopardy(key);
-        break;
-      case "huroof_waloof":
-        buildHuroof();
-        break;
-      case "auction":
-        navTo("screen-auction");
-        break;
-      case "clicker":
-        navTo("screen-clicker");
-        break;
-      case "spy":
-        navTo("screen-spy");
-        break;
-      case "wager":
-        navTo("screen-wager");
-        break;
-      case "drawing":
-        navTo("screen-drawing");
-        break;
-      default:
-        console.warn(`⚠️ لعبة غير معروفة: ${key}`);
-        navTo("screen-board");
-    }
+    if      (key === "seen_jeem" || key === "emoji") buildJeopardy(key);
+    else if (key === "huroof_waloof") buildHuroof();
+    else navTo("screen-" + key);
   } catch (err) {
-    console.error(`❌ خطأ أثناء تحميل لعبة "${key}":`, err);
-    alert(`حدث خطأ أثناء تحميل اللعبة: ${err.message}`);
+    console.error("خطأ في تحميل اللعبة:", err);
+    alert("حدث خطأ: " + err.message);
   }
 }
 
-// ─── بناء لوحة جيوباردي ───────────────────────────────────────
+// ─── جيوباردي ────────────────────────────────────────────────
 function buildJeopardy(type) {
-  let rawQuestions = [];
+  let rawQs = [];
+  if (type === "seen_jeem") rawQs = (ALL_GAMES.seen_jeem && ALL_GAMES.seen_jeem.questions) || [];
+  else rawQs = (ALL_GAMES.emoji && ALL_GAMES.emoji.questions) || (ALL_GAMES.najdi_proverbs && ALL_GAMES.najdi_proverbs.questions) || [];
 
-  try {
-    if (type === "seen_jeem") {
-      rawQuestions = ALL_GAMES.seen_jeem?.questions || [];
-    } else {
-      // emoji: استخدم emoji أو najdi_proverbs كبديل
-      rawQuestions = ALL_GAMES.emoji?.questions
-        || ALL_GAMES.najdi_proverbs?.questions
-        || [];
-    }
-
-    if (rawQuestions.length === 0) {
-      console.warn(`⚠️ لا توجد أسئلة لـ "${type}"`);
-      document.getElementById("board-content").innerHTML =
-        `<p style="color:red;font-size:24px;">⚠️ لا توجد أسئلة لهذه اللعبة في data.js</p>`;
-      navTo("screen-board");
-      return;
-    }
-  } catch (err) {
-    console.error("❌ خطأ أثناء قراءة الأسئلة:", err);
+  if (rawQs.length === 0) {
+    document.getElementById("board-content").innerHTML = "<p style='color:red;font-size:24px;'>⚠️ لا توجد أسئلة في data.js لهذه اللعبة</p>";
+    navTo("screen-board");
     return;
   }
 
-  // ✅ FIX: أخذ 12 سؤالاً وتوزيعهم على 6 أعمدة × نقطتين
-  const selected = shuffle(rawQuestions).slice(0, 12);
-  const pointLevels = [200, 400];
-
+  const selected = shuffle(rawQs).slice(0, 12);
   let html = '<div class="sj-grid">';
-  for (let col = 0; col < 6; col++) {
-    const qLow  = selected[col]      || null;
-    const qHigh = selected[col + 6]  || qLow;
 
-    if (!qLow) continue;
+  for (let col = 0; col < 6; col++) {
+    const qLow  = selected[col]     || selected[0];
+    const qHigh = selected[col + 6] || selected[0];
 
     const getQ = q => escapeAttr(q.question || q.emojis || q.q || "سؤال");
     const getA = q => escapeAttr(q.correctAnswer || q.proverb || q.answer || q.a || "الإجابة");
 
-    html += `
-      <div class="sj-block">
-        <div class="sj-col">
-          <button class="sj-pt-btn" onclick="openQ('${getQ(qLow)}','${getA(qLow)}',${pointLevels[0]},this)">
-            ${pointLevels[0]}
-          </button>
-        </div>
-        <div class="sj-cat-name">فئة ${col + 1}</div>
-        <div class="sj-col">
-          <button class="sj-pt-btn" onclick="openQ('${getQ(qHigh)}','${getA(qHigh)}',${pointLevels[1]},this)">
-            ${pointLevels[1]}
-          </button>
-        </div>
-      </div>`;
+    html += '<div class="sj-block">'
+          + '<div class="sj-col"><button class="sj-pt-btn" onclick="openQ(\'' + getQ(qLow) + '\',\'' + getA(qLow) + '\',200,this)">200</button></div>'
+          + '<div class="sj-cat-name">فئة ' + (col + 1) + '</div>'
+          + '<div class="sj-col"><button class="sj-pt-btn" onclick="openQ(\'' + getQ(qHigh) + '\',\'' + getA(qHigh) + '\',400,this)">400</button></div>'
+          + '</div>';
   }
-  html += "</div>";
 
+  html += '</div>';
   document.getElementById("board-content").innerHTML = html;
   navTo("screen-board");
 }
 
-// ─── بناء لوحة حروف و الوف ────────────────────────────────────
+// ─── حروف و الوف ─────────────────────────────────────────────
 function buildHuroof() {
   let huroofData = [];
-
   try {
     const raw = ALL_GAMES.huroof_waloof;
-    huroofData = Array.isArray(raw) ? raw : (raw?.questions || []);
-  } catch (err) {
-    console.error("❌ خطأ في بيانات huroof_waloof:", err);
-  }
+    huroofData = Array.isArray(raw) ? raw : ((raw && raw.questions) || []);
+  } catch (err) { console.error("خطأ huroof_waloof:", err); }
 
   let html = '<div class="huroof-grid">';
   alphabet.forEach(letter => {
-    const matches = huroofData.filter(x => {
-      const ans = x.answer || x.a || "";
-      return ans.startsWith(letter);
-    });
-    const q = shuffle(matches)[0] || {
-      question: `سؤال يبدأ بحرف ${letter}`,
-      answer: "-",
-      points: 200
-    };
-
-    const question = escapeAttr(q.question || q.q || `حرف ${letter}`);
+    const matches = huroofData.filter(x => (x.answer || x.a || "").startsWith(letter));
+    const q = shuffle(matches)[0] || { question: "سؤال حرف " + letter, answer: "-", points: 200 };
+    const question = escapeAttr(q.question || q.q || "سؤال");
     const answer   = escapeAttr(q.answer   || q.a || "-");
     const pts      = q.points || 200;
-
-    html += `<button class="huroof-btn" onclick="openQ('${question}','${answer}',${pts},this)">${letter}</button>`;
+    html += '<button class="huroof-btn" onclick="openQ(\'' + question + '\',\'' + answer + '\',' + pts + ',this)">' + letter + '</button>';
   });
-  html += "</div>";
-
+  html += '</div>';
   document.getElementById("board-content").innerHTML = html;
   navTo("screen-board");
 }
 
-// ─── فتح شاشة السؤال ─────────────────────────────────────────
+// ─── فتح السؤال ──────────────────────────────────────────────
 function openQ(q, a, pts, btn) {
   if (btn) btn.classList.add("used");
-
   activeQ_ID = "id_" + Math.random().toString(36).substr(2, 9);
-  window.questionMap[activeQ_ID] = { pts };
+  window.questionMap[activeQ_ID] = { pts: pts };
 
   document.getElementById("q-content").innerHTML = q;
   document.getElementById("a-content").innerHTML = a;
   document.getElementById("q-pts-val").innerText = pts;
+  document.getElementById("a-content").style.display       = "none";
+  document.getElementById("referee-box").style.display     = "none";
+  document.getElementById("btn-show-ans").style.display    = "inline-block";
 
-  document.getElementById("a-content").style.display        = "none";
-  document.getElementById("referee-box").style.display      = "none";
-  document.getElementById("btn-show-ans").style.display     = "inline-block";
-
-  // إعادة تعيين البازر في Firebase
-  if (isSessionStarted) {
-    db.ref("rooms/" + currentRoomCode).update({
-      status: "question_active",
-      buzzed_by: null,
-      wrong_answers: {}
-    });
-  }
-
+  if (isSessionStarted) db.ref("rooms/" + currentRoomCode).update({ status: "question_active", buzzed_by: null, wrong_answers: {} });
   navTo("screen-question");
 }
 
-// ─── إظهار الإجابة ───────────────────────────────────────────
 function showAnswer() {
   document.getElementById("a-content").style.display    = "block";
   document.getElementById("referee-box").style.display  = "block";
   document.getElementById("btn-show-ans").style.display = "none";
-
-  if (isSessionStarted) {
-    db.ref("rooms/" + currentRoomCode).update({ status: "waiting" });
-  }
+  if (isSessionStarted) db.ref("rooms/" + currentRoomCode).update({ status: "waiting" });
 }
 
-// ─── إغلاق السؤال والعودة ────────────────────────────────────
 function closeQuestion() {
   turn = turn === 0 ? 1 : 0;
   updateTurnUI();
-
-  if (isSessionStarted) {
-    db.ref("rooms/" + currentRoomCode).update({ status: "waiting" });
-  }
-
-  // ✅ FIX: إخفاء البازر عند العودة لضمان عدم التداخل
   document.getElementById("buzzer-alert-overlay").style.display = "none";
-
+  if (isSessionStarted) db.ref("rooms/" + currentRoomCode).update({ status: "waiting" });
   navTo("screen-board");
 }
 
-// ─── إعطاء النقاط ────────────────────────────────────────────
 function awardPoints(tIdx) {
-  const pts = window.questionMap[activeQ_ID]?.pts || 0;
+  const pts = (window.questionMap[activeQ_ID] || {}).pts || 0;
   if (tIdx !== -1) adjustScore(tIdx, pts);
   closeQuestion();
 }
 
-// ─── حكم البازر ──────────────────────────────────────────────
 function judgeBuzzer(isCorrect) {
   document.getElementById("buzzer-alert-overlay").style.display = "none";
-
   if (!activeBuzzerPlayer) return;
-
   if (isCorrect) {
     playSound("sfx-correct");
-    // تسجيل إحصائية اللاعب
-    const name = activeBuzzerPlayer.name;
-    playerStats[name] = (playerStats[name] || 0) + 1;
-    // إضافة النقاط لفريقه
-    const pts = window.questionMap[activeQ_ID]?.pts || 0;
-    adjustScore(activeBuzzerPlayer.team, pts);
+    playerStats[activeBuzzerPlayer.name] = (playerStats[activeBuzzerPlayer.name] || 0) + 1;
+    adjustScore(activeBuzzerPlayer.team, (window.questionMap[activeQ_ID] || {}).pts || 0);
     showAnswer();
   } else {
     playSound("sfx-wrong");
-    // ✅ FIX: تسجيل الخطأ وإعادة فتح البازر للاعبين الآخرين
     db.ref("rooms/" + currentRoomCode + "/wrong_answers/" + activeBuzzerPlayer.name).set(true);
     db.ref("rooms/" + currentRoomCode + "/buzzed_by").set(null);
   }
 }
 
-// ─── ألعاب أخرى ──────────────────────────────────────────────
+// ─── الألعاب الأخرى ───────────────────────────────────────────
 function startAuction() {
-  if (!isSessionStarted) return;
-
-  // إيقاف المستمعين السابقين
   db.ref("rooms/" + currentRoomCode + "/auction_val").off();
   db.ref("rooms/" + currentRoomCode + "/auction_passed").off();
-
-  db.ref("rooms/" + currentRoomCode).update({
-    status: "auction",
-    auction_val: 0,
-    auction_passed: false
-  });
-
   document.getElementById("auction-winner-text").style.display = "none";
-
-  db.ref("rooms/" + currentRoomCode + "/auction_val").on("value", snap => {
-    document.getElementById("auction-highest").innerText = snap.val() || 0;
-  });
-
-  db.ref("rooms/" + currentRoomCode + "/auction_passed").on("value", snap => {
-    if (snap.val() === true) {
-      playSound("sfx-bomb");
-      document.getElementById("auction-winner-text").style.display = "block";
-    }
-  });
+  db.ref("rooms/" + currentRoomCode).update({ status: "auction", auction_val: 0, auction_passed: false });
+  db.ref("rooms/" + currentRoomCode + "/auction_val").on("value", snap => { document.getElementById("auction-highest").innerText = snap.val() || 0; });
+  db.ref("rooms/" + currentRoomCode + "/auction_passed").on("value", snap => { if (snap.val() === true) { playSound("sfx-bomb"); document.getElementById("auction-winner-text").style.display = "block"; } });
 }
 
 function startSpy() {
   const w = document.getElementById("spy-word-input").value.trim();
-  if (!w) { alert("أدخل الكلمة السرية أولاً!"); return; }
-
+  if (!w) { alert("أدخل الكلمة السرية!"); return; }
   db.ref("rooms/" + currentRoomCode + "/players").once("value", snap => {
-    const playersObj = snap.val() || {};
-    const players = Object.keys(playersObj);
-    if (players.length === 0) { alert("لا يوجد لاعبون في الجلسة بعد!"); return; }
-
+    const players = Object.keys(snap.val() || {});
+    if (players.length === 0) { alert("لا يوجد لاعبون في الجلسة!"); return; }
     const spy = players[Math.floor(Math.random() * players.length)];
     document.getElementById("spy-name-reveal").innerText = spy;
     document.getElementById("spy-result").style.display = "none";
-
-    db.ref("rooms/" + currentRoomCode).update({
-      status: "spy",
-      spy_word: w,
-      spy_name: spy
-    });
+    db.ref("rooms/" + currentRoomCode).update({ status: "spy", spy_word: w, spy_name: spy });
   });
 }
 
@@ -747,77 +595,33 @@ function revealSpy() {
 }
 
 function startClicker() {
-  if (!isSessionStarted) return;
   document.getElementById("clicker-winner").innerText = "";
-
   db.ref("rooms/" + currentRoomCode).update({ status: "clicker", clicker_score: 50 });
-
   const iv = setInterval(() => {
     db.ref("rooms/" + currentRoomCode + "/clicker_score").once("value", snap => {
-      const s = snap.val() ?? 50;
-      document.getElementById("clicker-t1-bar").style.width  = s + "%";
-      document.getElementById("clicker-t2-bar").style.width  = (100 - s) + "%";
-
-      if (s <= 2) {
-        clearInterval(iv);
-        document.getElementById("clicker-winner").innerText = `🏆 فاز ${teamNames[1]}!`;
-        db.ref("rooms/" + currentRoomCode).update({ status: "waiting" });
-      } else if (s >= 98) {
-        clearInterval(iv);
-        document.getElementById("clicker-winner").innerText = `🏆 فاز ${teamNames[0]}!`;
-        db.ref("rooms/" + currentRoomCode).update({ status: "waiting" });
-      }
+      const s = snap.val() !== null ? snap.val() : 50;
+      document.getElementById("clicker-t1-bar").style.width = s + "%";
+      document.getElementById("clicker-t2-bar").style.width = (100 - s) + "%";
+      if (s <= 2) { clearInterval(iv); document.getElementById("clicker-winner").innerText = "🏆 فاز " + teamNames[1] + "!"; db.ref("rooms/" + currentRoomCode).update({ status: "waiting" }); }
+      else if (s >= 98) { clearInterval(iv); document.getElementById("clicker-winner").innerText = "🏆 فاز " + teamNames[0] + "!"; db.ref("rooms/" + currentRoomCode).update({ status: "waiting" }); }
     });
   }, 300);
 }
 
 function openWager() {
-  if (!isSessionStarted) return;
-
   db.ref("rooms/" + currentRoomCode + "/wagers").off();
-
-  db.ref("rooms/" + currentRoomCode).update({
-    status: "wager",
-    wagers: { t0: 0, t1: 0 }
-  });
-
+  db.ref("rooms/" + currentRoomCode).update({ status: "wager", wagers: { t0: 0, t1: 0 } });
   db.ref("rooms/" + currentRoomCode + "/wagers").on("value", snap => {
     const w = snap.val();
-    if (w) {
-      document.getElementById("wager-t1-val").innerText = w.t0 || "؟";
-      document.getElementById("wager-t2-val").innerText = w.t1 || "؟";
-    }
+    if (w) { document.getElementById("wager-t1-val").innerText = w.t0 || "؟"; document.getElementById("wager-t2-val").innerText = w.t1 || "؟"; }
   });
 }
 
 function startDrawing() {
   const n = document.getElementById("drawer-name").value.trim();
   if (!n) { alert("أدخل اسم الرسام!"); return; }
-
   document.getElementById("live-drawing-img").src = "";
-  db.ref("rooms/" + currentRoomCode).update({
-    status: "drawing",
-    drawer_name: n,
-    drawing_data: ""
-  });
-}
-
-// ─── مساعد تشغيل الصوت ───────────────────────────────────────
-function playSound(id) {
-  const audio = document.getElementById(id);
-  if (!audio) return;
-  audio.currentTime = 0;
-  audio.play().catch(e => console.warn(`⚠️ تعذر تشغيل الصوت "${id}":`, e));
-}
-
-// ─── هروب من النصوص لتجنب كسر onclick ────────────────────────
-function escapeAttr(str) {
-  return String(str)
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'")
-    .replace(/"/g, "&quot;")
-    .replace(/\n/g, " ")
-    .replace(/\r/g, "");
+  db.ref("rooms/" + currentRoomCode).update({ status: "drawing", drawer_name: n, drawing_data: "" });
 }
 
     </script>
