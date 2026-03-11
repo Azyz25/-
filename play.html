@@ -5,68 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الديوانية الرقمية</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
-    
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
+    
     <style>
-        :root {
-            --primary-orange: #DE6241; --bg-page: #F5F2E9; --bg-board: #F1EFE3;
-            --bg-btn-white: #FCFAEF; --bg-answer: #FFFEF5; --text-dark: #222222;
-            --text-gray: #666666; --font-main: 'Tajawal', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
-        body { background-color: var(--bg-page); color: var(--text-dark); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
-
-        #loading-screen { position: fixed; inset: 0; z-index: 9999; display: flex; justify-content: center; align-items: center; overflow: hidden; animation: bgToOrange 6s forwards; transition: opacity 1s ease-in-out; }
-        .logo-img { width: 150px; height: 150px; object-fit: contain; transform-origin: center center; animation: smoothPulseToExplode 6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-        @keyframes smoothPulseToExplode { 0% { transform: scale(1); opacity: 1; } 12% { transform: scale(1.8); opacity: 1; } 24% { transform: scale(1); opacity: 1; } 36% { transform: scale(1.8); opacity: 1; } 48% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.8); opacity: 1; } 75% { transform: scale(1); opacity: 1; } 100% { transform: scale(1000); opacity: 0; } }
-        @keyframes bgToOrange { 0%, 75% { background-color: var(--bg-page); } 95%, 100% { background-color: var(--primary-orange); } }
-
-        #app-container { opacity: 0; flex: 1; display: flex; flex-direction: column; transition: opacity 0.5s ease; }
-        .top-line { width: 100%; height: 12px; background-color: var(--primary-orange); }
-        header { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; position: relative; }
+        :root { --primary-orange: #DE6241; --bg-page: #F5F2E9; --bg-board: #F1EFE3; --text-dark: #222222; --font-main: 'Tajawal', sans-serif; }
+        * { box-sizing: border-box; font-family: var(--font-main); margin:0; padding:0; }
+        body { background: var(--bg-page); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; overflow-x:hidden;}
         
-        .room-code-badge { background: #2c3e50; color: white; padding: 8px 20px; border-radius: 8px; font-size: 22px; font-weight: bold; letter-spacing: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none;}
+        #loading-screen { position: fixed; inset: 0; z-index: 9999; display: flex; justify-content: center; align-items: center; background:var(--bg-page); transition: opacity 1s; }
+        .logo-img { width: 150px; height: 150px; animation: pulse 1s infinite alternate; }
+        @keyframes pulse { to { transform: scale(1.2); } }
+
+        .top-line { width: 100%; height: 12px; background: var(--primary-orange); }
+        header { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; }
+        .room-code-badge { background: #2c3e50; color: white; padding: 8px 20px; border-radius: 8px; font-size: 22px; font-weight: bold; display: none;}
         .room-code-badge span { color: #f1c40f; }
-
-        .header-title { flex: 1; text-align: center; font-size: 28px; font-weight: 800; }
-        .header-left { display: flex; align-items: center; gap: 20px; justify-content: flex-end; }
-        .header-logo-img { width: 50px; height: 50px; object-fit: contain; }
-        .btn-icon { background: none; border: none; cursor: pointer; color: var(--primary-orange); font-size: 30px; transition: transform 0.2s; }
+        .header-title { font-size: 28px; font-weight: 900; }
         
-        .tabs-container { display: flex; justify-content: center; gap: 40px; padding-top: 10px; transition: all 0.4s; overflow: hidden; max-height: 80px;}
-        .tabs-container.hidden { max-height: 0; opacity: 0; padding: 0;}
-        .tab { font-size: 22px; font-weight: 700; color: var(--text-gray); cursor: pointer; padding: 10px 20px; border-bottom: 3px solid transparent; transition: 0.3s; }
+        /* التابات */
+        .tabs-container { display: flex; justify-content: center; gap: 20px; padding: 10px; flex-wrap: wrap; }
+        .tab { font-size: 20px; font-weight: 700; color: #666; cursor: pointer; padding: 10px 15px; border-bottom: 3px solid transparent; transition: 0.3s; }
         .tab.active { color: var(--primary-orange); border-bottom: 3px solid var(--primary-orange); }
 
-        .game-area { flex: 1; background-color: var(--bg-board); margin: 20px 40px 40px 40px; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; align-items: center; transition: all 0.3s; }
-        .game-area.expanded { margin: 0; border-radius: 0; min-height: calc(100vh - 12px); }
-        .dashboard { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: rgba(255,255,255,0.6); padding: 15px 30px; border-radius: 10px; border: 1px solid #e0dfd5;}
+        .game-area { flex: 1; background: var(--bg-board); margin: 20px; border-radius: 12px; padding: 30px; display: flex; flex-direction: column; align-items: center; }
+        
+        /* لوحة النقاط (تم إرجاع display: none لإخفائها بالبداية) */
+        .dashboard { width: 100%; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.6); padding: 15px 30px; border-radius: 10px; margin-bottom: 20px; display: none;}
         .team-info { display: flex; align-items: center; gap: 15px; font-size: 24px; font-weight: 700; }
-        .score-val { color: var(--primary-orange); font-size: 36px; font-weight: 800; min-width: 70px; text-align: center; }
-        .score-adjust { display: flex; flex-direction: column; gap: 5px; }
-        .score-adjust button { background: white; border: 1px solid #ccc; border-radius: 4px; width: 30px; height: 25px; cursor: pointer; font-weight: bold; color: var(--primary-orange); transition: 0.2s;}
-        .turn-badge { font-size: 24px; font-weight: 700; background: var(--primary-orange); color: white; padding: 8px 30px; border-radius: 30px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); } 
+        .score-val { color: var(--primary-orange); font-size: 36px; font-weight: 900; min-width: 70px; text-align: center; }
+        .turn-badge { font-size: 24px; font-weight: 700; background: var(--primary-orange); color: white; padding: 8px 30px; border-radius: 30px; } 
 
-        .screen { display: none; width: 100%; max-width: 1200px; text-align: center; animation: fadeUp 0.4s ease forwards; }
-        .screen.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .screen { display: none; width: 100%; text-align: center; }
+        .screen.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
+        /* تنسيق الأزرار وحقول الإدخال */
         .setup-input { padding: 15px; font-size: 22px; font-weight: 700; margin: 10px; border: 2px solid #ddd; border-radius: 8px; text-align: center; width: 300px; }
-        .btn-main { background: var(--primary-orange); color: white; border: none; padding: 15px 40px; font-size: 22px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; margin: 10px; box-shadow: 0 4px 10px rgba(222,98,65,0.2);}
+        .btn-main { background: var(--primary-orange); color: white; border: none; padding: 15px 40px; font-size: 22px; font-weight: 700; border-radius: 8px; cursor: pointer; margin: 10px; box-shadow: 0 4px 10px rgba(222,98,65,0.2);}
         .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(222, 98, 65, 0.4); }
-        .btn-sec { background: transparent; border: 2px solid var(--primary-orange); color: var(--primary-orange); padding: 15px 40px; font-size: 22px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s; margin: 10px; }
+        .btn-sec { background: transparent; border: 2px solid var(--primary-orange); color: var(--primary-orange); padding: 15px 40px; font-size: 22px; font-weight: 700; border-radius: 8px; cursor: pointer; margin: 10px; transition: 0.3s;}
 
         /* جيوباردي */
-        .progress-text { font-size: 20px; font-weight: bold; color: var(--text-gray); margin-bottom: 20px; }
-        .progress-text span { color: var(--primary-orange); font-size: 24px; }
         .sj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
-        .sj-block { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.4); padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);}
+        .sj-block { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.4); padding: 15px; border-radius: 12px; }
         .sj-col { display: flex; flex-direction: column; gap: 12px; }
         .sj-cat-name { font-size: 24px; font-weight: 800; text-align: center; flex: 1; }
         .sj-pt-btn { background: #FCFAEF; border: 2px solid #eaeaea; width: 80px; height: 45px; border-radius: 25px; font-size: 22px; font-weight: 800; cursor: pointer; }
@@ -82,8 +65,8 @@
         #live-drawing-img { width: 400px; height: 400px; border: 5px dashed #ccc; background: white; margin: 20px auto; border-radius: 20px; object-fit: contain; display: block; }
 
         /* شاشة البازر العائمة */
-        #buzzer-alert-overlay { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(30, 40, 50, 0.95); z-index: 5000; display: none; flex-direction: column; align-items: center; color: white; text-align: center; border-radius: 20px; padding: 25px 40px; border: 3px solid #f1c40f; width: 90%; max-width: 600px; backdrop-filter: blur(5px); }
-        #buzzer-player-name { font-size: 50px; font-weight: 900; color: #f1c40f; }
+        #buzzer-alert-overlay { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(30, 40, 50, 0.95); z-index: 5000; display: none; flex-direction: column; align-items: center; color: white; text-align: center; border-radius: 20px; padding: 25px 40px; border: 3px solid #f1c40f; width: 90%; max-width: 600px; }
+        #buzzer-player-name { font-size: 50px; font-weight: 900; color: #f1c40f; margin-bottom: 10px;}
         
         #toast-notification { position: fixed; top: 20px; right: -300px; background: #27ae60; color: white; padding: 15px 25px; border-radius: 8px; font-size: 20px; font-weight: bold; z-index: 10001; transition: right 0.4s ease-out; }
         
@@ -103,48 +86,18 @@
 
         /* شاشة السؤال */
         .q-display { font-size: 45px; font-weight: 800; margin: 30px 0; color: var(--text-dark); line-height: 1.5; }
-        .q-media { max-width: 100%; max-height: 350px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .a-display { font-size: 40px; color: var(--primary-orange); font-weight: 800; margin: 30px 0; display: none; background: var(--bg-answer); padding: 25px; border-radius: 12px; border: 2px dashed var(--primary-orange); line-height: 1.6;}
-        .hint-display { font-size: 28px; font-weight: 700; color: #d35400; margin: 20px 0; display: none; background: #fff3e0; padding: 20px; border-radius: 12px; border: 1px solid #e67e22; line-height: 1.5;}
+        .a-display { font-size: 40px; color: var(--primary-orange); font-weight: 800; margin: 30px 0; display: none; background: #FFFEF5; padding: 25px; border-radius: 12px; border: 2px dashed var(--primary-orange); line-height: 1.6;}
         
         .referee-box { margin-top: 40px; padding-top: 30px; border-top: 2px solid #ddd; display: none; }
         .referee-title { font-size: 26px; margin-bottom: 20px; font-weight: 700; color: var(--text-gray); }
 
-        @media screen and (max-width: 1024px) {
-            .sj-grid { grid-template-columns: repeat(2, 1fr); }
-            .dashboard { flex-direction: column; gap: 20px; text-align: center; }
-            .turn-badge { order: -1; }
-        }
         @media screen and (max-width: 768px) {
             header { padding: 15px; flex-direction: column; gap: 15px; }
-            .header-spacer { display: none; }
             .header-left { width: 100%; justify-content: space-between; flex-direction: row-reverse; }
-            .header-title { font-size: 24px; text-align: center; width: 100%; }
-            .tabs-container { gap: 10px; flex-wrap: wrap; max-height: 150px; padding-bottom: 10px; }
-            .tabs-container.hidden { max-height: 0; }
-            .tab { font-size: 18px; padding: 8px 12px; }
-            .game-area { margin: 10px; padding: 15px; }
             .sj-grid { grid-template-columns: 1fr; }
-            .sj-block { padding: 12px; }
-            .sj-cat-name { font-size: 20px; }
-            .sj-pt-btn { width: 60px; height: 40px; font-size: 18px; }
             .huroof-grid { grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); }
-            .huroof-btn { font-size: 24px; padding: 10px 0; }
-            .q-display { font-size: 28px; margin: 15px 0; }
-            .a-display, .hint-display { font-size: 24px; padding: 15px; }
             .setup-input { width: 90%; max-width: 300px; }
             .btn-main, .btn-sec { font-size: 18px; padding: 12px 20px; width: 90%; max-width: 300px; margin: 10px auto; display: block; }
-            #buzzer-alert-overlay { width: 95%; padding: 15px; }
-            .referee-box > div > button { width: 100%; max-width: 300px; margin: 5px 0; }
-        }
-        @media screen and (max-width: 480px) {
-            .team-info { font-size: 18px; gap: 10px; flex-direction: column; }
-            .score-val { font-size: 28px; min-width: 50px; }
-            .score-adjust { flex-direction: row; }
-            .turn-badge { font-size: 18px; padding: 6px 20px; }
-            .q-display { font-size: 22px; }
-            .a-display, .hint-display { font-size: 20px; }
-            .referee-title { font-size: 20px; }
         }
     </style>
 </head>
@@ -196,6 +149,7 @@
         </nav>
 
         <div class="game-area">
+            
             <div class="dashboard" id="dashboard">
                 <div class="team-info">
                     <span id="name-t1">الفريق 1</span>
@@ -211,27 +165,18 @@
             </div>
 
             <div id="screen-setup" class="screen active">
-                <h1 style="color: var(--primary-orange); font-size: 40px; margin-bottom:20px;">إعداد الجلسة</h1>
-                <input type="text" id="input-t1" placeholder="اسم الفريق الأول (يمين)"><br>
-                <input type="text" id="input-t2" placeholder="اسم الفريق الثاني (يسار)"><br>
+                <h1 style="color: var(--primary-orange); margin-bottom: 20px; font-size: 45px; font-weight: 800;">إعداد الجلسة</h1>
+                <input type="text" id="input-t1" class="setup-input" placeholder="اسم الفريق الأول (يمين)"><br>
+                <input type="text" id="input-t2" class="setup-input" placeholder="اسم الفريق الثاني (يسار)"><br>
                 <button class="btn-main" onclick="startSession()">إنشاء الجلسة وبدء اللعب</button>
             </div>
 
-            <div id="screen-board" class="screen">
-                <div id="progress-container" class="progress-text" style="display:none;">
-                    الخيارات المتبقية لهذه الجولة: <span id="progress-count">0</span>
-                </div>
-                <div id="board-content"></div>
-            </div>
+            <div id="screen-board" class="screen"><div id="board-content"></div></div>
 
             <div id="screen-question" class="screen">
                 <div id="q-meta" style="font-size: 26px; font-weight: 700; color: var(--text-gray); margin-bottom: 20px;"></div>
                 <div id="q-content" class="q-display"></div>
-                <div id="q-media-container"></div>
-                <div id="q-hint-display" class="hint-display"></div>
                 <div id="a-content" class="a-display"></div>
-                
-                <button class="btn-sec" id="btn-show-hint" onclick="showHint()" style="display: none;">تلميح (-50 نقطة)</button>
                 <br>
                 <button class="btn-main" id="btn-show-ans" onclick="showAnswer()">عرض الإجابة</button>
                 <button class="btn-sec" onclick="closeQuestion()">رجوع</button>
@@ -251,17 +196,13 @@
                 <h2 style="margin: 20px 0;">الفئة الحالية: <span id="auction-category" style="color: #2980b9;">تاريخ</span></h2>
                 <div style="font-size: 60px; font-weight: 900; color: #27ae60; margin: 30px;">أعلى مزايدة: <span id="auction-highest">0</span></div>
                 <div id="auction-winner-text" style="font-size: 30px; color: #c0392b; font-weight: bold; display: none;">تم التدبيس! الفريق المزايد يجاوب!</div>
-                <br>
-                <button class="btn-main" onclick="startAuction()">بدء مزاد جديد</button>
+                <br><button class="btn-main" onclick="startAuction()">بدء مزاد جديد</button>
             </div>
 
             <div id="screen-clicker" class="screen">
                 <h1 style="font-size: 50px;">حرب الأصابع 👆</h1>
-                <p style="font-size: 24px;">اضغطوا الزر بالجوال بأسرع ما يمكن لسحب الحبل!</p>
                 <div class="clicker-container">
-                    <div id="clicker-t1-bar"></div>
-                    <div class="clicker-center"></div>
-                    <div id="clicker-t2-bar"></div>
+                    <div id="clicker-t1-bar"></div><div class="clicker-center"></div><div id="clicker-t2-bar"></div>
                 </div>
                 <h2 id="clicker-winner" style="color: #e74c3c; font-size: 40px;"></h2>
                 <button class="btn-main" onclick="startClicker()">بدء الحرب</button>
@@ -269,12 +210,10 @@
 
             <div id="screen-spy" class="screen">
                 <h1 style="font-size: 50px;">لعبة الخاين 🕵️‍♂️</h1>
-                <input type="text" id="spy-word-input" placeholder="الكلمة السرية (مثال: شاورما)">
-                <br>
-                <button class="btn-main" onclick="startSpy()">توزيع الكلمة على الجوالات</button>
+                <input type="text" id="spy-word-input" class="setup-input" placeholder="الكلمة السرية">
+                <br><button class="btn-main" onclick="startSpy()">توزيع الكلمة</button>
                 <div id="spy-result" style="margin-top: 30px; font-size: 30px; display: none;">الخاين هو: <span id="spy-name-reveal" style="color: red; font-weight:900;">-</span></div>
-                <br>
-                <button class="btn-sec" onclick="revealSpy()" style="margin-top: 20px;">كشف الخاين</button>
+                <br><button class="btn-sec" onclick="revealSpy()" style="margin-top: 20px;">كشف الخاين</button>
             </div>
 
             <div id="screen-wager" class="screen">
@@ -283,27 +222,24 @@
                     <div><h2 id="wager-t1-name">الفريق 1</h2><div id="wager-t1-val" style="font-size:40px; color:#c0392b;">؟</div></div>
                     <div><h2 id="wager-t2-name">الفريق 2</h2><div id="wager-t2-val" style="font-size:40px; color:#c0392b;">؟</div></div>
                 </div>
-                <button class="btn-main" onclick="openWager()">فتح باب الرهان للجوالات</button>
+                <button class="btn-main" onclick="openWager()">فتح باب الرهان</button>
             </div>
 
             <div id="screen-drawing" class="screen">
                 <h1 style="font-size: 50px;">بيكاسو الديوانية 🎨</h1>
-                <p style="font-size: 22px;">اكتب اسم الرسام ليتم تفعيل جواله</p>
-                <input type="text" id="drawer-name" placeholder="اسم اللاعب الرسام">
-                <button class="btn-main" onclick="startDrawing()">تفعيل لوحة الرسم</button>
-                <img id="live-drawing-img" src="" alt="بانتظار الرسام...">
+                <input type="text" id="drawer-name" class="setup-input" placeholder="اسم الرسام">
+                <button class="btn-main" onclick="startDrawing()">تفعيل الجوال</button>
+                <img id="live-drawing-img" src="" alt="بانتظار الرسم...">
             </div>
 
             <div id="screen-end" class="screen">
                 <h1 style="font-size: 60px; font-weight: 800; margin-bottom: 20px;">انتهت خيارات الجولة!</h1>
                 <div id="winner-announcement" style="font-size: 45px; color: var(--primary-orange); font-weight: 800; margin-bottom: 20px;"></div>
-                
                 <div class="mvp-box" id="mvp-container" style="display:none;">
-                    <div class="mvp-title">⭐ نجم الجلسة (الأكثر إجابة) ⭐</div>
+                    <div class="mvp-title">⭐ نجم الجلسة ⭐</div>
                     <div class="mvp-name" id="mvp-name-display">الاسم</div>
                 </div>
-                <br><br>
-                <button class="btn-main" onclick="switchGame(activeGame)">إعادة اللعبة بأسئلة جديدة</button>
+                <br><br><button class="btn-main" onclick="switchGame(activeGame)">إعادة اللعبة</button>
             </div>
 
         </div>
@@ -315,27 +251,25 @@
         const firebaseConfig = { apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA", authDomain: "appd-75fbf.firebaseapp.com", databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com", projectId: "appd-75fbf", storageBucket: "appd-75fbf.appspot.com", messagingSenderId: "38346789995", appId: "1:38346789995:web:4bc14686f2758164dfcd2e" };
         firebase.initializeApp(firebaseConfig); const db = firebase.database();
         let currentRoomCode = "", activeBuzzerPlayer = null, sessionStartTime = Date.now();
-        const ALL_GAMES = DATA_BANK.games;
+        
+        // حماية الكود من الانهيار لو كان ملف الداتا غير موجود
+        let ALL_GAMES = null;
+        if(typeof DATA_BANK !== 'undefined') {
+            ALL_GAMES = DATA_BANK.games;
+        }
+
         let teamNames = ["", ""], gameScores = { 'seen_jeem': [0,0], 'emoji': [0,0], 'auction': [0,0], 'clicker': [0,0], 'spy': [0,0], 'wager': [0,0], 'drawing': [0,0], 'huroof_waloof': [0,0] };
         let activeGame = 'seen_jeem', isSessionStarted = false, activeQ_ID = null; window.questionMap = {};
         let playerStats = {}; 
 
-        // إظهار المحتوى وإخفاء اللودينق + تطبيق الأنيميشن وإظهار الـ opacity
-        window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.opacity = '0';
-                document.getElementById('app-container').style.opacity = '1';
-                setTimeout(() => { document.getElementById('loading-screen').style.display = 'none'; }, 800);
-            }, 5500); 
-        };
-        
+        window.onload = () => { setTimeout(() => { document.getElementById('loading-screen').style.opacity = '0'; setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500); }, 1500); };
         function showToast(msg) { let t = document.getElementById('toast-notification'); t.innerText = msg; t.style.right = '20px'; setTimeout(() => t.style.right = '-300px', 4000); }
         function navTo(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
         function shuffle(arr) { let c = arr.length, r; while (c !== 0) { r = Math.floor(Math.random() * c); c--; [arr[c], arr[r]] = [arr[r], arr[c]]; } return arr; }
         function toggleFullscreen() { document.getElementById('tabs-container').classList.toggle('hidden'); document.getElementById('game-area').classList.toggle('expanded'); }
 
         function startSession() {
-            if(!ALL_GAMES) return;
+            if(!ALL_GAMES) { alert("لم يتم العثور على ملف الأسئلة (data.js)! تأكد من إضافته بشكل صحيح."); return; }
             let t1 = document.getElementById('input-t1').value.trim(), t2 = document.getElementById('input-t2').value.trim();
             if (!t1 || !t2) { alert("أدخل أسماء الفرق!"); return; }
             
@@ -351,7 +285,6 @@
 
             db.ref('rooms/' + currentRoomCode).set({ status: 'waiting', team_names: teamNames });
 
-            // استماع البازر
             db.ref('rooms/' + currentRoomCode + '/buzzed_by').on('value', snap => {
                 let p = snap.val();
                 if(p && p.name) { 
@@ -363,10 +296,8 @@
                 }
             });
 
-            // استماع اللاعبين
             db.ref('rooms/' + currentRoomCode + '/latest_join').on('value', snap => { if(snap.val()) showToast(`انضم ${snap.val().name}`); });
 
-            // استماع الرعب (صورة وصوت)
             db.ref('rooms/' + currentRoomCode + '/jumpscare').on('value', snap => {
                 if(snap.val() > sessionStartTime) {
                     let o = document.getElementById('jumpscare-overlay');
@@ -377,19 +308,20 @@
                 }
             });
 
-            // استماع الرسم
             db.ref('rooms/' + currentRoomCode + '/drawing_data').on('value', snap => { if(snap.val()) document.getElementById('live-drawing-img').src = snap.val(); });
 
-            document.getElementById('dashboard').style.display = 'flex'; switchGame('seen_jeem');
+            document.getElementById('dashboard').style.display = 'flex'; 
+            switchGame('seen_jeem');
         }
 
         function adjustScore(tIdx, amt) { gameScores[activeGame][tIdx] += amt; document.getElementById('score-t1').innerText = gameScores[activeGame][0]; document.getElementById('score-t2').innerText = gameScores[activeGame][1]; }
         function updateScoreUI() { document.getElementById('score-t1').innerText = gameScores[activeGame][0]; document.getElementById('score-t2').innerText = gameScores[activeGame][1]; }
         function updateTurnUI() { document.getElementById('turn-badge').innerText = `دور الاختيار: ${teamNames[turn]}`; }
-        function updateProgress() { let left = sessionLimit - itemsUsed; document.getElementById('progress-container').style.display = 'block'; document.getElementById('progress-count').innerText = left; }
 
         function switchGame(key) {
             if (!isSessionStarted) { alert("أنشئ الجلسة أولاً!"); return; }
+            if(!ALL_GAMES) return;
+
             activeGame = key; itemsUsed = 0; window.questionMap = {};
             document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active'); if(t.getAttribute('onclick').includes(key)) t.classList.add('active'); });
             updateScoreUI(); updateTurnUI();
@@ -401,41 +333,36 @@
         }
 
         function buildJeopardy(type) {
-            sessionLimit = 36; navTo('screen-board');
+            navTo('screen-board');
             let qs = shuffle(type === 'seen_jeem' ? ALL_GAMES.seen_jeem.questions : (ALL_GAMES.emoji.questions || ALL_GAMES.najdi_proverbs.questions)).slice(0, 18);
             let html = '<div class="sj-grid">';
             for(let i=0; i<6; i++) {
                 let q1 = qs[i], q2 = qs[i+6] || qs[i], q3 = qs[i+12] || qs[i];
-                html += `<div class="sj-block"><div class="sj-col"><button class="sj-pt-btn" onclick="openQ('${q1.question || q1.emojis}', '${q1.correctAnswer || q1.proverb}', 200, this, '${q1.hint||''}')">200</button></div><div class="sj-cat-name">فئة ${i+1}</div><div class="sj-col"><button class="sj-pt-btn" onclick="openQ('${q1.question || q1.emojis}', '${q1.correctAnswer || q1.proverb}', 400, this, '${q1.hint||''}')">400</button></div></div>`;
+                html += `<div class="sj-block"><div class="sj-col"><button class="sj-pt-btn" onclick="openQ('${q1.question || q1.emojis}', '${q1.correctAnswer || q1.proverb}', 200, this)">200</button></div><div class="sj-cat-name">فئة ${i+1}</div><div class="sj-col"><button class="sj-pt-btn" onclick="openQ('${q1.question || q1.emojis}', '${q1.correctAnswer || q1.proverb}', 400, this)">400</button></div></div>`;
             }
             document.getElementById('board-content').innerHTML = html + '</div>';
-            updateProgress();
         }
 
         function buildHuroof() {
-            sessionLimit = 28; navTo('screen-board');
+            navTo('screen-board');
             let html = `<div class="huroof-grid">`;
             alphabet.forEach(l => {
                 let qs = Array.isArray(ALL_GAMES.huroof_waloof) ? ALL_GAMES.huroof_waloof : [];
-                let q = shuffle(qs.filter(x => (x.answer||x.a).startsWith(l)))[0] || {question:`أكمل: يبدأ بحرف ${l}`, answer:"-", points:200, hint:""};
-                html += `<button class="huroof-btn" onclick="openQ('${q.question||q.q}', '${q.answer||q.a}', ${q.points||200}, this, '${q.hint||''}')">${l}</button>`;
+                let q = shuffle(qs.filter(x => (x.answer||x.a).startsWith(l)))[0] || {question:`أكمل: يبدأ بحرف ${l}`, answer:"-", points:200};
+                html += `<button class="huroof-btn" onclick="openQ('${q.question||q.q}', '${q.answer||q.a}', ${q.points||200}, this)">${l}</button>`;
             });
             document.getElementById('board-content').innerHTML = html + `</div>`;
-            updateProgress();
         }
 
-        function openQ(q, a, pts, btn, hint) {
+        function openQ(q, a, pts, btn) {
             btn.classList.add('used'); 
             activeQ_ID = 'id_' + Math.random().toString(36).substr(2, 9);
-            window.questionMap[activeQ_ID] = { pts: pts, hint: hint };
+            window.questionMap[activeQ_ID] = { pts: pts };
 
             document.getElementById('q-content').innerHTML = q; 
             document.getElementById('a-content').innerHTML = a;
             document.getElementById('q-pts-val').innerText = pts;
             
-            document.getElementById('q-hint-display').style.display = 'none';
-            document.getElementById('btn-show-hint').style.display = (hint && hint !== "undefined" && hint !== "") ? 'inline-block' : 'none';
-
             document.getElementById('a-content').style.display = 'none'; 
             document.getElementById('referee-box').style.display = 'none';
             document.getElementById('btn-show-ans').style.display = 'inline-block';
@@ -458,35 +385,16 @@
             } 
         }
 
-        function showHint() {
-            let q = window.questionMap[activeQ_ID]; if(!q || !q.hint) return;
-            if(confirm("خصم 50 نقطة لتفعيل التلميح؟")) {
-                q.pts = Math.max(0, q.pts - 50); document.getElementById('q-pts-val').innerText = q.pts;
-                document.getElementById('q-hint-display').innerHTML = "💡 " + q.hint; document.getElementById('q-hint-display').style.display = 'block';
-                document.getElementById('btn-show-hint').style.display = 'none';
-            }
-        }
-
         function showAnswer() { 
             document.getElementById('a-content').style.display = 'block'; 
             document.getElementById('referee-box').style.display = 'block'; 
             document.getElementById('btn-show-ans').style.display = 'none';
-            document.getElementById('btn-show-hint').style.display = 'none';
             if(isSessionStarted) db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); 
         }
 
         function awardPoints(tIdx) { if(tIdx !== -1) adjustScore(tIdx, window.questionMap[activeQ_ID].pts); closeQuestion(); }
-        function closeQuestion() { itemsUsed++; updateProgress(); turn = turn === 0 ? 1 : 0; updateTurnUI(); if(isSessionStarted) db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); if (itemsUsed >= sessionLimit) showWinner(); else navTo('screen-board'); }
+        function closeQuestion() { turn = turn === 0 ? 1 : 0; updateTurnUI(); if(isSessionStarted) db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); navTo('screen-board'); }
 
-        function showWinner() {
-            let s1 = gameScores[activeGame][0], s2 = gameScores[activeGame][1];
-            document.getElementById('winner-announcement').innerText = (s1 > s2) ? `🏆 فاز ${teamNames[0]} (${s1})` : (s2 > s1) ? `🏆 فاز ${teamNames[1]} (${s2})` : `🤝 تعادل!`;
-            let mvp = "لا يوجد", max = 0; for(let p in playerStats) { if(playerStats[p]>max) { max = playerStats[p]; mvp = p + ` (${max} إجابات)`; } }
-            if(max > 0) { document.getElementById('mvp-name-display').innerText = mvp; document.getElementById('mvp-container').style.display = 'inline-block'; }
-            navTo('screen-end');
-        }
-
-        // ================= الألعاب التفاعلية (المزاد - حرب - الخاين - كسر العظم - بيكاسو) =================
         function startAuction() {
             db.ref('rooms/' + currentRoomCode).update({ status: 'auction', auction_val: 0, auction_passed: false });
             db.ref('rooms/' + currentRoomCode + '/auction_val').on('value', snap => { document.getElementById('auction-highest').innerText = snap.val() || 0; });
