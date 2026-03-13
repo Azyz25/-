@@ -455,7 +455,6 @@ function toggleFullscreen() {
 }
 
 let sessionLimit = 0; // تم إرجاع المتغير المفقود
-let itemsUsed = 0;
 
 function updateProgress() {
     let pc = document.getElementById('progress-container');
@@ -915,7 +914,7 @@ function closeQuestion() {
             }
         }
 
-        
+
 function awardPoints(tIdx) {
   const pts = (window.questionMap[activeQ_ID]||{}).pts || 0;
   if (tIdx !== -1) adjustScore(tIdx, pts);
