@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>جهاز التحكم</title>
+    <title>صفحة اللاعبين</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -70,10 +70,16 @@
         <p style="font-size: 20px;">(إذا طلعت لك "أنت الخاين" حاول ترقع الموضوع!)</p>
     </div>
 
-    <div id="drawing-screen" class="screen">
-        <h1>ارسم هنا 🎨</h1>
+    <div id="drawing-pad-screen" class="screen">
+        <h1 style="font-size: 28px;">ارسم: <span id="word-to-draw" style="color:red; font-size: 34px;"></span></h1>
         <canvas id="canvas-pad" width="320" height="320"></canvas>
-        <button onclick="sendDrawing()">إرسال الرسمة للشاشة</button>
+        <button class="btn-sec" onclick="clearCanvas()">مسح اللوحة</button>
+    </div>
+
+    <div id="drawing-guess-screen" class="screen" style="background: #34495e;">
+        <h1 style="font-size:40px; color:white;">وش قاعد يرسم؟ 🤔</h1>
+        <input type="text" id="drawing-guess-input" placeholder="اكتب تخمينك هنا...">
+        <button onclick="sendGuess()">إرسال التخمين</button>
     </div>
 
     <script>
@@ -121,8 +127,15 @@
                 } else if (data.status === 'spy') {
                     document.getElementById('spy-word').innerText = (data.spy_name === myName) ? "🚨 أنت الخاين 🚨" : data.spy_word;
                     showScreen('spy-screen');
-                } else if (data.status === 'drawing' && data.drawer_name === myName) {
-                    showScreen('drawing-screen');
+                } else if (data.status === 'drawing') {
+                    // إذا كان اسمي هو اسم الرسام المختار، أفتح لوحة الرسم
+                    if (data.drawer_name === myName) {
+                        document.getElementById('word-to-draw').innerText = data.drawing_word;
+                        showScreen('drawing-pad-screen');
+                    } else {
+                        // الباقين يفتح لهم صندوق التخمين
+                        showScreen('drawing-guess-screen');
+                    }
                 } else {
                     showScreen('waiting-screen');
                 }
@@ -133,7 +146,7 @@
         
         function spamClick() { 
             roomRef.child('clicker_score').transaction(val => {
-                val = val || 50; return myTeamIndex === 0 ? val - 1 : val + 1; // فريق 0 يسحب للصفر، فريق 1 يسحب لـ 100
+                val = val || 50; return myTeamIndex === 0 ? val - 1 : val + 1;
             });
         }
 
@@ -148,12 +161,51 @@
         }
         function passAuction() { roomRef.child('auction_passed').set(true); }
 
-        // كود الرسم المبسط
+        // إرسال التخمينات من الجوال للشاشة الكبيرة
+        function sendGuess() {
+            let guess = document.getElementById('drawing-guess-input').value.trim();
+            if(!guess) return;
+            roomRef.child('drawing_guesses').push({
+                player: myName,
+                team: myTeamIndex,
+                text: guess,
+                time: Date.now()
+            });
+            document.getElementById('drawing-guess-input').value = ""; // تفريغ الخانة بعد الإرسال
+        }
+
+        // كود الرسم للرسام
         let canvas = document.getElementById('canvas-pad'), ctx = canvas.getContext('2d'), drawing = false;
-        canvas.addEventListener('touchstart', e => { drawing=true; ctx.beginPath(); ctx.moveTo(e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top); });
-        canvas.addEventListener('touchmove', e => { if(drawing) { ctx.lineTo(e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top); ctx.stroke(); } });
+        ctx.strokeStyle = "#000"; ctx.lineWidth = 5; ctx.lineCap = "round";
+        
+        canvas.addEventListener('touchstart', e => { 
+            drawing=true; 
+            ctx.beginPath(); 
+            ctx.moveTo(e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top); 
+        });
+        canvas.addEventListener('touchmove', e => { 
+            if(drawing) { 
+                ctx.lineTo(e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top); 
+                ctx.stroke(); 
+                sendDrawingToFB();
+            } 
+        });
         canvas.addEventListener('touchend', () => drawing=false);
-        function sendDrawing() { roomRef.child('drawing_data').set(canvas.toDataURL()); alert("تم الإرسال!"); }
+
+        let drawThrottle;
+        function sendDrawingToFB() {
+            if(drawThrottle) return;
+            drawThrottle = setTimeout(() => {
+                drawThrottle = null;
+                // يرسل الرسمة بوضوح متوسط عشان ما يعلق الفايربيس
+                roomRef.child('drawing_data').set(canvas.toDataURL("image/jpeg", 0.4));
+            }, 100); 
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            roomRef.child('drawing_data').set("");
+        }
     </script>
 </body>
 </html>
