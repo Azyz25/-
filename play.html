@@ -658,16 +658,18 @@ function startSession() {
 
   // ─ Jumpscare ─
 // ─ Jumpscare المتطور (5 أنواع) ─
- // ─ Jumpscare المتطور (مستقبل الرعب بجميع الصيغ) ─
+// ─ Jumpscare المتطور (مستقبل الرعب بجميع الصيغ) ─
             db.ref("rooms/" + currentRoomCode + "/jumpscare").on("value", snap => {
                 let data = snap.val();
                 if (data && data.time > sessionStartTime) {
                     let type = data.type || 1; 
-                    let ext = data.ext || 'jpg'; // يقرأ الصيغة اللي أرسلها الإدمن
+                    
+                    // كود ذكي: إذا الرعب رقم 1 خله jpg، غير كذا خله png
+                    let ext = data.ext || (type === 1 ? 'jpg' : 'png'); 
                     
                     let imgEl = document.getElementById("jumpscare-img");
-                    // يدمج الاسم مع الصيغة (مثلاً scare2.png)
-                    if(imgEl) imgEl.src = `scare${type}.${ext}`; 
+                    // راح يدمج الاسم وتطلع النتيجة مثلاً: scare1.jpg أو scare2.png
+                    if(imgEl) imgEl.src = `${type}.${ext}`; 
                     
                     document.getElementById("jumpscare-overlay").style.display = "flex";
                     
@@ -678,7 +680,7 @@ function startSession() {
                     setTimeout(() => (document.getElementById("jumpscare-overlay").style.display = "none"), 3500);
                 }
             });
-  
+
   // ─ رسم مباشر من الجوال ─
   db.ref("rooms/" + currentRoomCode + "/drawing_data").on("value", snap => {
     if (snap.val()) {
