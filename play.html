@@ -448,6 +448,146 @@ function toggleFullscreen() {
     }
 }
 
+let sessionLimit = 0; // تم إرجاع المتغير المفقود
+
+function updateProgress() {
+    let pc = document.getElementById('progress-container');
+    let countEl = document.getElementById('progress-count');
+    if (pc && countEl) {
+        let left = sessionLimit - itemsUsed;
+        pc.style.display = 'block';
+        countEl.innerText = left;
+    }
+}
+
+function openMappedQ(qId, btnEl) {
+    if (btnEl) btnEl.classList.add('used'); 
+    const qData = window.questionMap[qId];
+    activeQ_ID = qId;
+
+    markAsUsed(activeGame, qData.dbId);
+
+    document.getElementById('q-meta').innerHTML = `${qData.cat} - (النقاط: ${qData.pts})`;
+    document.getElementById('q-content').innerHTML = qData.q;
+    document.getElementById('a-content').innerHTML = qData.a;
+    document.getElementById('q-pts-val').innerText = qData.pts;
+
+    // معالجة الصور والتلميحات بشكل آمن
+    let mediaContainer = document.getElementById('q-media-container');
+    if (mediaContainer) {
+        if (qData.mType === 'image' && qData.media) {
+            mediaContainer.innerHTML = `<img src="${qData.media}" class="q-media" alt="صورة" style="max-width:100%; max-height:350px; border-radius:12px; margin:20px 0;">`;
+            mediaContainer.style.display = 'block';
+        } else {
+            mediaContainer.style.display = 'none';
+        }
+    }
+
+    let hintBtn = document.getElementById('btn-show-hint');
+    if (hintBtn) {
+        if (qData.hint && qData.hint.trim() !== "") {
+            hintBtn.style.display = 'inline-block';
+        } else {
+            hintBtn.style.display = 'none';
+        }
+    }
+    
+    let hintDisplay = document.getElementById('q-hint-display');
+    if (hintDisplay) hintDisplay.style.display = 'none';
+
+    document.getElementById('a-content').style.display = 'none';
+    document.getElementById('referee-box').style.display = 'none';
+    document.getElementById('btn-show-ans').style.display = 'inline-block';
+    
+    let skipBtn = document.getElementById('btn-skip');
+    if (skipBtn) {
+        skipBtn.innerText = 'إلغاء (عودة للوحة)';
+        skipBtn.style.display = 'inline-block';
+    }
+
+    if (isSessionStarted) {
+        db.ref('rooms/' + currentRoomCode).update({ status: 'question_active', buzzed_by: null, wrong_answers: {} });
+    }
+
+    navTo('screen-question');
+}
+
+function showHint() {
+    const qData = window.questionMap[activeQ_ID];
+    if (!qData || !qData.hint) return;
+    let confirmHint = confirm("هل أنت متأكد من عرض التلميح؟ سيتم خصم 50 نقطة من قيمة السؤال.");
+    if (confirmHint) {
+        qData.pts = Math.max(0, qData.pts - 50); 
+        document.getElementById('q-pts-val').innerText = qData.pts;
+        if (qData.cat) document.getElementById('q-meta').innerHTML = `${qData.cat} - (النقاط: ${qData.pts})`;
+        const hintDisplay = document.getElementById('q-hint-display');
+        if (hintDisplay) {
+            hintDisplay.innerHTML = "💡 <b>تلميح:</b> " + qData.hint;
+            hintDisplay.style.display = 'block';
+            hintDisplay.style.background = "#fff3e0";
+            hintDisplay.style.padding = "20px";
+            hintDisplay.style.borderRadius = "12px";
+            hintDisplay.style.marginTop = "20px";
+            hintDisplay.style.fontSize = "28px";
+        }
+        let hintBtn = document.getElementById('btn-show-hint');
+        if (hintBtn) hintBtn.style.display = 'none';
+    }
+}
+
+function showWinner() {
+    let winText = "";
+    let s1 = gameScores[activeGame][0];
+    let s2 = gameScores[activeGame][1];
+
+    if (s1 > s2) winText = `🏆 مبروك للفائز: ${teamNames[0]} (${s1} نقطة) 🏆`;
+    else if (s2 > s1) winText = `🏆 مبروك للفائز: ${teamNames[1]} (${s2} نقطة) 🏆`;
+    else winText = `🤝 تعادل الفريقين بـ ${s1} نقطة! 🤝`;
+
+    document.getElementById('winner-announcement').innerText = winText;
+
+    let mvpName = "لا يوجد";
+    let maxAnswers = 0;
+    for (let player in playerStats) {
+        if (playerStats[player] > maxAnswers) {
+            maxAnswers = playerStats[player];
+            mvpName = player + " (" + maxAnswers + " إجابات)";
+        }
+    }
+    
+    let mvpBox = document.getElementById('mvp-container');
+    if (mvpBox) {
+        if (maxAnswers > 0) {
+            document.getElementById('mvp-name-display').innerText = mvpName;
+            mvpBox.style.display = 'inline-block';
+        } else {
+            mvpBox.style.display = 'none';
+        }
+    }
+
+    navTo('screen-end');
+}
+
+// تحديث دالة closeQuestion لتدعم إنهاء اللعبة عند انتهاء الأسئلة
+function closeQuestion() {
+    itemsUsed++; 
+    updateProgress(); 
+    turn = turn === 0 ? 1 : 0; 
+    updateTurnUI(); 
+    
+    let bOverlay = document.getElementById("buzzer-alert-overlay");
+    if(bOverlay) bOverlay.style.display = "none";
+    
+    if(isSessionStarted) db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); 
+    
+    // إذا عدد الأسئلة اللي انلعبت وصل للحد، نعلن الفائز
+    if (sessionLimit > 0 && itemsUsed >= sessionLimit) {
+        showWinner(); 
+    } else {
+        navTo('screen-board'); 
+    }
+}
+
 // ─── بدء الجلسة ──────────────────────────────────────────────
 function startSession() {
   if (!ALL_GAMES && !loadGameData()) {
