@@ -569,7 +569,41 @@ function switchGame(key) {
 
 // ─── جيوباردي 200/400 ─────────────────────────────────────────
 // ─── جيوباردي 200/400/600 لكل جهة ───────────────────────────────
+// ================= دوال إدارة الأسئلة (منع التكرار) =================
+        function getUnusedQuestions(gameKey, fullBank, requiredCount, idField) {
+            let usedObj = JSON.parse(localStorage.getItem('diw_used')) || {};
+            let usedList = usedObj[gameKey] || [];
+            if (!fullBank) return [];
+            
+            // فلترة الأسئلة اللي ما طلعت قبل
+            let available = fullBank.filter(item => {
+                let currentId = item[idField] || item.question || item.emojis || item.proverb;
+                return !usedList.includes(currentId);
+            });
 
+            // إذا الأسئلة الباقية أقل من المطلوب، نصفر الذاكرة ونعيد من جديد (جولة جديدة)
+            if (available.length < requiredCount) {
+                usedObj[gameKey] = [];
+                localStorage.setItem('diw_used', JSON.stringify(usedObj));
+                
+                let roundsObj = JSON.parse(localStorage.getItem('diw_rounds')) || {};
+                roundsObj[gameKey] = (roundsObj[gameKey] || 1) + 1;
+                localStorage.setItem('diw_rounds', JSON.stringify(roundsObj));
+                
+                available = fullBank.slice(); 
+            }
+            return shuffle(available).slice(0, requiredCount);
+        }
+
+        function markAsUsed(gameKey, id) {
+            let usedObj = JSON.parse(localStorage.getItem('diw_used')) || {};
+            if (!usedObj[gameKey]) usedObj[gameKey] = [];
+            if (!usedObj[gameKey].includes(id)) {
+                usedObj[gameKey].push(id);
+                localStorage.setItem('diw_used', JSON.stringify(usedObj));
+            }
+        }
+        // ===================================================================
 
 function buildJeopardy(type) {
             navTo('screen-board');
