@@ -19,11 +19,19 @@
         @keyframes pulse { to { transform: scale(1.2); } }
 
         .top-line { width: 100%; height: 12px; background: var(--primary-orange); }
-        header { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; }
-        .room-code-badge { background: #2c3e50; color: white; padding: 8px 20px; border-radius: 8px; font-size: 22px; font-weight: bold; display: none;}
-        .room-code-badge span { color: #f1c40f; }
-        .header-title { font-size: 28px; font-weight: 900; }
+       header { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; }
         
+        /* تعديل لون بوكس كود الجلسة للبرتقالي */
+        .room-code-badge { background: #DE6241; color: white; padding: 8px 20px; border-radius: 8px; font-size: 22px; font-weight: bold; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .room-code-badge span { color: white; } /* خليت الرقم أبيض عشان يبرز ويطلع فخم مع البرتقالي */
+        
+        .header-title { font-size: 28px; font-weight: 900; }
+        .header-left { display: flex; align-items: center; gap: 20px; justify-content: flex-end; }
+        
+        /* تعديل مقاس الشعار لـ 30 بكسل */
+        .header-logo-img { width: 30px; height: 30px; object-fit: contain; }
+
+
         .tabs-container { display: flex; justify-content: center; gap: 20px; padding: 10px; flex-wrap: wrap; }
         .tab { font-size: 20px; font-weight: 700; color: #666; cursor: pointer; padding: 10px 15px; border-bottom: 3px solid transparent; transition: 0.3s; }
         .tab.active { color: var(--primary-orange); border-bottom: 3px solid var(--primary-orange); }
@@ -142,13 +150,13 @@
             <div class="dashboard" id="dashboard">
                 <div class="team-info">
                     <span id="name-t1">الفريق 1</span>
-                    <div class="score-adjust"><button onclick="adjustScore(0, 100)">+</button><button onclick="adjustScore(0, -100)">-</button></div>
+                    <div class="score-adjust"><button onclick="adjustScore(0, 50)">+</button><button onclick="adjustScore(0, -100)">-</button></div>
                     <div class="score-val" id="score-t1">0</div>
                 </div>
                 <div class="turn-badge" id="turn-badge">دور الاختيار: الفريق 1</div>
                 <div class="team-info">
                     <div class="score-val" id="score-t2">0</div>
-                    <div class="score-adjust"><button onclick="adjustScore(1, 100)">+</button><button onclick="adjustScore(1, -100)">-</button></div>
+                    <div class="score-adjust"><button onclick="adjustScore(1, 50)">+</button><button onclick="adjustScore(1, -100)">-</button></div>
                     <span id="name-t2">الفريق 2</span>
                 </div>
             </div>
