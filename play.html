@@ -569,57 +569,92 @@ function switchGame(key) {
 
 // ─── جيوباردي 200/400 ─────────────────────────────────────────
 // ─── جيوباردي 200/400/600 لكل جهة ───────────────────────────────
-function buildJeopardy(type) {
-  let rawQs = [];
-  if (type === "seen_jeem") rawQs = (ALL_GAMES.seen_jeem && ALL_GAMES.seen_jeem.questions) || [];
-  else rawQs = (ALL_GAMES.emoji && ALL_GAMES.emoji.questions) || (ALL_GAMES.najdi_proverbs && ALL_GAMES.najdi_proverbs.questions) || [];
 
-  if (!rawQs.length) {
-    document.getElementById("board-content").innerHTML = "<p style='color:red;font-size:24px;'>⚠️ لا توجد أسئلة</p>";
-    navTo("screen-board"); return;
-  }
-  
-  // نحتاج 36 سؤال عشان نوزع 6 أسئلة لكل فئة (3 يمين و 3 يسار)
-  const qs = shuffle(rawQs).slice(0, 36);
-  let html = '<div class="sj-grid">';
-  
-  for (let i = 0; i < 6; i++) {
-    // الأسئلة للجهة اليمنى
-    const qR1 = qs[i * 6] || qs[0];
-    const qR2 = qs[i * 6 + 1] || qs[0];
-    const qR3 = qs[i * 6 + 2] || qs[0];
-    
-    // الأسئلة للجهة اليسرى
-    const qL1 = qs[i * 6 + 3] || qs[0];
-    const qL2 = qs[i * 6 + 4] || qs[0];
-    const qL3 = qs[i * 6 + 5] || qs[0];
-    
-    const gQ = q => escapeAttr(q.question || q.emojis || q.q || "سؤال");
-    const gA = q => escapeAttr(q.correctAnswer || q.proverb || q.answer || q.a || "إجابة");
-    
-    html += '<div class="sj-block">'
-          // الجهة اليمنى
-          + '<div class="sj-col">'
-          + '<button class="sj-pt-btn" onclick="openQ(\''+gQ(qR1)+'\',\''+gA(qR1)+'\',200,this)">200</button>'
-          + '<button class="sj-pt-btn" onclick="openQ(\''+gQ(qR2)+'\',\''+gA(qR2)+'\',400,this)">400</button>'
-          + '<button class="sj-pt-btn" onclick="openQ(\''+gQ(qR3)+'\',\''+gA(qR3)+'\',600,this)">600</button>'
-          + '</div>'
-          
-          // اسم الفئة في المنتصف
-          + '<div class="sj-cat-name">فئة '+(i+1)+'</div>'
-          
-          // الجهة اليسرى
-          + '<div class="sj-col">'
-          + '<button class="sj-pt-btn" onclick="openQ(\''+gQ(qL1)+'\',\''+gA(qL1)+'\',200,this)">200</button>'
-          + '<button class="sj-pt-btn" onclick="openQ(\''+gQ(qL2)+'\',\''+gA(qL2)+'\',400,this)">400</button>'
-          + '<button class="sj-pt-btn" onclick="openQ(\''+gQ(qL3)+'\',\''+gA(qL3)+'\',600,this)">600</button>'
-          + '</div>'
-          + '</div>';
-  }
-  
-  document.getElementById("board-content").innerHTML = html + '</div>';
-  navTo("screen-board");
-}
+
+function buildJeopardy(type) {
+            navTo('screen-board');
+            sessionLimit = 36;
+            
+            let bank = [];
+            let idField = '';
+
+            // قراءة الأسئلة حسب الهيكل الجديد لملف data.js
+            if (type === 'seen_jeem') {
+                bank = Array.isArray(ALL_GAMES.seen_jeem) ? ALL_GAMES.seen_jeem : (ALL_GAMES.seen_jeem.questions || []);
+                idField = 'question';
+            } else {
+                // الإيموجي أو الأمثال النجدية
+                bank = Array.isArray(ALL_GAMES.najdi_proverbs) ? ALL_GAMES.najdi_proverbs : (ALL_GAMES.najdi_proverbs ? ALL_GAMES.najdi_proverbs.questions : []);
+                if(bank.length === 0) bank = Array.isArray(ALL_GAMES.emoji) ? ALL_GAMES.emoji : (ALL_GAMES.emoji ? ALL_GAMES.emoji.questions : []);
+                idField = 'emojis'; // المعرف للإيموجي
+            }
+
+            if (!bank || bank.length === 0) {
+                document.getElementById("board-content").innerHTML = "<h2 style='color:#c0392b;text-align:center;margin-top:50px;'>⚠️ لا توجد أسئلة، تأكد من ملف data.js</h2>";
+                return;
+            }
+
+            let qs = getUnusedQuestions(type, bank, 36, idField);
+
+            let q200 = shuffle(qs.filter(q => q.points === 200 || q.difficulty === "CLASS_200"));
+            let q400 = shuffle(qs.filter(q => q.points === 400 || q.difficulty === "CLASS_400"));
+            let q600 = shuffle(qs.filter(q => q.points === 600 || q.difficulty === "CLASS_600"));
+
+            // تعبئة النواقص لو ما كفت الأسئلة في الداتا
+            while(q200.length < 12 && qs.length > 0) q200.push(qs.pop());
+            while(q400.length < 12 && qs.length > 0) q400.push(qs.pop());
+            while(q600.length < 12 && qs.length > 0) q600.push(qs.pop());
+
+            let html = '<div class="sj-grid">';
+            let catNames = ["فئة 1", "فئة 2", "فئة 3", "فئة 4", "فئة 5", "فئة 6"];
+            
+            for(let i=0; i<6; i++) {
+                html += `<div class="sj-block"><div class="sj-col">`;
+                html += createJeopardyBtn(q200.pop(), 200, catNames[i], type, idField);
+                html += createJeopardyBtn(q400.pop(), 400, catNames[i], type, idField);
+                html += createJeopardyBtn(q600.pop(), 600, catNames[i], type, idField);
+                html += `</div><div class="sj-cat-name">${catNames[i]}</div><div class="sj-col">`;
+                html += createJeopardyBtn(q200.pop(), 200, catNames[i], type, idField);
+                html += createJeopardyBtn(q400.pop(), 400, catNames[i], type, idField);
+                html += createJeopardyBtn(q600.pop(), 600, catNames[i], type, idField);
+                html += `</div></div>`;
+            }
+            html += '</div>';
+            document.getElementById('board-content').innerHTML = html;
+            updateProgress();
+        }
+
+
+        function createJeopardyBtn(qObj, forcedPts, catName, gameType, idField) {
+            if(!qObj) return `<button class="sj-pt-btn used" style="opacity:0; pointer-events:none;">${forcedPts}</button>`;
+            
+            const qId = 'id_' + Math.random().toString(36).substr(2, 9);
+            
+            if(gameType === 'emoji') {
+                window.questionMap[qId] = {
+                    dbId: qObj[idField] || qObj.proverb,
+                    q: `<div style="font-size:100px; letter-spacing:10px;">${qObj.emojis || '🤔'}</div>`,
+                    a: `${qObj.proverb || qObj.answer || 'إجابة'}<br><br><span style="font-size:32px; color:#555;">${qObj.meaning ? 'المعنى: ' + qObj.meaning : ''}</span>`,
+                    pts: forcedPts,
+                    cat: catName,
+                    hint: qObj.hint || "" 
+                };
+            } else {
+                window.questionMap[qId] = {
+                    dbId: qObj[idField] || qObj.question,
+                    q: qObj.question || qObj.q || 'سؤال',
+                    a: qObj.correctAnswer || qObj.a || qObj.answer || 'إجابة',
+                    pts: forcedPts,
+                    cat: catName,
+                    media: qObj.mediaUrl || null,
+                    mType: qObj.mediaType || null,
+                    hint: qObj.hint || "" 
+                };
+            }
+            
+            return `<button class="sj-pt-btn" onclick="openMappedQ('${qId}', this)">${forcedPts}</button>`;
+        }
+
 
 // ─── حروف و الوف ─────────────────────────────────────────────
 function buildHuroof() {
@@ -946,14 +981,14 @@ function renderSpyScreen() {
   }
 }
 
+function startSpyGame() { startSpy(); }
 
-function startSpy() {
+        function startSpy() {
             let w = document.getElementById('spy-word-input').value.trim();
-            // إذا ترك الخانة فاضية، نسحب كلمة عشوائية من الداتا!
             if(!w) {
                 let bank = ALL_GAMES.spy_words || [];
                 w = bank.length > 0 ? bank[Math.floor(Math.random() * bank.length)] : "سوق";
-                document.getElementById('spy-word-input').value = w; // عشان يشوفها الحكم
+                document.getElementById('spy-word-input').value = w; 
             }
             
             db.ref('rooms/' + currentRoomCode + '/players').once('value', snap => {
@@ -961,9 +996,15 @@ function startSpy() {
                 let spy = players[Math.floor(Math.random() * players.length)];
                 db.ref('rooms/' + currentRoomCode).update({ status: 'spy', spy_word: w, spy_name: spy });
                 document.getElementById('spy-name-reveal').innerText = spy;
-                document.getElementById('spy-result').style.display = 'none'; // نخفي النتيجة السابقة
+                document.getElementById('spy-result').style.display = 'none';
             });
         }
+        
+        function revealSpy() { 
+            document.getElementById('spy-result').style.display = 'block'; 
+            let a = document.getElementById('sfx-wrong'); if(a){a.currentTime=0; a.play().catch(e=>{});} 
+        }
+
 
 function nextSpyPair() {
   spyState.pairIdx++;
@@ -1000,11 +1041,9 @@ function startSpyVoteListener() {
   });
 }
 
-function revealSpy() { 
-            document.getElementById('spy-result').style.display = 'block'; 
-            let a = document.getElementById('sfx-wrong'); if(a){a.currentTime=0; a.play().catch(e=>{});} 
-        }
-function resetSpyGame() {
+
+
+        function resetSpyGame() {
   spyState = { phase:"setup", players:[], spyName:'', secretWord:'', pairs:[], pairIdx:0 };
   db.ref("rooms/"+currentRoomCode+"/spy_game").remove();
   renderSpyScreen();
