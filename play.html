@@ -53,7 +53,8 @@
         .tabs-container { display: flex; justify-content: center; gap: 20px; padding: 10px; flex-wrap: wrap; }
         .tab { font-size: 20px; font-weight: 700; color: #666; cursor: pointer; padding: 10px 15px; border-bottom: 3px solid transparent; transition: 0.3s; }
         .tab.active { color: var(--primary-orange); border-bottom: 3px solid var(--primary-orange); }
-
+.tabs-container.hidden { max-height: 0 !important; opacity: 0 !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; border: none !important;}
+.game-area.expanded { margin: 0 !important; border-radius: 0 !important; min-height: 100vh !important; }
         .game-area { flex: 1; background: var(--bg-board); margin: 20px; border-radius: 12px; padding: 30px; display: flex; flex-direction: column; align-items: center; }
         
         .dashboard { width: 100%; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.6); padding: 15px 30px; border-radius: 10px; margin-bottom: 20px; display: none;}
@@ -105,9 +106,19 @@
 
         #live-drawing-img { width: 400px; height: 400px; border: 5px dashed #ccc; background: white; margin: 20px auto; border-radius: 20px; object-fit: contain; display: block; }
 
-        #buzzer-alert-overlay { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(30, 40, 50, 0.95); z-index: 5000; display: none; flex-direction: column; align-items: center; color: white; text-align: center; border-radius: 20px; padding: 25px 40px; border: 3px solid #f1c40f; width: 90%; max-width: 600px; }
-        #buzzer-player-name { font-size: 50px; font-weight: 900; color: #f1c40f; margin-bottom: 10px;}
-        
+    /* شاشة البازر العائمة (تم تصغيرها ونقلها للزاوية عشان ما تغطي السؤال) */
+        #buzzer-alert-overlay { 
+            position: fixed; bottom: 20px; right: 20px; left: auto; transform: none; 
+            background: rgba(30, 40, 50, 0.95); z-index: 5000; display: none; 
+            flex-direction: column; align-items: center; color: white; text-align: center; 
+            border-radius: 20px; padding: 20px 30px; border: 3px solid #f1c40f; 
+            width: auto; min-width: 300px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); backdrop-filter: blur(5px); 
+        }
+        #buzzer-player-name { font-size: 40px; font-weight: 900; color: #f1c40f; margin-bottom: 5px;}
+        #buzzer-team-name { font-size: 18px; color: #bdc3c7; margin-bottom: 10px; }
+        .buzzer-controls { display: flex; gap: 10px; margin-top: 10px;}
+        .buzzer-controls button { font-size: 18px; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;}
+
         #toast-notification { position: fixed; top: 20px; right: -300px; background: #27ae60; color: white; padding: 15px 25px; border-radius: 8px; font-size: 20px; font-weight: bold; z-index: 10001; transition: right 0.4s ease-out; }
         
         #jumpscare-overlay { position: fixed; inset: 0; background: black; z-index: 999999; display: none; justify-content: center; align-items: center; }
@@ -135,6 +146,18 @@
             .setup-input { width: 90%; max-width: 300px; }
             .btn-main, .btn-sec { font-size: 18px; padding: 12px 20px; width: 90%; max-width: 300px; margin: 10px auto; display: block; }
         }
+
+        /* تصميم أزرار النقاط الدائرية الاحترافية */
+        .score-adjust { display: flex; flex-direction: row; gap: 10px; margin: 0 15px; }
+        .score-adjust button { 
+            background: #DE6241; color: white; border: none; border-radius: 50%; 
+            width: 45px; height: 45px; font-size: 30px; font-weight: bold; 
+            cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center; 
+            line-height: 0; padding-bottom: 5px; transition: 0.2s;
+        }
+        .score-adjust button:hover { background: #c0392b; transform: scale(1.1); }
+        .score-adjust button:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
@@ -179,7 +202,6 @@
             <div class="tab" onclick="switchGame('auction')">المزاد (دبسها)</div>
             <div class="tab" onclick="switchGame('clicker')">حرب الأصابع</div>
             <div class="tab" onclick="switchGame('spy')">الخاين</div>
-            <div class="tab" onclick="switchGame('wager')">كسر العظم</div>
             <div class="tab" onclick="renderPicassoSetup()">بيكاسو</div>
             <div class="tab active" onclick="switchGame('seen_jeem')">سين جيم</div>
         </nav>
@@ -312,16 +334,6 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 // ─── كلمات بيكاسو ────────────────────────────────────────────
-const PICASSO_WORDS = [
-  "قطة","كلب","حصان","أسد","فيل","زرافة","قرد","ديناصور","أخطبوط","دلفين",
-  "سيارة","طائرة","دراجة","قطار","سفينة","صاروخ","هليكوبتر",
-  "بيت","مسجد","برج","قلعة","خيمة","مدرسة","مستشفى",
-  "شجرة","جبل","شاطئ","صحراء","قوس قزح","بركان","غابة",
-  "تفاحة","موزة","بيتزا","كعكة","قهوة","برجر","آيس كريم","سوشي",
-  "قلم","كتاب","ساعة","تاج","مفتاح","مظلة","تلسكوب","غيتار",
-  "يركض","يرقص","يسبح","يطير","ينام","يضحك","يبكي",
-  "كعبة المكرمة","برج إيفل","تمثال الحرية","برج بيزا"
-];
 
 // ─── الأبجدية ────────────────────────────────────────────────
 const alphabet = [
@@ -417,25 +429,25 @@ function normalizeAr(str) {
 }
 
 function toggleFullscreen() {
-    // 1. إخفاء التابات وتوسيع اللوحة (نفس كودك)
-    const tabs = document.getElementById("tabs-container");
-    const area = document.getElementById("game-area");
+    // استخدمنا querySelector عشان نصيدها بالكلاس لأن الـ id مو موجود عندك بالـ HTML
+    const tabs = document.querySelector(".tabs-container");
+    const area = document.querySelector(".game-area");
+    
     if (tabs) tabs.classList.toggle("hidden");
     if (area) area.classList.toggle("expanded");
 
-    // 2. تفعيل وضع ملء الشاشة الحقيقي للمتصفح
+    // تفعيل وضع ملء الشاشة الحقيقي للمتصفح
     if (!document.fullscreenElement) {
-        // إذا الشاشة مو مكبرة، كبرها
         document.documentElement.requestFullscreen().catch(err => {
             console.log("لم يتمكن المتصفح من التكبير: " + err.message);
         });
     } else {
-        // إذا الشاشة مكبرة مسبقاً، صغرها
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
     }
 }
+
 // ─── بدء الجلسة ──────────────────────────────────────────────
 function startSession() {
   if (!ALL_GAMES && !loadGameData()) {
@@ -611,20 +623,26 @@ function buildJeopardy(type) {
 
 // ─── حروف و الوف ─────────────────────────────────────────────
 function buildHuroof() {
-  let data = [];
-  try { const r = ALL_GAMES.huroof_waloof; data = Array.isArray(r)?r:(r&&r.questions)||[]; } catch(e){}
-  let html = '<div class="huroof-grid">';
-  alphabet.forEach(l => {
-    const m = data.filter(x => (x.answer||x.a||"").startsWith(l));
-    const q = shuffle(m)[0] || { question:"سؤال حرف "+l, answer:"-", points:200 };
-    const Q = escapeAttr(q.question||q.q||"سؤال");
-    const A = escapeAttr(q.answer||q.a||"-");
-    html += '<button class="huroof-btn" onclick="openQ(\''+Q+'\',\''+A+'\','+(q.points||200)+',this)">'+l+'</button>';
-  });
-  document.getElementById("board-content").innerHTML = html + '</div>';
-  navTo("screen-board");
+    let data = [];
+    try { 
+        const r = ALL_GAMES.huroof_waloof; 
+        data = Array.isArray(r) ? r : (r && r.questions) || []; 
+    } catch(e) { console.error(e); }
+    
+    let html = '<div class="huroof-grid">';
+    alphabet.forEach(l => {
+        // الحين الفلترة تعتمد على حقل "letter" الموجود عندك في الداتا
+        const m = data.filter(x => x.letter === l);
+        const q = shuffle(m)[0] || { question:"سؤال حرف "+l, answer:"-", points:200 };
+        
+        const Q = escapeAttr(q.question || q.q || "سؤال");
+        const A = escapeAttr(q.answer || q.a || "-");
+        html += '<button class="huroof-btn" onclick="openQ(\''+Q+'\',\''+A+'\','+(q.points||200)+',this)">'+l+'</button>';
+    });
+    
+    document.getElementById("board-content").innerHTML = html + '</div>';
+    navTo("screen-board");
 }
-
 // ─── فتح السؤال ──────────────────────────────────────────────
 function openQ(q, a, pts, btn) {
   if (btn) btn.classList.add("used");
@@ -660,24 +678,49 @@ function awardPoints(tIdx) {
   closeQuestion();
 }
 
-function judgeBuzzer(isCorrect) {
-  document.getElementById("buzzer-alert-overlay").style.display = "none";
-  if (!activeBuzzerPlayer) return;
-  if (isCorrect) {
-    playSound("sfx-correct");
-    playerStats[activeBuzzerPlayer.name] = (playerStats[activeBuzzerPlayer.name]||0) + 1;
-    adjustScore(activeBuzzerPlayer.team, (window.questionMap[activeQ_ID]||{}).pts||0);
-    showAnswer();
-  } else {
-    playSound("sfx-wrong");
-    db.ref("rooms/"+currentRoomCode+"/wrong_answers/"+activeBuzzerPlayer.name).set(true);
-    db.ref("rooms/"+currentRoomCode+"/buzzed_by").set(null);
-  }
-}
+function judgeBuzzer(isCor) { 
+            document.getElementById('buzzer-alert-overlay').style.display = 'none'; 
+            
+            if (isCor) { 
+                // إجابة صحيحة
+                let audio = document.getElementById('sfx-correct'); 
+                if(audio) { audio.currentTime=0; audio.play().catch(e=>{}); }
+                
+                // إضافة اللاعب كـ MVP
+                if(activeBuzzerPlayer && activeBuzzerPlayer.name) { 
+                    playerStats[activeBuzzerPlayer.name] = (playerStats[activeBuzzerPlayer.name] || 0) + 1; 
+                }
+                
+                // 1. إضافة النقاط للفريق تلقائياً
+                adjustScore(activeBuzzerPlayer.team, window.questionMap[activeQ_ID].pts); 
+                
+                // 2. إظهار الإجابة وإخفاء التحكيم اليدوي
+                document.getElementById('a-content').style.display = 'block'; 
+                document.getElementById('referee-box').style.display = 'none'; // أخفينا التحكيم لأن النقاط انحسبت خلاص
+                document.getElementById('btn-show-ans').style.display = 'none';
+                
+                // تغيير زر الرجوع ليكون واضح أنه تم الحل
+                let skipBtn = document.getElementById('btn-skip');
+                if(skipBtn) skipBtn.innerText = "العودة للوحة (تم الحل ✅)";
+
+                if(isSessionStarted) db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); 
+            } else { 
+                // إجابة خاطئة
+                let audio = document.getElementById('sfx-wrong'); 
+                if(audio) { audio.currentTime=0; audio.play().catch(e=>{}); }
+                
+                // تسجيل الخطأ عشان ما يقدر يضغط مرة ثانية، ويفتح المجال للفريق الثاني
+                db.ref('rooms/' + currentRoomCode + '/wrong_answers/' + activeBuzzerPlayer.name).set(true); 
+                db.ref('rooms/' + currentRoomCode + '/buzzed_by').set(null); 
+            } 
+        }
+
 
 // ─── ════════════════════════════════════════ ─────────────────
 // ─── المزاد (محدّث: تايمر + إقفال + 3 ثواني) ─────────────────
 // ─── ════════════════════════════════════════ ─────────────────
+
+
 function startAuction() {
             if (!isSessionStarted) { alert("أنشئ الجلسة أولاً!"); return; }
             db.ref("rooms/"+currentRoomCode+"/auction_val").off();
@@ -688,17 +731,16 @@ function startAuction() {
 
             document.getElementById("auction-winner-text").style.display  = "none";
             document.getElementById("auction-countdown-box").style.display = "none";
-            document.getElementById("auction-setup-row").style.display    = "block"; // إظهار إعداد الوقت
+            document.getElementById("auction-setup-row").style.display    = "block"; 
             document.getElementById("btn-start-auction").style.display    = "none";
             document.getElementById("btn-close-auction").style.display    = "inline-block";
             document.getElementById("auction-timer-box").style.display    = "block";
             document.getElementById("auction-time-val").innerText         = auctionTimeLeft;
             
-            // إخفاء صندوق السؤال والتحكيم
             let qContainer = document.getElementById("auction-q-container");
             if(qContainer) qContainer.style.display = "none";
 
-            db.ref("rooms/"+currentRoomCode).update({ status:"auction", auction_val:0, auction_passed:false });
+            db.ref("rooms/"+currentRoomCode).update({ status:"auction", auction_val:0, auction_bidder: null, auction_passed:false });
 
             db.ref("rooms/"+currentRoomCode+"/auction_val").on("value", snap => {
                 document.getElementById("auction-highest").innerText = snap.val() || 0;
@@ -726,50 +768,64 @@ function startAuction() {
             db.ref("rooms/"+currentRoomCode+"/auction_passed").off();
             document.getElementById("btn-close-auction").style.display  = "none";
             document.getElementById("auction-timer-box").style.display  = "none";
-            document.getElementById("auction-winner-text").style.display = "block";
             
             let a_audio = document.getElementById('sfx-bomb');
             if(a_audio) { a_audio.currentTime=0; a_audio.play().catch(e=>{}); }
 
-            // جلب قيمة المزاد النهائية
-            db.ref("rooms/"+currentRoomCode+"/auction_val").once("value").then(snap => {
-                currentAuctionPts = parseInt(snap.val()) || 0;
+            // جلب البيانات النهائية للمزاد (القيمة واسم الشخص اللي دبسها)
+            db.ref("rooms/"+currentRoomCode).once("value").then(snap => {
+                let roomData = snap.val();
+                currentAuctionPts = parseInt(roomData.auction_val) || 0;
+                let winningBidder = roomData.auction_bidder || { name: "مجهول", team: -1 };
                 
-                // التأكد من وجود قسم السؤال (إذا لم يكن موجوداً ننشئه)
+                // إظهار اسم الفائز واسم فريقه
+                let teamNameStr = winningBidder.team !== -1 ? teamNames[winningBidder.team] : "الفريق";
+                document.getElementById("auction-winner-text").innerHTML = `🔒 رسا المزاد على <span style="color:#27ae60">${winningBidder.name}</span> من <span style="color:#2980b9">(${teamNameStr})</span> بـ ${currentAuctionPts} نقطة!`;
+                document.getElementById("auction-winner-text").style.display = "block";
+
+                // إنشاء أو تحديث صندوق السؤال والتحكيم
                 let qContainer = document.getElementById("auction-q-container");
                 if(!qContainer) {
                     document.getElementById("screen-auction").insertAdjacentHTML('beforeend', `
-                        <div id="auction-q-container" style="display:none; margin-top:20px;">
-                            <div id="auction-q-cat" style="font-size: 26px; font-weight: 700; color: var(--text-gray); margin-bottom: 20px;"></div>
-                            <div id="auction-q-text" class="q-display"></div>
-                            <div id="auction-a-text" class="a-display"></div>
-                            <button class="btn-main" id="btn-show-auction-ans" onclick="showAuctionAnswer()">عرض الإجابة</button>
+                        <div id="auction-q-container" style="display:none; margin-top:20px; background: rgba(255,255,255,0.5); padding: 20px; border-radius: 12px;">
+                            <div id="auction-q-cat" style="font-size: 26px; font-weight: 900; color: #2980b9; margin-bottom: 15px;"></div>
+                            <div id="auction-q-text" class="q-display" style="font-size: 35px;"></div>
+                            <div id="auction-a-text" class="a-display" style="font-size: 30px;"></div>
+                            <button class="btn-main" id="btn-show-auction-ans" onclick="showAuctionAnswer()">عرض الإجابة 👁️</button>
                             <div class="referee-box" id="auction-referee-box" style="display:none; margin-top:20px;">
-                                <div class="referee-title">التحكيم (النقاط: <span id="auction-pts-val">0</span>)</div>
-                                <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                                    <button class="btn-main" style="background:#27ae60;" onclick="judgeAuction(0, true)">✅ صح للفريق 1</button>
-                                    <button class="btn-main" style="background:#27ae60;" onclick="judgeAuction(1, true)">✅ صح للفريق 2</button>
-                                    <button class="btn-main" style="background:#c0392b;" onclick="judgeAuction(0, false)">❌ خطأ للفريق 1</button>
-                                    <button class="btn-main" style="background:#c0392b;" onclick="judgeAuction(1, false)">❌ خطأ للفريق 2</button>
-                                </div>
+                                <div class="referee-title" style="font-size: 24px;">التحكيم لـ (${teamNameStr})</div>
+                                <div id="auction-referee-btns" style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+                                    </div>
                             </div>
                         </div>
                     `);
                     qContainer = document.getElementById("auction-q-container");
                 }
 
-                document.getElementById("auction-pts-val").innerText = currentAuctionPts;
-                
-                // سحب سؤال عشوائي من الداتا
-                let bank = ALL_GAMES.auction || [];
+                // سحب سؤال المزاد العشوائي
+                let bank = (ALL_GAMES && ALL_GAMES.auction) ? ALL_GAMES.auction : [];
                 if(bank.length > 0) {
                     currentAuctionQ = bank[Math.floor(Math.random() * bank.length)];
-                    document.getElementById("auction-q-cat").innerText = currentAuctionQ.category;
+                    document.getElementById("auction-q-cat").innerText = "الفئة: " + currentAuctionQ.category;
                     document.getElementById("auction-q-text").innerText = currentAuctionQ.question;
                     document.getElementById("auction-a-text").innerText = currentAuctionQ.answer;
+                } else {
+                    document.getElementById("auction-q-text").innerText = "⚠️ لم يتم العثور على أسئلة للمزاد في ملف الداتا!";
                 }
 
-                // عداد 3 ثواني ثم إظهار السؤال
+                // توليد أزرار التحكيم المخصصة للفريق الفائز فقط!
+                let refHtml = "";
+                if(winningBidder.team !== -1) {
+                    refHtml = `
+                        <button class="btn-main" style="background:#27ae60;" onclick="judgeAuction(${winningBidder.team}, true)">✅ إجابة صحيحة (+${currentAuctionPts})</button>
+                        <button class="btn-main" style="background:#c0392b;" onclick="judgeAuction(${winningBidder.team}, false)">❌ إجابة خاطئة (-${currentAuctionPts})</button>
+                    `;
+                } else {
+                    refHtml = `<p style="color:red;">لم يتم تحديد فريق للمزايد.</p>`;
+                }
+                document.getElementById("auction-referee-btns").innerHTML = refHtml;
+
+                // عداد 3 ثواني قبل إظهار السؤال (دراما)
                 let cd = 3;
                 const cdBox = document.getElementById("auction-countdown-box");
                 cdBox.style.display = "block";
@@ -796,17 +852,19 @@ function startAuction() {
         }
 
         function judgeAuction(teamIndex, isCorrect) {
-            let pts = isCorrect ? currentAuctionPts : -currentAuctionPts; // إضافة أو خصم حسب الإجابة
+            let pts = isCorrect ? currentAuctionPts : -currentAuctionPts; // يزيدهم إذا صح، ويخسفهم إذا خطأ
             adjustScore(teamIndex, pts);
             
-            // إعادة ضبط شاشة المزاد
+            // إعادة الشاشة لوضعها الطبيعي استعداداً لمزاد جديد
             document.getElementById("auction-q-container").style.display = "none";
             document.getElementById("auction-setup-row").style.display = "block"; 
             document.getElementById("btn-start-auction").style.display = "inline-block";
             document.getElementById("auction-winner-text").style.display = "none";
             document.getElementById("auction-highest").innerText = "0";
+            showToast(isCorrect ? `✅ تم إضافة ${currentAuctionPts} نقطة` : `❌ تم خصم ${currentAuctionPts} نقطة`);
         }
-// ─── ═══════════════════════════════ ─────────────────────────
+
+        // ─── ═══════════════════════════════ ─────────────────────────
 // ─── حرب الأصابع (محدّث: نقاط الفائز) ───────────────────────
 // ─── ═══════════════════════════════ ─────────────────────────
 let clickerInterval = null;
@@ -956,23 +1014,23 @@ function resetSpyGame() {
 // ─── بيكاسو (مُعاد هندسته: رسم مباشر + كلمات عشوائية) ────────
 // ─── ════════════════════════════════════ ─────────────────────
 
-function renderPicassoSetup() {
+// ================= لعبة بيكاسو (الرسم والتخمين الذكي) =================
+
+        function renderPicassoSetup() {
             navTo('screen-drawing');
             const s = document.getElementById("screen-drawing");
             s.innerHTML = `
                 <h1 style="font-size:50px;">بيكاسو الديوانية 🎨</h1>
                 <div style="margin: 20px 0;">
-                    <p style="font-size: 22px; margin-top:10px;">اختر الرسام (بيطلع بجواله لوحة الرسم، والباقين صندوق التخمين):</p>
-                    <input type="text" id="drawer-name" class="setup-input" placeholder="اكتب اسم الرسام هنا">
+                    <p style="font-size: 22px; margin-top:10px;">اكتب اسم الرسام (النظام بيوزع الشاشات تلقائياً على الجوالات):</p>
+                    <input type="text" id="drawer-name" class="setup-input" placeholder="اسم الرسام">
                     <br>
                     <label style="font-size:20px;font-weight:700;">نقاط الإجابة الصحيحة:</label>
                     <select id="drawing-pts-select" class="setup-input" style="width:180px;">
-                        <option value="200">200</option>
-                        <option value="300">300</option>
-                        <option value="500">500</option>
+                        <option value="200">200</option><option value="300">300</option><option value="500">500</option>
                     </select>
                     <br><br>
-                    <button class="btn-main" onclick="startPicassoRound()">سحب كلمة عشوائية وبدء الرسم 🎨</button>
+                    <button class="btn-main" onclick="startPicassoRound()">سحب كلمة عشوائية وبدء اللعب 🎨</button>
                 </div>
             `;
         }
@@ -982,51 +1040,66 @@ function renderPicassoSetup() {
             let pts = parseInt(document.getElementById("drawing-pts-select").value) || 200;
             if(!drawer) { alert("اكتب اسم الرسام!"); return; }
             
-            let bank = ALL_GAMES.drawing_prompts || [];
-            let word = bank.length > 0 ? bank[Math.floor(Math.random() * bank.length)] : "سيكل";
-            
-            picassoState.word = word;
-            picassoState.pts = pts;
+            // معرفة فريق الرسام عشان نرسلها للفايربيس
+            let drawerTeam = -1;
+            db.ref('rooms/' + currentRoomCode + '/players/' + drawer).once('value', snap => {
+                if(snap.val()) drawerTeam = snap.val().team;
 
-            db.ref('rooms/' + currentRoomCode).update({ 
-                status: 'drawing', drawer_name: drawer, drawing_word: word, drawing_data: '' 
-            });
+                // سحب كلمة عشوائية من الداتا
+                let bank = (ALL_GAMES && ALL_GAMES.drawing_prompts) ? ALL_GAMES.drawing_prompts : ["سيارة مكسورة", "نخلة", "جمل"];
+                let word = bank[Math.floor(Math.random() * bank.length)];
+                
+                picassoState.word = word;
+                picassoState.pts = pts;
+                picassoState.drawerTeam = drawerTeam;
 
-            const s = document.getElementById("screen-drawing");
-            s.innerHTML = `
-                <h1 style="font-size:40px;">جالس يرسم: <span style="color:var(--primary-orange)">${drawer}</span> 🖌️</h1>
-                <div style="color:#aaa; font-size:18px;">(الكلمة في جوال الرسام. المضيف: الكلمة هي "${word}")</div>
-                <img id="live-drawing-img" src="" alt="بانتظار الرسمة..." style="width: 400px; height: 400px; border: 5px dashed #ccc; background: white; margin: 20px auto; border-radius: 20px; object-fit: contain; display: block;">
-                
-                <h2 style="margin-top:20px;">التخمينات الحية 💬:</h2>
-                <div id="guess-log" style="background:#fff; border:2px solid #ddd; width:80%; height:150px; overflow-y:auto; margin:10px auto; padding:10px; font-size:22px; border-radius:10px; text-align:right;"></div>
-                
-                <button class="btn-sec" onclick="renderPicassoSetup()">إنهاء / كلمة جديدة</button>
-            `;
+                // تحديث الفايربيس بحالة اللعبة
+                db.ref('rooms/' + currentRoomCode).update({ 
+                    status: 'drawing', drawer_name: drawer, drawing_word: word, drawing_data: '', drawer_team: drawerTeam 
+                });
 
-            db.ref("rooms/"+currentRoomCode+"/drawing_guesses").off(); 
-            db.ref("rooms/"+currentRoomCode+"/drawing_guesses").on("child_added", snap => {
-                const guessData = snap.val(); 
-                if (!guessData) return;
-                
-                const log = document.getElementById("guess-log");
-                log.innerHTML = `<div style="border-bottom:1px solid #eee; padding:5px 0;"><strong>${guessData.player}:</strong> ${guessData.text}</div>` + log.innerHTML;
-                
-                // مطابقة الكلمة تلقائياً
-                if (guessData.text.trim() === picassoState.word) {
-                    db.ref("rooms/"+currentRoomCode+"/drawing_guesses").off(); 
-                    let audio = document.getElementById('sfx-correct'); 
-                    if(audio) audio.play().catch(e=>{});
+                const s = document.getElementById("screen-drawing");
+                s.innerHTML = `
+                    <h1 style="font-size:40px;">الرسام هو: <span style="color:var(--primary-orange)">${drawer}</span> 🖌️</h1>
+                    <div style="color:#e74c3c; font-size:22px; font-weight:bold; margin-top:10px;">(الكلمة سرية! ظهرت فقط للرسام وفريقه.. الفريق الثاني يخمن من جوالاته)</div>
+                    <img id="live-drawing-img" src="" alt="بانتظار الرسمة..." style="width: 400px; height: 400px; border: 5px dashed #ccc; background: white; margin: 20px auto; border-radius: 20px; object-fit: contain; display: block;">
                     
-                    showToast(`🎉 بطل يا ${guessData.player}! خمنها صح!`);
-                    adjustScore(guessData.team, picassoState.pts); 
+                    <h2 style="margin-top:20px;">تخمينات الخصم 💬:</h2>
+                    <div id="guess-log" style="background:#fff; border:2px solid #ddd; width:80%; height:150px; overflow-y:auto; margin:10px auto; padding:10px; font-size:22px; border-radius:10px; text-align:right;"></div>
                     
-                    log.innerHTML = `<div style="color:#27ae60; font-weight:bold; font-size:26px; padding:10px 0;">✅ ${guessData.player} خمنها صح! (${picassoState.word})</div>` + log.innerHTML;
-                    db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' });
-                }
+                    <button class="btn-sec" onclick="renderPicassoSetup()">إنهاء / كلمة جديدة</button>
+                `;
+
+                db.ref("rooms/"+currentRoomCode+"/drawing_guesses").off(); 
+                db.ref("rooms/"+currentRoomCode+"/drawing_guesses").on("child_added", snap => {
+                    const guessData = snap.val(); 
+                    if (!guessData) return;
+                    
+                    const log = document.getElementById("guess-log");
+                    let isCorrect = guessData.text.trim() === picassoState.word;
+                    let proximityMsg = "";
+                    
+                    // تنبيه المقاربة (إذا الكلمة قريبة جداً)
+                    if (!isCorrect && guessData.text.length >= 3 && (picassoState.word.includes(guessData.text.trim()) || guessData.text.trim().includes(picassoState.word))) {
+                        proximityMsg = " <span style='color:#f39c12; font-size:18px;'>(🔥 قررربت!)</span>";
+                    }
+
+                    log.innerHTML = `<div style="border-bottom:1px solid #eee; padding:5px 0;"><strong>${guessData.player}:</strong> ${guessData.text} ${proximityMsg}</div>` + log.innerHTML;
+                    
+                    if (isCorrect) {
+                        db.ref("rooms/"+currentRoomCode+"/drawing_guesses").off(); 
+                        let audio = document.getElementById('sfx-correct'); 
+                        if(audio) audio.play().catch(e=>{});
+                        
+                        showToast(`🎉 بطل يا ${guessData.player}! خمنها صح!`);
+                        adjustScore(guessData.team, picassoState.pts); 
+                        
+                        log.innerHTML = `<div style="color:#27ae60; font-weight:bold; font-size:28px; padding:10px 0;">✅ ${guessData.player} جابها! (${picassoState.word})</div>` + log.innerHTML;
+                        db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' });
+                    }
+                });
             });
         }
-
 // ─── كسر العظم ───────────────────────────────────────────────
 function openWager() {
   db.ref("rooms/"+currentRoomCode+"/wagers").off();
