@@ -670,7 +670,7 @@ function startSession() {
                     
                     let imgEl = document.getElementById("jumpscare-img");
                     // راح يدمج الاسم وتطلع النتيجة مثلاً: scare1.jpg أو scare2.PNG
-                    if(imgEl) imgEl.src = `scare${type}.${ext}`; 
+                    if(imgEl) imgEl.src = `${type}.${ext}`; 
                     
                     document.getElementById("jumpscare-overlay").style.display = "flex";
                     
