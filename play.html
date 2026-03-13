@@ -455,6 +455,7 @@ function toggleFullscreen() {
 }
 
 let sessionLimit = 0; // تم إرجاع المتغير المفقود
+let itemsUsed = 0;
 
 function updateProgress() {
     let pc = document.getElementById('progress-container');
@@ -709,25 +710,24 @@ function updateTurnUI() {
 
 // ─── تبديل اللعبة ────────────────────────────────────────────
 function switchGame(key) {
-  if (!isSessionStarted) { alert("أنشئ الجلسة أولاً!"); return; }
-  if (!ALL_GAMES) { alert("⚠️ بيانات الأسئلة غير متاحة."); return; }
+            if (!isSessionStarted) { alert("أنشئ الجلسة أولاً!"); return; }
+            if(!ALL_GAMES) return;
 
-  activeGame = key; itemsUsed = 0; window.questionMap = {};
+            activeGame = key; 
+            itemsUsed = 0; // تصفير عداد الأسئلة
+            window.questionMap = {};
+            
+            document.querySelectorAll('.tab').forEach(t => { 
+                t.classList.remove('active'); 
+                if(t.getAttribute('onclick').includes(key)) t.classList.add('active'); 
+            });
+            updateScoreUI(); updateTurnUI();
 
-  document.querySelectorAll(".tab").forEach(t => {
-    t.classList.remove("active");
-    if ((t.getAttribute("onclick")||"").includes("'"+key+"'")) t.classList.add("active");
-  });
-  updateScoreUI(); updateTurnUI();
+            if(key === 'seen_jeem' || key === 'emoji') buildJeopardy(key);
+            else if(key === 'huroof_waloof') buildHuroof();
+            else navTo('screen-' + key);
+        }
 
-  try {
-    if      (key === "seen_jeem" || key === "emoji") buildJeopardy(key);
-    else if (key === "huroof_waloof") buildHuroof();
-    else if (key === "spy")     { renderSpyScreen(); navTo("screen-spy"); }
-    else if (key === "drawing") { renderPicassoSetup(); navTo("screen-drawing"); }
-    else navTo("screen-" + key);
-  } catch(e) { console.error(e); alert("خطأ: " + e.message); }
-}
 
 // ─── جيوباردي 200/400 ─────────────────────────────────────────
 // ─── جيوباردي 200/400/600 لكل جهة ───────────────────────────────
@@ -854,6 +854,7 @@ function buildJeopardy(type) {
 
 // ─── حروف و الوف ─────────────────────────────────────────────
 function buildHuroof() {
+    sessionLimit = 28; 
     let data = [];
     try { 
         const r = ALL_GAMES.huroof_waloof; 
@@ -896,13 +897,25 @@ function showAnswer() {
   if (isSessionStarted) db.ref("rooms/"+currentRoomCode).update({ status:"waiting" });
 }
 
-function closeQuestion() {
-  turn = turn===0?1:0; updateTurnUI();
-  document.getElementById("buzzer-alert-overlay").style.display = "none";
-  if (isSessionStarted) db.ref("rooms/"+currentRoomCode).update({ status:"waiting" });
-  navTo("screen-board");
-}
+function closeQuestion() { 
+            itemsUsed++; // زيادة عداد الأسئلة اللي تلعبت
+            turn = turn === 0 ? 1 : 0; 
+            updateTurnUI(); 
+            
+            let bOverlay = document.getElementById("buzzer-alert-overlay");
+            if(bOverlay) bOverlay.style.display = "none";
+            
+            if(isSessionStarted) db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' }); 
+            
+            // هنا السحر: إذا خلصت الأسئلة المحددة، يعلن الفائز تلقائياً
+            if (sessionLimit > 0 && itemsUsed >= sessionLimit) {
+                showWinner(); 
+            } else {
+                navTo('screen-board'); 
+            }
+        }
 
+        
 function awardPoints(tIdx) {
   const pts = (window.questionMap[activeQ_ID]||{}).pts || 0;
   if (tIdx !== -1) adjustScore(tIdx, pts);
