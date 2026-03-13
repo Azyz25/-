@@ -103,7 +103,7 @@
         const firebaseConfig = { apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA", authDomain: "appd-75fbf.firebaseapp.com", databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com", projectId: "appd-75fbf", storageBucket: "appd-75fbf.appspot.com", messagingSenderId: "38346789995", appId: "1:38346789995:web:4bc14686f2758164dfcd2e" };
         firebase.initializeApp(firebaseConfig); const db = firebase.database();
         let myName = "", currentRoom = "", myTeamIndex = -1, roomRef = null;
-        let currentDrawingWord = ""; // لحفظ الكلمة عشان نفحص التقارب محلياً
+        let currentDrawingWord = "";
 
         function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
@@ -142,25 +142,52 @@
                 } else if (data.status === 'auction') {
                     document.getElementById('auction-current').innerText = "أعلى مزايدة: " + (data.auction_val || 0);
                     showScreen('auction-screen');
-                } else if (data.status === 'spy') {
-                    document.getElementById('spy-word').innerText = (data.spy_name === myName) ? "🚨 أنت الخاين 🚨" : data.spy_word;
+                } else if (data.status === 'spy_setup' || data.status === 'spy_questioning') {
+                    // اللعبة بدأت بس لسه ما جا وقت التصويت
+                    let spyWordEl = document.getElementById('spy-word');
+                    if(data.spy_name === myName) {
+                        spyWordEl.innerText = "🚨 أنت الخاين 🚨";
+                        spyWordEl.style.color = "#e74c3c";
+                    } else {
+                        spyWordEl.innerText = data.spy_word;
+                        spyWordEl.style.color = "#fff";
+                    }
                     showScreen('spy-screen');
+                } else if (data.status === 'spy_voting') {
+                    // وقت التصويت! نطلع أزرار بأسماء كل اللاعبين
+                    let players = Object.keys(data.players || {});
+                    let html = `<h1 style="color:white; font-size:35px;">مين الخاين؟ 🗳️</h1><div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:300px; margin:auto;">`;
+                    players.forEach(p => {
+                        if(p !== myName) {
+                            html += `<button style="background:white; color:#2c3e50; font-size:24px; padding:15px; border-radius:10px; border:none; font-weight:bold;" onclick="castSpyVote('${p}')">${p}</button>`;
+                        }
+                    });
+                    html += `</div>`;
+                    document.getElementById('spy-screen').innerHTML = html;
+                    showScreen('spy-screen');
+                } else if (data.status === 'spy_guessing' && data.spy_name === myName) {
+                    // الخاين انكشف، ولازم يخمن الكلمة من 4 خيارات
+                    let options = data.spy_options || [];
+                    let html = `<h1 style="color:white; font-size:35px; line-height:1.5;">صادوك! 🏃‍♂️<br><span style="font-size:20px;">خمن الكلمة عشان تسرق الفوز:</span></h1><div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:300px; margin:20px auto;">`;
+                    options.forEach(opt => {
+                        html += `<button style="background:#e74c3c; color:white; font-size:24px; padding:15px; border-radius:10px; border:none; font-weight:bold;" onclick="submitSpyGuess('${opt}')">${opt}</button>`;
+                    });
+                    html += `</div>`;
+                    document.getElementById('spy-screen').innerHTML = html;
+                    showScreen('spy-screen');
+                } else if (data.status === 'spy_guessing' && data.spy_name !== myName) {
+                     document.getElementById('spy-screen').innerHTML = `<h1 style="color:white; font-size:40px;">انتظر... الخاين قاعد يحاول يخمن الكلمة! 🤫</h1>`;
+                     showScreen('spy-screen');
                 } else if (data.status === 'drawing') {
-                    currentDrawingWord = data.drawing_word; // حفظ الكلمة
-
+                    currentDrawingWord = data.drawing_word;
                     if (data.drawer_name === myName) {
-                        // 1. أنا الرسام
                         document.getElementById('word-to-draw').innerText = data.drawing_word;
                         showScreen('drawing-pad-screen');
-                        // تعبئة الكانفس باللون الأبيض عشان ما يطلع أسود في الشاشة الكبيرة!
-                        ctx.fillStyle = "#ffffff";
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        initCanvas(); // تجهيز الكانفس
                     } else if (myTeamIndex === data.drawer_team) {
-                        // 2. أنا خوي الرسام بنفس الفريق
                         document.getElementById('teammate-word').innerText = data.drawing_word;
                         showScreen('drawing-teammate-screen');
                     } else {
-                        // 3. أنا الفريق الخصم (المخمن)
                         document.getElementById('guess-proximity-msg').innerText = "";
                         showScreen('drawing-guess-screen');
                     }
@@ -171,77 +198,75 @@
         }
 
         function hitBuzzer() { roomRef.child('buzzed_by').transaction(v => v ? undefined : { name: myName, team: myTeamIndex }); }
-        
-        function spamClick() { 
-            roomRef.child('clicker_score').transaction(val => {
-                val = val || 50; return myTeamIndex === 0 ? val - 1 : val + 1;
-            });
-        }
-
-        function submitWager() {
-            let w = parseInt(document.getElementById('wager-amount').value);
-            if(w > 0) { roomRef.child('wagers/t' + myTeamIndex).set(w); showScreen('waiting-screen'); }
-        }
-
-        function placeBid(amount) {
-            roomRef.child('auction_val').transaction(v => (v || 0) + amount);
-            roomRef.child('auction_bidder').set({name: myName, team: myTeamIndex});
-        }
+        function spamClick() { roomRef.child('clicker_score').transaction(val => { val = val || 50; return myTeamIndex === 0 ? val - 1 : val + 1; }); }
+        function submitWager() { let w = parseInt(document.getElementById('wager-amount').value); if(w > 0) { roomRef.child('wagers/t' + myTeamIndex).set(w); showScreen('waiting-screen'); } }
+        function placeBid(amount) { roomRef.child('auction_val').transaction(v => (v || 0) + amount); roomRef.child('auction_bidder').set({name: myName, team: myTeamIndex}); }
         function passAuction() { roomRef.child('auction_passed').set(true); }
+        
+        // دوال الخاين الجديدة
+        function castSpyVote(suspect) {
+            roomRef.child('spy_votes/' + myName).set(suspect);
+            document.getElementById('spy-screen').innerHTML = `<h1 style="color:white; font-size:40px;">تم التصويت! 🗳️<br>ننتظر الباقين...</h1>`;
+        }
+        function submitSpyGuess(guess) {
+            roomRef.child('spy_final_guess').set(guess);
+        }
 
-        // إرسال التخمينات من الجوال للشاشة
+        // إرسال التخمينات في بيكاسو
         function sendGuess() {
             let guess = document.getElementById('drawing-guess-input').value.trim();
             if(!guess) return;
-            
-            // فحص التقارب محلياً بالجوال عشان نحمسه
             let msgEl = document.getElementById('guess-proximity-msg');
             if (guess !== currentDrawingWord && guess.length >= 3 && (currentDrawingWord.includes(guess) || guess.includes(currentDrawingWord))) {
                 msgEl.innerText = "🔥 قربت مررررة!";
-            } else {
-                msgEl.innerText = "";
-            }
-
-            roomRef.child('drawing_guesses').push({
-                player: myName,
-                team: myTeamIndex,
-                text: guess,
-                time: Date.now()
-            });
-            document.getElementById('drawing-guess-input').value = ""; // تفريغ
+            } else { msgEl.innerText = ""; }
+            roomRef.child('drawing_guesses').push({ player: myName, team: myTeamIndex, text: guess, time: Date.now() });
+            document.getElementById('drawing-guess-input').value = "";
         }
 
-        // كود الرسم
+        // ================= إصلاح الكانفس (بيكاسو) =================
         let canvas = document.getElementById('canvas-pad'), ctx = canvas.getContext('2d'), drawing = false;
-        ctx.strokeStyle = "#000"; ctx.lineWidth = 5; ctx.lineCap = "round";
         
+        function initCanvas() {
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = "#000"; ctx.lineWidth = 5; ctx.lineCap = "round";
+        }
+
         canvas.addEventListener('touchstart', e => { 
+            e.preventDefault(); // يمنع الشاشة من النزول والتحرك
             drawing=true; 
             ctx.beginPath(); 
             ctx.moveTo(e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top); 
-        });
+        }, {passive: false});
+
         canvas.addEventListener('touchmove', e => { 
+            e.preventDefault(); 
             if(drawing) { 
                 ctx.lineTo(e.touches[0].clientX - canvas.getBoundingClientRect().left, e.touches[0].clientY - canvas.getBoundingClientRect().top); 
                 ctx.stroke(); 
                 sendDrawingToFB();
             } 
-        });
-        canvas.addEventListener('touchend', () => drawing=false);
+        }, {passive: false});
+
+        // حذفنا أمر مسح الكانفس من التاتش إند! صار يحفظ الرسمة
+        canvas.addEventListener('touchend', e => { 
+            e.preventDefault(); 
+            drawing=false; 
+            sendDrawingToFB(); 
+        }, {passive: false});
 
         let drawThrottle;
         function sendDrawingToFB() {
             if(drawThrottle) return;
             drawThrottle = setTimeout(() => {
                 drawThrottle = null;
-                // يرسل الرسمة مع خلفيتها البيضاء
                 roomRef.child('drawing_data').set(canvas.toDataURL("image/jpeg", 0.5));
-            }, 100); 
+            }, 150); 
         }
 
         function clearCanvas() {
-            ctx.fillStyle = "#ffffff";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            initCanvas(); // يعبيها أبيض من جديد بدل ما يخليها شفافة (سوداء)
             roomRef.child('drawing_data').set("");
         }
     </script>

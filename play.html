@@ -968,7 +968,7 @@ function startAuction() {
             }, 1000);
         }
 
-        function closeAuction() {
+    function closeAuction() {
             if (!auctionRunning) return;
             auctionRunning = false;
             clearInterval(auctionInterval);
@@ -981,18 +981,21 @@ function startAuction() {
             let a_audio = document.getElementById('sfx-bomb');
             if(a_audio) { a_audio.currentTime=0; a_audio.play().catch(e=>{}); }
 
-            // جلب البيانات النهائية للمزاد (القيمة واسم الشخص اللي دبسها)
             db.ref("rooms/"+currentRoomCode).once("value").then(snap => {
                 let roomData = snap.val();
                 currentAuctionPts = parseInt(roomData.auction_val) || 0;
                 let winningBidder = roomData.auction_bidder || { name: "مجهول", team: -1 };
                 
-                // إظهار اسم الفائز واسم فريقه
-                let teamNameStr = winningBidder.team !== -1 ? teamNames[winningBidder.team] : "الفريق";
-                document.getElementById("auction-winner-text").innerHTML = `🔒 رسا المزاد على <span style="color:#27ae60">${winningBidder.name}</span> من <span style="color:#2980b9">(${teamNameStr})</span> بـ ${currentAuctionPts} نقطة!`;
+                // تحديد الضحية (الفريق الذي تتدبس فيه)!
+                let bidderTeam = winningBidder.team;
+                let victimTeam = bidderTeam === 0 ? 1 : (bidderTeam === 1 ? 0 : -1);
+                
+                let victimNameStr = victimTeam !== -1 ? teamNames[victimTeam] : "الفريق الآخر";
+                let bidderNameStr = winningBidder.name;
+
+                document.getElementById("auction-winner-text").innerHTML = `🚨 <span style="color:#e74c3c">${bidderNameStr}</span> دبّسها في <span style="color:#2980b9">(${victimNameStr})</span> بـ ${currentAuctionPts} نقطة!`;
                 document.getElementById("auction-winner-text").style.display = "block";
 
-                // إنشاء أو تحديث صندوق السؤال والتحكيم
                 let qContainer = document.getElementById("auction-q-container");
                 if(!qContainer) {
                     document.getElementById("screen-auction").insertAdjacentHTML('beforeend', `
@@ -1002,43 +1005,35 @@ function startAuction() {
                             <div id="auction-a-text" class="a-display" style="font-size: 30px;"></div>
                             <button class="btn-main" id="btn-show-auction-ans" onclick="showAuctionAnswer()">عرض الإجابة 👁️</button>
                             <div class="referee-box" id="auction-referee-box" style="display:none; margin-top:20px;">
-                                <div class="referee-title" style="font-size: 24px;">التحكيم لـ (${teamNameStr})</div>
-                                <div id="auction-referee-btns" style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-                                    </div>
+                                <div class="referee-title" style="font-size: 24px;">التحكيم لـ (${victimNameStr})</div>
+                                <div id="auction-referee-btns" style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;"></div>
                             </div>
                         </div>
                     `);
                     qContainer = document.getElementById("auction-q-container");
                 }
 
-                // سحب سؤال المزاد العشوائي
                 let bank = (ALL_GAMES && ALL_GAMES.auction) ? ALL_GAMES.auction : [];
                 if(bank.length > 0) {
                     currentAuctionQ = bank[Math.floor(Math.random() * bank.length)];
                     document.getElementById("auction-q-cat").innerText = "الفئة: " + currentAuctionQ.category;
                     document.getElementById("auction-q-text").innerText = currentAuctionQ.question;
                     document.getElementById("auction-a-text").innerText = currentAuctionQ.answer;
-                } else {
-                    document.getElementById("auction-q-text").innerText = "⚠️ لم يتم العثور على أسئلة للمزاد في ملف الداتا!";
                 }
 
-                // توليد أزرار التحكيم المخصصة للفريق الفائز فقط!
+                // الأزرار الحين تتحكم بنقاط الضحية (victimTeam)
                 let refHtml = "";
-                if(winningBidder.team !== -1) {
+                if(victimTeam !== -1) {
                     refHtml = `
-                        <button class="btn-main" style="background:#27ae60;" onclick="judgeAuction(${winningBidder.team}, true)">✅ إجابة صحيحة (+${currentAuctionPts})</button>
-                        <button class="btn-main" style="background:#c0392b;" onclick="judgeAuction(${winningBidder.team}, false)">❌ إجابة خاطئة (-${currentAuctionPts})</button>
+                        <button class="btn-main" style="background:#27ae60;" onclick="judgeAuction(${victimTeam}, true)">✅ إجابة صحيحة (+${currentAuctionPts})</button>
+                        <button class="btn-main" style="background:#c0392b;" onclick="judgeAuction(${victimTeam}, false)">❌ إجابة خاطئة (-${currentAuctionPts})</button>
                     `;
-                } else {
-                    refHtml = `<p style="color:red;">لم يتم تحديد فريق للمزايد.</p>`;
                 }
                 document.getElementById("auction-referee-btns").innerHTML = refHtml;
 
-                // عداد 3 ثواني قبل إظهار السؤال (دراما)
                 let cd = 3;
                 const cdBox = document.getElementById("auction-countdown-box");
-                cdBox.style.display = "block";
-                cdBox.innerText = cd;
+                cdBox.style.display = "block"; cdBox.innerText = cd;
                 const cdInterval = setInterval(() => {
                     cd--; cdBox.innerText = cd;
                     if (cd <= 0) {
@@ -1053,7 +1048,6 @@ function startAuction() {
                 }, 1000);
             });
         }
-
         function showAuctionAnswer() {
             document.getElementById("auction-a-text").style.display = "block";
             document.getElementById("auction-referee-box").style.display = "block";
@@ -1115,107 +1109,125 @@ function startClicker() {
 // ─── ════════════════════════════════════ ─────────────────────
 // ─── الخاين (مُعاد هندسته بالكامل) ──────────────────────────
 // ─── ════════════════════════════════════ ─────────────────────
-function renderSpyScreen() {
-  const c = document.getElementById("spy-content");
-  const ph = spyState.phase;
 
-  if (ph === "setup") {
-    c.innerHTML =
-      '<h1 style="font-size:50px;">لعبة الخاين 🕵️</h1>' +
-      '<p style="font-size:24px;color:#666;margin:10px 0 20px;">يتم توزيع كلمة سرية على الجميع ما عدا الخاين</p>' +
-      '<input type="text" id="spy-word-input" class="setup-input" placeholder="الكلمة السرية"><br><br>' +
-      '<button class="btn-main" onclick="startSpyGame()">بدء اللعبة 🎮</button>';
 
-  } else if (ph === "questioning") {
-    const pair  = spyState.pairs[spyState.pairIdx];
-    const total = spyState.pairs.length;
-    c.innerHTML =
-      '<h2 style="font-size:26px;color:#888;">جولة الأسئلة ' + (spyState.pairIdx+1) + ' / ' + total + '</h2>' +
-      '<div style="font-size:54px;font-weight:900;margin:30px 0;line-height:1.7;">' +
-        '<span style="color:var(--primary-orange)">' + pair[0] + '</span>' +
-        '<span style="color:#aaa;font-size:36px;"> يسأل </span>' +
-        '<span style="color:#2980b9">' + pair[1] + '</span>' +
-      '</div>' +
-      '<button class="btn-main" onclick="nextSpyPair()">انتهيت من السؤال ✅</button><br>' +
-      '<button class="btn-sec" style="margin-top:15px;" onclick="openSpyVoting()">فتح التصويت (تخطي الأسئلة)</button>';
+let currentSpyWord = "";
+        let currentSpyName = "";
 
-  } else if (ph === "voting") {
-    c.innerHTML =
-      '<h1 style="font-size:50px;">التصويت 🗳️</h1>' +
-      '<p style="font-size:24px;color:#666;margin:15px 0;">كل لاعب يصوت من جواله على من يظنه الخاين</p>' +
-      '<div id="spy-vote-tally" style="font-size:26px;margin:20px 0;line-height:2;"></div>' +
-      '<div id="spy-vote-count" style="font-size:28px;font-weight:bold;color:var(--primary-orange);margin:10px 0;"></div>' +
-      '<button class="btn-main" onclick="revealSpyResult()">كشف النتيجة 🎭</button>' +
-      '<br><button class="btn-sec" style="margin-top:15px;" onclick="resetSpyGame()">إعادة اللعبة 🔄</button>';
+        function renderSpyScreen() {
+            navTo('screen-spy');
+            document.getElementById("screen-spy").innerHTML = `
+                <h1 style="font-size:50px;">لعبة الخاين 🕵️‍♂️</h1>
+                <p style="font-size:24px;color:#666;margin:10px 0 20px;">اللعبة فردية: كل لاعب يمثل نفسه!</p>
+                <button class="btn-main" onclick="startSpySetup()">سحب كلمة وتوزيع الأدوار 📱</button>
+            `;
+        }
 
-    startSpyVoteListener();
-
-  } else if (ph === "result") {
-    // مُملوء ديناميكياً في revealSpyResult
-  }
-}
-
-function startSpyGame() { startSpy(); }
-
-        function startSpy() {
-            let w = document.getElementById('spy-word-input').value.trim();
-            if(!w) {
-                let bank = ALL_GAMES.spy_words || [];
-                w = bank.length > 0 ? bank[Math.floor(Math.random() * bank.length)] : "سوق";
-                document.getElementById('spy-word-input').value = w; 
-            }
+        function startSpySetup() {
+            let bank = (ALL_GAMES && ALL_GAMES.spy_words) ? ALL_GAMES.spy_words : ["شاورما", "سوق", "بحر"];
+            currentSpyWord = bank[Math.floor(Math.random() * bank.length)];
             
             db.ref('rooms/' + currentRoomCode + '/players').once('value', snap => {
-                let players = Object.keys(snap.val() || {}); if(players.length === 0) return;
-                let spy = players[Math.floor(Math.random() * players.length)];
-                db.ref('rooms/' + currentRoomCode).update({ status: 'spy', spy_word: w, spy_name: spy });
-                document.getElementById('spy-name-reveal').innerText = spy;
-                document.getElementById('spy-result').style.display = 'none';
+                let players = Object.keys(snap.val() || {}); 
+                if(players.length < 3) { alert("تحتاج 3 لاعبين على الأقل للعب الخاين!"); return; }
+                
+                currentSpyName = players[Math.floor(Math.random() * players.length)];
+                
+                // خلط اللاعبين للأسئلة
+                spyState.players = shuffle(players);
+                spyState.pairs = [];
+                for(let i=0; i<spyState.players.length; i++) {
+                    spyState.pairs.push([spyState.players[i], spyState.players[(i+1)%spyState.players.length]]);
+                }
+                spyState.pairIdx = 0;
+
+                db.ref('rooms/' + currentRoomCode).update({ 
+                    status: 'spy_setup', spy_word: currentSpyWord, spy_name: currentSpyName, spy_votes: null, spy_final_guess: null 
+                });
+
+                document.getElementById("screen-spy").innerHTML = `
+                    <h1 style="font-size:40px; color:#27ae60;">تم توزيع الكلمة بنجاح! ✅</h1>
+                    <p style="font-size:24px; margin-bottom:30px;">تأكدوا إن كل واحد شاف جواله ولا يعلّم أحد.</p>
+                    <button class="btn-main" onclick="nextSpyPair()">بدء جولة الأسئلة 🗣️</button>
+                `;
             });
         }
+
+        function nextSpyPair() {
+            if(spyState.pairIdx >= spyState.pairs.length) { openSpyVoting(); return; }
+            
+            let pair = spyState.pairs[spyState.pairIdx];
+            db.ref('rooms/' + currentRoomCode).update({ status: 'spy_questioning' });
+            
+            document.getElementById("screen-spy").innerHTML = `
+                <h2 style="font-size:26px;color:#888;">جولة الأسئلة (سؤال واحد لكل لاعب)</h2>
+                <div style="font-size:54px;font-weight:900;margin:40px 0;line-height:1.7;background:#fff;padding:20px;border-radius:15px;">
+                    <span style="color:var(--primary-orange)">${pair[0]}</span>
+                    <span style="color:#aaa;font-size:36px;"> يسأل </span>
+                    <span style="color:#2980b9">${pair[1]}</span>
+                </div>
+                <button class="btn-main" onclick="nextSpyPair_Logic()">التالي ⏭️</button>
+                <br><br><button class="btn-sec" onclick="openSpyVoting()">تخطي وفتح التصويت 🗳️</button>
+            `;
+        }
         
-        function revealSpy() { 
-            document.getElementById('spy-result').style.display = 'block'; 
-            let a = document.getElementById('sfx-wrong'); if(a){a.currentTime=0; a.play().catch(e=>{});} 
+        function nextSpyPair_Logic() { spyState.pairIdx++; nextSpyPair(); }
+
+        function openSpyVoting() {
+            db.ref('rooms/' + currentRoomCode).update({ status: 'spy_voting', spy_votes: null });
+            
+            document.getElementById("screen-spy").innerHTML = `
+                <h1 style="font-size:50px; color:#e74c3c;">حان وقت التصويت! 🗳️</h1>
+                <p style="font-size:24px;">كل لاعب يصوت من جواله على الخاين.</p>
+                <div id="live-votes-container" style="font-size:30px; margin:30px; line-height:2;">جاري انتظار الأصوات...</div>
+                <button class="btn-main" onclick="revealSpyPhase()">إنهاء التصويت وإعلان النتيجة ⚖️</button>
+            `;
+
+            db.ref("rooms/"+currentRoomCode+"/spy_votes").on("value", snap => {
+                let votes = snap.val() || {};
+                let tally = {};
+                Object.values(votes).forEach(v => tally[v] = (tally[v]||0)+1);
+                
+                let html = "";
+                for(let p in tally) { html += `<span style="background:#f1c40f; padding:5px 15px; border-radius:10px; margin:5px; display:inline-block;">${p} (${tally[p]})</span>`; }
+                document.getElementById("live-votes-container").innerHTML = html || "جاري انتظار الأصوات...";
+            });
         }
 
+        function revealSpyPhase() {
+            db.ref("rooms/"+currentRoomCode+"/spy_votes").off();
+            
+            // توليد 3 كلمات وهمية مع الكلمة الصح للخاين عشان يخمن
+            let bank = (ALL_GAMES && ALL_GAMES.spy_words) ? ALL_GAMES.spy_words : [];
+            let fakeWords = shuffle(bank.filter(w => w !== currentSpyWord)).slice(0, 3);
+            let options = shuffle([currentSpyWord, ...fakeWords]);
 
-function nextSpyPair() {
-  spyState.pairIdx++;
-  if (spyState.pairIdx >= spyState.pairs.length) {
-    openSpyVoting();
-  } else {
-    renderSpyScreen();
-  }
-}
+            db.ref('rooms/' + currentRoomCode).update({ status: 'spy_guessing', spy_options: options });
+            
+            document.getElementById("screen-spy").innerHTML = `
+                <h1 style="font-size:60px;">الخاين هو: <span style="color:#e74c3c;">${currentSpyName}</span> 🕵️‍♂️</h1>
+                <h2 style="margin:20px 0; color:#f39c12;">هل يقدر الخاين يسرق الفوز؟ قاعد يخمن الكلمة من جواله! ⏱️</h2>
+                <div id="spy-final-result" style="font-size:35px; font-weight:bold; margin-top:30px;"></div>
+                <br><br><button class="btn-sec" onclick="renderSpyScreen()">لعب جولة جديدة 🔄</button>
+            `;
 
-function openSpyVoting() {
-  spyState.phase = "voting";
-  db.ref("rooms/"+currentRoomCode+"/spy_game").update({ phase:"voting", votes:{} });
-  renderSpyScreen();
-}
-
-function startSpyVoteListener() {
-  db.ref("rooms/"+currentRoomCode+"/spy_game/votes").off();
-  db.ref("rooms/"+currentRoomCode+"/spy_game/votes").on("value", snap => {
-    const votes = snap.val() || {};
-    const entries = Object.entries(votes);
-    let tally = {};
-    entries.forEach(([,s]) => { tally[s] = (tally[s]||0)+1; });
-
-    const tallyEl = document.getElementById("spy-vote-tally");
-    const countEl = document.getElementById("spy-vote-count");
-    if (tallyEl) {
-      tallyEl.innerHTML = Object.entries(tally)
-        .sort((a,b)=>b[1]-a[1])
-        .map(([n,c]) => '<span style="background:#fff;padding:5px 15px;border-radius:20px;margin:4px;display:inline-block;">' + n + ': <strong>' + c + '</strong></span>')
-        .join("") || "<span style='color:#aaa'>لا أصوات بعد...</span>";
-    }
-    if (countEl) countEl.innerText = "الأصوات: " + entries.length + " / " + spyState.players.length;
-  });
-}
-
-
+            // ننتظر تخمين الخاين
+            db.ref("rooms/"+currentRoomCode+"/spy_final_guess").on("value", snap => {
+                let guess = snap.val();
+                if(guess) {
+                    db.ref("rooms/"+currentRoomCode+"/spy_final_guess").off();
+                    let resBox = document.getElementById("spy-final-result");
+                    if(guess === currentSpyWord) {
+                        resBox.innerHTML = `<span style="color:#e74c3c;">الخاين فاز!! 😈 عرف إن الكلمة هي (${currentSpyWord})</span>`;
+                        playSound("sfx-wrong"); // صوت خسارة للديوانية وفوز للخاين
+                    } else {
+                        resBox.innerHTML = `<span style="color:#27ae60;">الديوانية فازت!! 🎉 الخاين اختار (${guess}) والكلمة كانت (${currentSpyWord})</span>`;
+                        playSound("sfx-correct");
+                    }
+                    db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' });
+                }
+            });
+        }
 
         function resetSpyGame() {
   spyState = { phase:"setup", players:[], spyName:'', secretWord:'', pairs:[], pairIdx:0 };
@@ -1228,7 +1240,12 @@ function startSpyVoteListener() {
 // ─── ════════════════════════════════════ ─────────────────────
 
 // ================= لعبة بيكاسو (الرسم والتخمين الذكي) =================
-
+function cleanArabicText(text) {
+            return text.replace(/[\u064B-\u0652]/g, '') // إزالة الحركات
+                       .replace(/[أإآ]/g, 'ا')          // توحيد الألف
+                       .replace(/ة/g, 'ه')            // توحيد التاء المربوطة
+                       .trim();
+        }
         function renderPicassoSetup() {
             navTo('screen-drawing');
             const s = document.getElementById("screen-drawing");
@@ -1284,16 +1301,19 @@ function startSpyVoteListener() {
                 `;
 
                 db.ref("rooms/"+currentRoomCode+"/drawing_guesses").off(); 
-                db.ref("rooms/"+currentRoomCode+"/drawing_guesses").on("child_added", snap => {
+      db.ref("rooms/"+currentRoomCode+"/drawing_guesses").on("child_added", snap => {
                     const guessData = snap.val(); 
                     if (!guessData) return;
                     
                     const log = document.getElementById("guess-log");
-                    let isCorrect = guessData.text.trim() === picassoState.word;
-                    let proximityMsg = "";
                     
-                    // تنبيه المقاربة (إذا الكلمة قريبة جداً)
-                    if (!isCorrect && guessData.text.length >= 3 && (picassoState.word.includes(guessData.text.trim()) || guessData.text.trim().includes(picassoState.word))) {
+                    // استخدام دالة التنظيف للمطابقة العادلة!
+                    let cleanGuess = cleanArabicText(guessData.text);
+                    let cleanWord = cleanArabicText(picassoState.word);
+                    let isCorrect = (cleanGuess === cleanWord);
+                    
+                    let proximityMsg = "";
+                    if (!isCorrect && cleanGuess.length >= 3 && (cleanWord.includes(cleanGuess) || cleanGuess.includes(cleanWord))) {
                         proximityMsg = " <span style='color:#f39c12; font-size:18px;'>(🔥 قررربت!)</span>";
                     }
 
@@ -1304,14 +1324,14 @@ function startSpyVoteListener() {
                         let audio = document.getElementById('sfx-correct'); 
                         if(audio) audio.play().catch(e=>{});
                         
-                        showToast(`🎉 بطل يا ${guessData.player}! خمنها صح!`);
+                        showToast(`🎉 بطل يا ${guessData.player}! جابها صح!`);
                         adjustScore(guessData.team, picassoState.pts); 
                         
                         log.innerHTML = `<div style="color:#27ae60; font-weight:bold; font-size:28px; padding:10px 0;">✅ ${guessData.player} جابها! (${picassoState.word})</div>` + log.innerHTML;
                         db.ref('rooms/' + currentRoomCode).update({ status: 'waiting' });
                     }
                 });
-            });
+                });
         }
 // ─── كسر العظم ───────────────────────────────────────────────
 function openWager() {
