@@ -162,11 +162,17 @@
 </head>
 <body>
 
-    <audio id="sfx-buzzer" src="buzzer.mp3"></audio>
+<audio id="sfx-buzzer" src="buzzer.mp3"></audio>
     <audio id="sfx-correct" src="correct.mp3"></audio>
     <audio id="sfx-wrong" src="wrong.mp3"></audio>
     <audio id="sfx-bomb" src="bomb.mp3"></audio>
-    <audio id="sfx-scream" src="scream.mp3"></audio>
+    
+    <audio id="sfx-scare1" src="scream1.mp3"></audio>
+    <audio id="sfx-scare2" src="scream2.mp3"></audio>
+    <audio id="sfx-scare3" src="scream3.mp3"></audio>
+    <audio id="sfx-scare4" src="scream4.mp3"></audio>
+    <audio id="sfx-scare5" src="scream5.mp3"></audio>
+
 
     <div id="jumpscare-overlay">
         <img id="jumpscare-img" src="scream.jpg" style="width: 100%; height: 100%; object-fit: cover;">
@@ -187,9 +193,9 @@
 
     <div id="app-container">
         <div class="top-line"></div>
-        <header>
-            <div class="room-code-badge" id="room-code-display">كود الجلسة: <span id="code-val">----</span></div>
-            <div class="header-title" id="main-title">الديوانية الرقمية</div>
+  <header>
+            <div class="room-code-badge" id="room-code-display">كود الجلسة : <span id="code-val">----</span></div>
+            <div class="header-title" id="main-title">العاب جماعية</div>
             <div class="header-left">
                 <button class="btn-icon" onclick="toggleFullscreen()" title="تكبير الشاشة">⛶</button>
                 <img src="za.png" class="header-logo-img" alt="ZA Logo">
@@ -651,14 +657,28 @@ function startSession() {
   });
 
   // ─ Jumpscare ─
-  db.ref("rooms/" + currentRoomCode + "/jumpscare").on("value", snap => {
-    if (snap.val() && snap.val() > sessionStartTime) {
-      document.getElementById("jumpscare-overlay").style.display = "flex";
-      playSound("sfx-scream");
-      setTimeout(() => (document.getElementById("jumpscare-overlay").style.display = "none"), 3500);
-    }
-  });
-
+// ─ Jumpscare المتطور (5 أنواع) ─
+ // ─ Jumpscare المتطور (مستقبل الرعب بجميع الصيغ) ─
+            db.ref("rooms/" + currentRoomCode + "/jumpscare").on("value", snap => {
+                let data = snap.val();
+                if (data && data.time > sessionStartTime) {
+                    let type = data.type || 1; 
+                    let ext = data.ext || 'jpg'; // يقرأ الصيغة اللي أرسلها الإدمن
+                    
+                    let imgEl = document.getElementById("jumpscare-img");
+                    // يدمج الاسم مع الصيغة (مثلاً scare2.png)
+                    if(imgEl) imgEl.src = `scare${type}.${ext}`; 
+                    
+                    document.getElementById("jumpscare-overlay").style.display = "flex";
+                    
+                    // تشغيل الصوت
+                    let audio = document.getElementById(`sfx-scare${type}`);
+                    if (audio) { audio.currentTime = 0; audio.play().catch(e=>{}); }
+                    
+                    setTimeout(() => (document.getElementById("jumpscare-overlay").style.display = "none"), 3500);
+                }
+            });
+  
   // ─ رسم مباشر من الجوال ─
   db.ref("rooms/" + currentRoomCode + "/drawing_data").on("value", snap => {
     if (snap.val()) {

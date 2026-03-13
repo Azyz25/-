@@ -3,41 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>لوحة الإدمن</title>
+    <title>لوحة الإدمن - الرعب</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <style>
-        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; }
-        body { background: #111; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-        .screen { display: none; width: 100%; flex-direction: column; align-items: center; text-align: center; }
-        .screen.active { display: flex; }
-        input { width: 80%; padding: 15px; font-size: 22px; text-align: center; border-radius: 10px; background: #222; color: white; border: 2px solid #555; }
-        .btn-main { background: #3498db; color: white; padding: 15px 40px; font-size: 24px; border-radius: 10px; margin-top: 20px; cursor: pointer; border: none; }
-        .jumpscare-btn { background: #c0392b; width: 250px; height: 250px; border-radius: 50%; border: 15px solid #900000; box-shadow: 0 15px 0 #700000; color: white; font-size: 45px; font-weight: 900; cursor: pointer; margin-top: 30px;}
-        .jumpscare-btn:active { transform: translateY(15px); box-shadow: 0 0 0 #700000; }
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent;}
+        body { background: #111; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        .screen { display: none; width: 100%; flex-direction: column; align-items: center; text-align: center; padding: 20px; }
+        .screen.active { display: flex; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+        
+        input { width: 90%; max-width: 400px; padding: 15px; font-size: 24px; text-align: center; border-radius: 10px; background: #222; color: #f1c40f; border: 2px solid #555; font-weight: bold; margin-bottom: 20px;}
+        .btn-main { background: #3498db; color: white; padding: 15px 40px; font-size: 24px; border-radius: 10px; cursor: pointer; border: none; font-weight: bold; width: 90%; max-width: 400px;}
+        .btn-main:active { transform: scale(0.95); }
+
+        /* تصميم شبكة أزرار الرعب */
+        .scare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .scare-btn { 
+            color: white; 
+            border-radius: 15px; 
+            padding: 25px 10px; 
+            font-size: 24px; 
+            font-weight: 900; 
+            cursor: pointer; 
+            border: none;
+            transition: 0.1s;
+        }
+        .scare-btn:active { transform: translateY(8px); box-shadow: 0 0 0 transparent !important; }
+
+        /* ألوان الأزرار الخمسة */
+        .btn-s1 { background: #c0392b; box-shadow: 0 8px 0 #700000; }
+        .btn-s2 { background: #8e44ad; box-shadow: 0 8px 0 #4a235a; }
+        .btn-s3 { background: #27ae60; box-shadow: 0 8px 0 #145a32; }
+        .btn-s4 { background: #d35400; box-shadow: 0 8px 0 #78281f; }
+        .btn-s5 { background: #2c3e50; box-shadow: 0 8px 0 #11181f; grid-column: span 2; font-size: 28px; padding: 30px 10px;} /* الزر الخامس كبير */
+
+        /* إشعار منبثق للتأكيد */
+        #toast {
+            position: fixed; top: -50px; background: #27ae60; color: white; padding: 15px 30px;
+            border-radius: 30px; font-size: 20px; font-weight: bold; transition: 0.3s; z-index: 1000;
+        }
     </style>
 </head>
 <body>
+
+    <div id="toast">تم الإرسال! 👻</div>
+
     <div id="login-screen" class="screen active">
-        <h1 style="color: #e74c3c; margin-bottom: 20px;">دخول الإدمن 🤫</h1>
-        <input type="number" id="room-code" placeholder="كود الجلسة">
+        <h1 style="color: #e74c3c; margin-bottom: 20px; font-size: 40px;">دخول الإدمن 🤫</h1>
+        <p style="color: #888; margin-bottom: 20px; font-size: 20px;">أدخل كود الجلسة للتحكم</p>
+        <input type="number" id="room-code" placeholder="كود الجلسة (مثال: 1234)">
         <button class="btn-main" onclick="verifyAdmin()">تسجيل الدخول</button>
     </div>
+
     <div id="admin-screen" class="screen">
-        <h2 style="color: #7f8c8d;">جاهز تفجعهم؟</h2>
-        <button class="jumpscare-btn" onclick="triggerJumpscare()">رعّبهم 👻</button>
+        <h2 style="color: #7f8c8d; font-size: 35px;">جاهز تفجعهم؟ 😈</h2>
+        <p style="color: #ccc; margin-top: 10px; font-size: 20px;">اختر نوع الرعب (كل زر له صورة وصوت مختلف):</p>
+        
+       <div class="scare-grid">
+            <button class="scare-btn btn-s1" onclick="triggerJumpscare(1, 'jpg')">رعب 1 🧟</button>
+            <button class="scare-btn btn-s2" onclick="triggerJumpscare(2, 'png')">رعب 2 🧛</button>
+            <button class="scare-btn btn-s3" onclick="triggerJumpscare(3, 'jpg')">رعب 3 👹</button>
+            <button class="scare-btn btn-s4" onclick="triggerJumpscare(4, 'png')">رعب 4 👽</button>
+            <button class="scare-btn btn-s5" onclick="triggerJumpscare(5, 'jpg')">الرعب القاضي 💀</button>
+        </div>
+        
+        <button style="background:transparent; border:2px solid #555; color:#888; padding:10px 30px; border-radius:10px; margin-top:30px; font-size:18px;" onclick="logout()">خروج</button>
     </div>
+
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA", authDomain: "appd-75fbf.firebaseapp.com", databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com", projectId: "appd-75fbf", storageBucket: "appd-75fbf.appspot.com", messagingSenderId: "38346789995", appId: "1:38346789995:web:4bc14686f2758164dfcd2e" };
+        // إعدادات الفايربيس (تأكد إنها نفس اللي بباقي الملفات)
+        const firebaseConfig = { 
+            apiKey: "AIzaSyDefi5-VAGxk3RRmtGiUaivlem_lgO3syA", 
+            authDomain: "appd-75fbf.firebaseapp.com", 
+            databaseURL: "https://appd-75fbf-default-rtdb.firebaseio.com", 
+            projectId: "appd-75fbf", 
+            storageBucket: "appd-75fbf.appspot.com", 
+            messagingSenderId: "38346789995", 
+            appId: "1:38346789995:web:4bc14686f2758164dfcd2e" 
+        };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         let currentRoom = "";
+
         function verifyAdmin() {
             currentRoom = document.getElementById('room-code').value.trim();
-            if(currentRoom) { document.getElementById('login-screen').classList.remove('active'); document.getElementById('admin-screen').classList.add('active'); }
+            if(currentRoom) { 
+                document.getElementById('login-screen').classList.remove('active'); 
+                document.getElementById('admin-screen').classList.add('active'); 
+            } else {
+                showToast("أدخل الكود أولاً!", "#c0392b");
+            }
         }
-        function triggerJumpscare() { db.ref('rooms/' + currentRoom + '/jumpscare').set(Date.now()); }
+
+    function triggerJumpscare(typeNumber, extension) {
+            db.ref('rooms/' + currentRoom + '/jumpscare').set({
+                time: Date.now(),
+                type: typeNumber,
+                ext: extension // نرسل الصيغة للفايربيس
+            });
+            showToast(`تم إرسال رعب رقم ${typeNumber} بنجاح! 👻`, "#27ae60");
+        }
+
+
+        function showToast(msg, color) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.background = color;
+            t.style.top = "20px";
+            setTimeout(() => { t.style.top = "-50px"; }, 2500);
+        }
+
+        function logout() {
+            currentRoom = "";
+            document.getElementById('room-code').value = "";
+            document.getElementById('admin-screen').classList.remove('active'); 
+            document.getElementById('login-screen').classList.add('active');
+        }
     </script>
 </body>
 </html>

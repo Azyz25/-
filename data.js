@@ -1757,8 +1757,8 @@ const DATA_BANK = {
             "question": "وش اسم شركة الطيران السعودية الجديدة المنافسة للخطوط السعودية؟",
             "mediaType": "image",
             "mediaUrl": "https://flagpedia.net/data/flags/w580/sa.webp",
-            "correctAnswer": "طيران ناس أو فلاي ناس",
-            "hint": "شركة طيران سعودية منخفضة التكلفة",
+            "correctAnswer": "طيران الرياض",
+            "hint": "شركة طيران سعودية ناشئة جديدة",
             "points": 200
         },
         {
